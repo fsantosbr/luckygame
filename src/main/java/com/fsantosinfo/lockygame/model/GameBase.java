@@ -4,9 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
+
 public class GameBase implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @NotBlank
     private String title;
     private Integer numWinners;
     private List<Player> players = new ArrayList<>();
@@ -46,8 +49,12 @@ public class GameBase implements Serializable {
     public List<Player> getWinners() {
         return winners;
     }
-    
 
+    public void setNumWinners(Integer numWinners) {
+        this.numWinners = numWinners;
+    }
+    
+    
     // Methods of this class
 
     

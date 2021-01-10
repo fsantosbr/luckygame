@@ -41,5 +41,20 @@ public class LuckyGameRepository {
     public void addLuckyGame(final LuckyGame luckyGame){
         this.games.add(luckyGame);
     }
+
+    public LuckyGame findById(Long id){
+        List<LuckyGame> list = this.games;
+       
+        LuckyGame luc = new LuckyGame();
+
+        for (LuckyGame lu : list){
+            if (lu.getId() == id){
+                luc = lu;
+            }
+        }
+        return luc;
+       
+        // this implementation is not the right code. Problaby this will be moved to service classes
+    }
     
 }

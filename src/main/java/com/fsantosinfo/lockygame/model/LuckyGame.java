@@ -1,6 +1,8 @@
 package com.fsantosinfo.lockygame.model;
 import java.time.Instant;
 
+import javax.validation.constraints.NotBlank;
+
 public class LuckyGame extends GameBase{
     private static final long serialVersionUID = 1L;
 
@@ -11,7 +13,9 @@ public class LuckyGame extends GameBase{
     private Boolean alive; // if the value is false, the game can't be edit or lottery again - Change this value when run the sort
     private String communicateAll; // to pass information when the game is not alive or others reasons
 
+    @NotBlank
     private String emailOwner;
+    @NotBlank
     private String password;
 
     public LuckyGame() {
