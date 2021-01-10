@@ -8,7 +8,7 @@ public class LuckyGame extends GameBase{
 
     private Instant momentCreated;
     private Boolean open;
-    private Boolean alive; // if the value is false, the game can't be edit or lottery again
+    private Boolean alive; // if the value is false, the game can't be edit or lottery again - Change this value when run the sort
     private String communicateAll; // to pass information when the game is not alive or others reasons
 
     private String emailOwner;
