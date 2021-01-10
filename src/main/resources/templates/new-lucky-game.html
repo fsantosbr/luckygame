@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Novo jogo de número da sorte</title>
+</head>
+<body>
+
+<h1>Novo jogo de número da sorte</h1>
+
+<form th:action="@{/games}" th:object="${luckygame}" method="post">
+    <label>Country code:</label>
+    <input type="text" name="title"     th:field="*{title}"     th:placeholder="Título"/> <p>Desenvolvimento - Alinhamento do código</p><br/>
+    <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Name Error</span>
+    <br/>
+
+    <input type="number" name="numWinners" th:field="*{numWinners}" th:placeholder="Número-de-Ganhadores"/> <br/>
+    <span th:if="${#fields.hasErrors('emailOwner')}" th:errors="*{emailOwner}">LastName Error</span>
+    <br/>
+
+    <input type="text" name="emailOwner" th:field="*{emailOwner}" th:placeholder="E-mail"/> <br/>
+    <span th:if="${#fields.hasErrors('emailOwner')}" th:errors="*{emailOwner}">LastName Error</span>
+    <br/>
+
+    <input type="text" name="password" th:field="*{password}" th:placeholder="Senha"/> <br/>
+    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">LastName Error</span>
+    <br/>
+
+    <button type="submit">Criar um novo Jogo</button>
+</form>
+
+<br>
+
+<a th:href="@{/games}">Visualizar todos jogos - Apenas de teste</a>
+
+</body>
+</html>

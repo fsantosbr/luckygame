@@ -22,7 +22,7 @@ public class LuckyGameRepository {
         Player player = new Player(1L, "Paula", "pmolina@gmail.com", "123senha");
         player.addLuckNumber(56789);
         player.addLuckNumber(56787);
-        player.addLuckNumber(56786); 
+        player.addLuckNumber(56786);
         games.get(0).addPlayer(player);
 
         games.add(new LuckyGame("Created On Repository 2", 1, 2L, Instant.now(), true, true, "void message", "fsantosinfo@brq.com", "123321senha"));
