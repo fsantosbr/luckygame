@@ -4,8 +4,8 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fsantosinfo.lockygame.model.LuckyGame;
-import com.fsantosinfo.lockygame.model.Player;
+import com.fsantosinfo.lockygame.model.entities.LuckyGame;
+import com.fsantosinfo.lockygame.model.entities.Player;
 
 import org.springframework.stereotype.Repository;
 

@@ -4,7 +4,7 @@ import java.time.Instant;
 
 import javax.validation.Valid;
 
-import com.fsantosinfo.lockygame.model.LuckyGame;
+import com.fsantosinfo.lockygame.model.entities.LuckyGame;
 import com.fsantosinfo.lockygame.repository.LuckyGameRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;

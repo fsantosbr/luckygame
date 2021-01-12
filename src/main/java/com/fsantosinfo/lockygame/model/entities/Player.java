@@ -1,4 +1,4 @@
-package com.fsantosinfo.lockygame.model;
+package com.fsantosinfo.lockygame.model.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;

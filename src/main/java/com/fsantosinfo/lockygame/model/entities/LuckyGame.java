@@ -1,4 +1,5 @@
-package com.fsantosinfo.lockygame.model;
+package com.fsantosinfo.lockygame.model.entities;
+
 import java.time.Instant;
 
 import javax.validation.constraints.NotBlank;
