@@ -1,16 +1,35 @@
 package com.fsantosinfo.lockygame.model.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+@Entity
 public class Player implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String email;
     private String password;
 
-    private LuckyNumber luckyNumber;
+    @ManyToOne
+    @JoinColumn(name = "luckyGame_id")
+    private LuckyGame luckyGame; // player has just one game
+
+    @OneToMany(mappedBy = "player")
+    private List<SortNumber> sortNumbers = new ArrayList<>(); // player has many numbers
+
 
     // Constructors
     public Player(){}
@@ -62,13 +81,18 @@ public class Player implements Serializable {
         this.password = password;
     }
 
-    public LuckyNumber getLuckyNumber() {
-        return luckyNumber;
+    public LuckyGame getLuckyGame() {
+        return luckyGame;
     }
 
-    public void setLuckyNumber(LuckyNumber luckyNumber) {
-        this.luckyNumber = luckyNumber;
+    public void setLuckyGame(LuckyGame luckyGame) {
+        this.luckyGame = luckyGame;
     }
+
+    public List<SortNumber> getSortNumbers() {
+        return sortNumbers;
+    }
+    
 
     // Methods of this class
 
@@ -79,11 +103,7 @@ public class Player implements Serializable {
 
     @Override
     public String toString() {
-        return "Player{" +
-                "name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", luckyNumber=" + luckyNumber +
-                '}';
+       return name;
     }
 
     @Override
@@ -110,6 +130,5 @@ public class Player implements Serializable {
             return false;
         return true;
     }
-
   
 }

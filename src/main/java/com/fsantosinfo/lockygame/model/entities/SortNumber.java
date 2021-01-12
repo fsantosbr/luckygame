@@ -2,15 +2,29 @@ package com.fsantosinfo.lockygame.model.entities;
 
 import java.io.Serializable;
 
-public class LuckyNumber implements Serializable {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity
+public class SortNumber implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Integer myNumber;
-    
-    public LuckyNumber(){}
 
-    public LuckyNumber(Long id, Integer myNumber) {
+    @ManyToOne
+    @JoinColumn(name = "player_id")
+    private Player player;
+    
+    public SortNumber(){}
+
+    public SortNumber(Long id, Integer myNumber) {
         this.id = id;
         this.myNumber = myNumber;
     }
@@ -31,6 +45,14 @@ public class LuckyNumber implements Serializable {
         this.myNumber = myNumber;
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -48,7 +70,7 @@ public class LuckyNumber implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        LuckyNumber other = (LuckyNumber) obj;
+        SortNumber other = (SortNumber) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
@@ -66,6 +88,8 @@ public class LuckyNumber implements Serializable {
     public String toString() {
         return myNumber.toString();
     }
+
+  
 
     
 }

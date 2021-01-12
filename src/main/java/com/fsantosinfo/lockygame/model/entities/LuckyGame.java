@@ -2,11 +2,13 @@ package com.fsantosinfo.lockygame.model.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 
 @Entity
@@ -33,6 +35,9 @@ public class LuckyGame implements Serializable{
     private String emailOwner;
     @NotBlank
     private String password;
+
+    @OneToMany(mappedBy = "luckyGame")
+    private List<Player> players;
 
     public LuckyGame() {        
     }  
@@ -122,6 +127,14 @@ public class LuckyGame implements Serializable{
         this.password = password;
     }
 
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(List<Player> players) {
+        this.players = players;
+    }
+
     // Methods of this class   
 
 
@@ -152,5 +165,7 @@ public class LuckyGame implements Serializable{
             return false;
         return true;
     }
+
+    
    
 }
