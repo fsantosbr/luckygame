@@ -1,13 +1,9 @@
 package com.fsantosinfo.lockygame.controller;
 
-import java.time.Instant;
-import java.util.Optional;
-
 import javax.validation.Valid;
 
 import com.fsantosinfo.lockygame.model.entities.LuckyGame;
 import com.fsantosinfo.lockygame.model.services.LuckyGameService;
-import com.fsantosinfo.lockygame.repositories.LuckyGameRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

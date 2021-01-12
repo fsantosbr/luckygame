@@ -3,8 +3,6 @@ package com.fsantosinfo.lockygame.model.services;
 import java.time.Instant;
 import java.util.Optional;
 
-import javax.validation.Valid;
-
 import com.fsantosinfo.lockygame.model.entities.LuckyGame;
 import com.fsantosinfo.lockygame.repositories.LuckyGameRepository;
 

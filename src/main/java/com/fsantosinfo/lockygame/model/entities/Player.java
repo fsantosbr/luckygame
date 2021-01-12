@@ -1,8 +1,6 @@
 package com.fsantosinfo.lockygame.model.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Player implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -12,7 +10,7 @@ public class Player implements Serializable {
     private String email;
     private String password;
 
-    private List<Integer> luckyNumber;
+    private LuckyNumber luckyNumber;
 
     // Constructors
     public Player(){}
@@ -21,7 +19,6 @@ public class Player implements Serializable {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.luckyNumber = new ArrayList<>();
         this.password = password;
     }
 
@@ -55,11 +52,7 @@ public class Player implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public List<Integer> getLuckyNumber() {
-        return luckyNumber;
-    }
+    }    
 
     public String getPassword() {
         return password;
@@ -69,11 +62,17 @@ public class Player implements Serializable {
         this.password = password;
     }
 
+    public LuckyNumber getLuckyNumber() {
+        return luckyNumber;
+    }
+
+    public void setLuckyNumber(LuckyNumber luckyNumber) {
+        this.luckyNumber = luckyNumber;
+    }
+
     // Methods of this class
 
-    public void addLuckNumber(Integer newNumber){
-        luckyNumber.add(newNumber);
-    }
+   
 
     // Overrided methods
 
@@ -111,4 +110,6 @@ public class Player implements Serializable {
             return false;
         return true;
     }
+
+  
 }
