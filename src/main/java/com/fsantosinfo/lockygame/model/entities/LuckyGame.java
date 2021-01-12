@@ -1,15 +1,30 @@
 package com.fsantosinfo.lockygame.model.entities;
 
+import java.io.Serializable;
 import java.time.Instant;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
-public class LuckyGame extends GameBase{
+@Entity
+public class LuckyGame implements Serializable{
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)    
     private Long id;
 
-    private Instant momentCreated;
+    @NotBlank
+    private String title;
+
+    private Integer numWinners;
+   // here was a list of players - players
+   // here was a list of players - winners   
+
+    private Instant momentCreated;    
     private Boolean open;
     private Boolean alive; // if the value is false, the game can't be edit or lottery again - Change this value when run the sort
     private String communicateAll; // to pass information when the game is not alive or others reasons
@@ -19,21 +34,21 @@ public class LuckyGame extends GameBase{
     @NotBlank
     private String password;
 
-    public LuckyGame() {
-        super();
-    }
-
-    public LuckyGame(String title, Integer numWinners, Long id, Instant momentCreated, Boolean open, Boolean alive, String communicateAll, String emailOwner, String password) {
-        super(title, numWinners);
+    public LuckyGame() {        
+    }  
+    
+    public LuckyGame(Long id, String title, Integer numWinners, Instant momentCreated, Boolean open, Boolean alive, String communicateAll, String emailOwner, String password) {
         this.id = id;
+        this.title = title;
+        this.numWinners = numWinners;
         this.momentCreated = momentCreated;
         this.open = open;
         this.alive = alive;
         this.communicateAll = communicateAll;
         this.emailOwner = emailOwner;
         this.password = password;
-    }
-  
+}
+    
 
     public Long getId() {
         return id;
@@ -42,6 +57,22 @@ public class LuckyGame extends GameBase{
     public void setId(Long id) {
         this.id = id;
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Integer getNumWinners() {
+        return numWinners;
+    }
+
+    public void setNumWinners(Integer numWinners) {
+        this.numWinners = numWinners;
+    }   
 
     public Instant getMomentCreated() {
         return momentCreated;
@@ -91,6 +122,12 @@ public class LuckyGame extends GameBase{
         this.password = password;
     }
 
+    // Methods of this class   
+
+
+    // Overrided methods
+
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -115,12 +152,5 @@ public class LuckyGame extends GameBase{
             return false;
         return true;
     }
-
-    
-
-
-    
-
-   
    
 }

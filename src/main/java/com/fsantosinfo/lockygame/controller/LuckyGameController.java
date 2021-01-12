@@ -1,11 +1,12 @@
 package com.fsantosinfo.lockygame.controller;
 
 import java.time.Instant;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
 import com.fsantosinfo.lockygame.model.entities.LuckyGame;
-import com.fsantosinfo.lockygame.repository.LuckyGameRepository;
+import com.fsantosinfo.lockygame.repositories.LuckyGameRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
 @Controller
 public class LuckyGameController {
 
@@ -27,8 +29,8 @@ public class LuckyGameController {
     public ModelAndView games(){
         final ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("games");
-
-        modelAndView.addObject("allGames", repository.getAllLuckyGame());
+        
+        modelAndView.addObject("allGames", repository.findAll());
         return modelAndView;
         // note: This path is only for test. It won't exist on the production fase
     }
@@ -47,15 +49,14 @@ public class LuckyGameController {
         if (result.hasErrors()){
             return "new-lucky-game";
         }
-
-        luckyGame.setId(123L);
+       
         luckyGame.setMomentCreated(Instant.now());
         luckyGame.setOpen(true);
         luckyGame.setAlive(true);
         if (luckyGame.getNumWinners() == null){
             luckyGame.setNumWinners(1);
         }
-        repository.addLuckyGame(luckyGame);
+        repository.save(luckyGame);
 
         redirectAttributes.addFlashAttribute("message", "Game criado com sucesso");
         return "redirect:locky-game/view/"+luckyGame.getId();
@@ -65,12 +66,11 @@ public class LuckyGameController {
     @GetMapping("/locky-game/view/{id}")
     public ModelAndView lockyGameView(@PathVariable Long id){
         final ModelAndView modelAndView = new ModelAndView();
-       modelAndView.setViewName("lucky-game-view");      
+       modelAndView.setViewName("lucky-game-view");
       
-        LuckyGame lu = repository.findById(id);
-        modelAndView.addObject("oneGame", lu);
-        return modelAndView;
-        // note: This path is only for test. It won't exist on the production fase
-    }
+        Optional<LuckyGame> optionalLucky = repository.findById(id);
 
+        modelAndView.addObject("oneGame", optionalLucky.get());
+        return modelAndView;
+    }
 }
