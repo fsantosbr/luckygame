@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import com.fsantosinfo.lockygame.model.entities.LuckyGame;
+import com.fsantosinfo.lockygame.model.services.LuckyGameService;
 import com.fsantosinfo.lockygame.repositories.LuckyGameRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +24,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class LuckyGameController {
 
     @Autowired
-    private LuckyGameRepository repository;
+    private LuckyGameService service;
 
     @GetMapping("/games")
     public ModelAndView games(){
         final ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("games");
         
-        modelAndView.addObject("allGames", repository.findAll());
+        modelAndView.addObject("allGames", service.findAll());
         return modelAndView;
         // note: This path is only for test. It won't exist on the production fase
     }
@@ -49,14 +50,8 @@ public class LuckyGameController {
         if (result.hasErrors()){
             return "new-lucky-game";
         }
-       
-        luckyGame.setMomentCreated(Instant.now());
-        luckyGame.setOpen(true);
-        luckyGame.setAlive(true);
-        if (luckyGame.getNumWinners() == null){
-            luckyGame.setNumWinners(1);
-        }
-        repository.save(luckyGame);
+
+        service.save(luckyGame);
 
         redirectAttributes.addFlashAttribute("message", "Game criado com sucesso");
         return "redirect:locky-game/view/"+luckyGame.getId();
@@ -68,9 +63,9 @@ public class LuckyGameController {
         final ModelAndView modelAndView = new ModelAndView();
        modelAndView.setViewName("lucky-game-view");
       
-        Optional<LuckyGame> optionalLucky = repository.findById(id);
+        LuckyGame lucky = service.findById(id);
 
-        modelAndView.addObject("oneGame", optionalLucky.get());
+        modelAndView.addObject("oneGame", lucky);
         return modelAndView;
     }
 }
