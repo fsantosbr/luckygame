@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All players (only for developing)</title>
+</head>
+
+<body>
+
+<div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"/>
+
+<h1>All players (only for developing) - Remove later</h1>
+
+<table>
+    <tr>
+        <th>NAME</th>
+        <th>LASTNAME</th>
+    </tr>
+    <tr th:each="player : ${allPlayers}">
+        <td th:text="${player.name}"> </td>
+        <td th:text="${player.email}"> </td>              
+
+    </tr>
+</table>
+
+<br>
+
+<a href="#" th:href="@{/}">Home</a>
+<a href="#" th:href="@{/new-player}">New player</a>
+
+
+</body>
+</html>

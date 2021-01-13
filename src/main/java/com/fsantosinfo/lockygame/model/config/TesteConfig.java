@@ -4,7 +4,9 @@ import java.time.Instant;
 import java.util.Arrays;
 
 import com.fsantosinfo.lockygame.model.entities.LuckyGame;
+import com.fsantosinfo.lockygame.model.entities.Player;
 import com.fsantosinfo.lockygame.repositories.LuckyGameRepository;
+import com.fsantosinfo.lockygame.repositories.PlayerRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -20,6 +22,9 @@ public class TesteConfig implements CommandLineRunner {
     @Autowired
     private LuckyGameRepository luckyGameRepository;
 
+    @Autowired
+    private PlayerRepository playerRepository;
+
     @Override
     public void run(String... args) throws Exception {
         // this method will run every time this class is used - Only for test
@@ -27,6 +32,17 @@ public class TesteConfig implements CommandLineRunner {
         LuckyGame game2 = new LuckyGame(null, "Created On Repository 2", 1, Instant.now(), true, true, "void message", "fsantosinfo@brq.com", "123321senha");
         
         luckyGameRepository.saveAll(Arrays.asList(game1, game2));
+        
+
+        Player p1 = new Player(null, "Fabio 1 player", "fsantosinfo@gmail.com", "senha");
+        Player p2 = new Player(null, "Fabio 2 player", "fsantosinfo@gmail.com", "senha");
+        Player p3 = new Player(null, "Fabio 3 player", "fsantosinfo@gmail.com", "senha");
+
+        playerRepository.saveAll(Arrays.asList(p1, p2, p3));        
+
+        playerRepository.saveAll(Arrays.asList(p1, p2, p3));
+
+
     }
     
 

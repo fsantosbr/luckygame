@@ -26,7 +26,7 @@ public class LuckyGame implements Serializable{
    // here was a list of players - players
    // here was a list of players - winners   
 
-    private Instant momentCreated;    
+    private Instant momentCreated;
     private Boolean open;
     private Boolean alive; // if the value is false, the game can't be edit or lottery again - Change this value when run the sort
     private String communicateAll; // to pass information when the game is not alive or others reasons
@@ -129,14 +129,13 @@ public class LuckyGame implements Serializable{
 
     public List<Player> getPlayers() {
         return players;
-    }
-
-    public void setPlayers(List<Player> players) {
-        this.players = players;
-    }
+    }    
 
     // Methods of this class   
 
+    public void addingPlayer(Player player){
+        players.add(player);
+    }
 
     // Overrided methods
 
