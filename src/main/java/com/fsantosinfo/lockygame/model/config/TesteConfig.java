@@ -29,7 +29,7 @@ public class TesteConfig implements CommandLineRunner {
     public void run(String... args) throws Exception {
         // this method will run every time this class is used - Only for test
         LuckyGame game1 = new LuckyGame(null, "Created On Repository 1", 2, Instant.now(), true, true, "void message", "fsantosinfo@gmail.com", "mudarsenha");
-        LuckyGame game2 = new LuckyGame(null, "Created On Repository 2", 1, Instant.now(), true, true, "void message", "fsantosinfo@brq.com", "123321senha");
+        LuckyGame game2 = new LuckyGame(null, "Created On Repository 2", 1, Instant.now(), true, true, null, "fsantosinfo@brq.com", "123321senha");
         
         luckyGameRepository.saveAll(Arrays.asList(game1, game2));
         
@@ -37,10 +37,14 @@ public class TesteConfig implements CommandLineRunner {
         Player p1 = new Player(null, "Fabio 1 player", "fsantosinfo@gmail.com", "senha");
         Player p2 = new Player(null, "Fabio 2 player", "fsantosinfo@gmail.com", "senha");
         Player p3 = new Player(null, "Fabio 3 player", "fsantosinfo@gmail.com", "senha");
+        Player p4 = new Player(null, "Fabio 4 player", "fsantosinfo@gmail.com", "senha", game2);
+        Player p5 = new Player(null, "Fabio 5 player", "fsantosinfo@gmail.com", "senha", game2);
 
-        playerRepository.saveAll(Arrays.asList(p1, p2, p3));        
+        playerRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
+        
+        
 
-        playerRepository.saveAll(Arrays.asList(p1, p2, p3));
+        
 
 
     }

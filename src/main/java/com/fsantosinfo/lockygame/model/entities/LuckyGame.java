@@ -136,6 +136,7 @@ public class LuckyGame implements Serializable{
     public void addingPlayer(Player player){
         players.add(player);
     }
+ 
 
     // Overrided methods
 

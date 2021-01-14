@@ -46,6 +46,14 @@ public class Player implements Serializable {
         this.email = email;
     }
 
+    public Player(Long id, String name, String email, String password, LuckyGame luckyGame) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.luckyGame = luckyGame;
+    }
+
 
     // Getters and Setters
 
