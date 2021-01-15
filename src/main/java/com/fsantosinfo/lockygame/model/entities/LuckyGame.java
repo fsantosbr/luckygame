@@ -33,7 +33,7 @@ public class LuckyGame implements Serializable{
 
     @NotBlank
     private String emailOwner;
-    @NotBlank
+   
     private String password;
 
     @OneToMany(mappedBy = "luckyGame")

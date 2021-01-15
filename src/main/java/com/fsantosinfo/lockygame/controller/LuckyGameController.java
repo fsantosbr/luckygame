@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -64,4 +66,27 @@ public class LuckyGameController {
         modelAndView.addObject("oneGame", lucky);
         return modelAndView;
     }
+
+    @GetMapping("/locky-game/edit/")
+    public ModelAndView editLuckyGame(@RequestParam Long id){
+        final ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.setViewName("lucky-game-edit");
+        modelAndView.addObject("luckyGame", service.findById(id));
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/changinggame")
+    public ModelAndView updatingLuckyGame(@Valid @ModelAttribute LuckyGame luckyGame, BindingResult result, RedirectAttributes redirectAttributes){
+        if (result.hasErrors()){
+            return new ModelAndView("lucky-game-edit");
+        }
+
+        service.updateGameServ(luckyGame);
+
+        redirectAttributes.addFlashAttribute("message", "Game editado com sucesso");
+        return new ModelAndView("redirect:locky-game/view/"+luckyGame.getId());
+    }
+
+  
 }
