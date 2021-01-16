@@ -24,6 +24,11 @@ public class LuckyGameController {
     @Autowired
     private LuckyGameService service;
 
+    @GetMapping("/")
+    public String indexHome(){
+        return "index";
+    }
+
     @GetMapping("/games")
     public ModelAndView games(){
         final ModelAndView modelAndView = new ModelAndView();
