@@ -20,43 +20,43 @@ public class Player implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String cpf;
     private String email;
     private String password;
+    private Boolean isAdmin;
 
     @ManyToOne
     @JoinColumn(name = "luckyGame_id")
     private LuckyGame luckyGame; // player has just one game
 
     @OneToMany(mappedBy = "player")
-    private List<SortNumber> sortNumbers = new ArrayList<>(); // player has many numbers
+    private List<MyLuckyNumber> myLuckNumbers = new ArrayList<>(); // player has many numbers
 
 
     // Constructors
     public Player(){}
 
-    public Player(Long id, String name, String email, String password) {
+    public Player(Long id, String name, String cpf, String email, String password, Boolean isAdmin) {
         this.id = id;
         this.name = name;
+        this.cpf = cpf;
         this.email = email;
         this.password = password;
-    }
+        this.isAdmin = isAdmin;
+    }   
 
-    public Player(String name, String email) {
-        this.name = name;
-        this.email = email;
-    }
-
-    public Player(Long id, String name, String email, String password, LuckyGame luckyGame) {
+    public Player(Long id, String name, String cpf, String email, String password,  Boolean isAdmin, LuckyGame luckyGame) {
         this.id = id;
         this.name = name;
+        this.cpf = cpf;
         this.email = email;
         this.password = password;
-        this.luckyGame = luckyGame;
+        this.isAdmin = isAdmin;
+        this.luckyGame = luckyGame;        
     }
 
 
-    // Getters and Setters
-
+    // Getters and Setters    
     public Long getId() {
         return id;
     }
@@ -71,6 +71,14 @@ public class Player implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     public String getEmail() {
@@ -97,10 +105,18 @@ public class Player implements Serializable {
         this.luckyGame = luckyGame;
     }
 
-    public List<SortNumber> getSortNumbers() {
-        return sortNumbers;
+    public List<MyLuckyNumber> getMyLuckNumbers() {
+        return myLuckNumbers;
+    }   
+
+    public Boolean getIsAdmin() {
+        return isAdmin;
     }
-    
+
+    public void setIsAdmin(Boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+        
 
     // Methods of this class
 
@@ -111,14 +127,14 @@ public class Player implements Serializable {
 
     @Override
     public String toString() {
-       return name;
+       return "name: " + name + " cpf: " + cpf;
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((email == null) ? 0 : email.hashCode());
+        result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
         return result;
     }
 
@@ -131,10 +147,10 @@ public class Player implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         Player other = (Player) obj;
-        if (email == null) {
-            if (other.email != null)
+        if (cpf == null) {
+            if (other.cpf != null)
                 return false;
-        } else if (!email.equals(other.email))
+        } else if (!cpf.equals(other.cpf))
             return false;
         return true;
     }

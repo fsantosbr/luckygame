@@ -34,11 +34,11 @@ public class TesteConfig implements CommandLineRunner {
         luckyGameRepository.saveAll(Arrays.asList(game1, game2));
         
 
-        Player p1 = new Player(null, "Fabio 1 player", "fsantosinfo@gmail.com", "senha");
-        Player p2 = new Player(null, "Fabio 2 player", "fsantosinfo@gmail.com", "senha");
-        Player p3 = new Player(null, "Fabio 3 player", "fsantosinfo@gmail.com", "senha");
-        Player p4 = new Player(null, "Fabio 4 player", "fsantosinfo@gmail.com", "senha", game2);
-        Player p5 = new Player(null, "Fabio 5 player", "fsantosinfo@gmail.com", "senha", game2);
+        Player p1 = new Player(null, "Fabio 1", "354841", "fsantosinfo@gmail.com", "senha", false);
+        Player p2 = new Player(null, "Fabio 2", "354842", "fsantosinfo@gmail.com", "senha", false);
+        Player p3 = new Player(null, "Fabio 3", "354843", "fsantosinfo@gmail.com", "senha", false);
+        Player p4 = new Player(null, "Fabio 4", "354844", "fsantosinfo@gmail.com", "senha", false, game2);
+        Player p5 = new Player(null, "Fabio 5", "354845", "fsantosinfo@gmail.com", "senha", false, game2);
 
         playerRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
         

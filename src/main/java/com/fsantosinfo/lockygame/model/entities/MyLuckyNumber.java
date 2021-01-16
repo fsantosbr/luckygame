@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class SortNumber implements Serializable {
+public class MyLuckyNumber implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -22,9 +22,9 @@ public class SortNumber implements Serializable {
     @JoinColumn(name = "player_id")
     private Player player;
     
-    public SortNumber(){}
+    public MyLuckyNumber(){}
 
-    public SortNumber(Long id, Integer myNumber) {
+    public MyLuckyNumber(Long id, Integer myNumber) {
         this.id = id;
         this.myNumber = myNumber;
     }
@@ -70,7 +70,7 @@ public class SortNumber implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        SortNumber other = (SortNumber) obj;
+        MyLuckyNumber other = (MyLuckyNumber) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
