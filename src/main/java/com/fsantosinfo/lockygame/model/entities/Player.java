@@ -126,7 +126,7 @@ public class Player implements Serializable {
 
     @Override
     public String toString() {
-       return "name: " + name + " cpf: " + cpf;
+       return name + " - " + email;
     }
 
     @Override

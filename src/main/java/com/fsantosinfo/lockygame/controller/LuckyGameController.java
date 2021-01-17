@@ -6,7 +6,6 @@ import com.fsantosinfo.lockygame.model.entities.LuckyGame;
 import com.fsantosinfo.lockygame.model.entities.Player;
 import com.fsantosinfo.lockygame.model.services.LuckyGameService;
 import com.fsantosinfo.lockygame.model.services.PlayerService;
-import com.fsantosinfo.lockygame.repositories.PlayerRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

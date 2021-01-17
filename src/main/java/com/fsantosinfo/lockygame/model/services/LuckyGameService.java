@@ -45,7 +45,7 @@ public class LuckyGameService {
                 if (luckyGame.getNumWinners() == null) {
                         luckyGame.setNumWinners(1);
                 }
-                                
+
                 repository.updateNumWinnersGame(id, luckyGame.getNumWinners());
         }
 }

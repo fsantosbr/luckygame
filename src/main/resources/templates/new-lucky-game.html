@@ -3,17 +3,18 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Novo jogo de número da sorte</title>
+    <title>Novo jogo</title>
 </head>
 
 <body>
+    <p th:text="'Olá ' + ${luckyGame.owner.name}" align="right"></p>
 
     <h1>Novo jogo de número da sorte</h1>
     
-    <form th:action="@{/addinggame}" th:object="${luckyGame}" method="post">
+    <form th:action="@{/addinggame}" th:object="${luckyGame}" method="post">        
         <input type="hidden" name="owner" th:field="*{owner}"/>
+       
 
-        <label>Country code:</label>
         <input type="text" name="title" th:field="*{title}" th:placeholder="Título" /><br />
         <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title Error</span>
         <br />
@@ -22,8 +23,11 @@
         <span th:if="${#fields.hasErrors('numWinners')}" th:errors="*{numWinners}">numWinner Error</span>
         <br />        
 
-        <button type="submit">Criar um novo Jogo</button>
+        <button type="submit">Criar Jogo</button>
     </form>
+   
+    <h4 th:text="'Criador do Jogo: ' + ${luckyGame.owner.name}"></h4>
+    
 
     <br>
 

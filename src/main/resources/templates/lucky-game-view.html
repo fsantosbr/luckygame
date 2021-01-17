@@ -1,78 +1,86 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title> Visualizar Jogo </title>
+    <title th:text="${oneGame.title} + ' Visualizar Jogo'"> Visualizar Jogo </title>
 </head>
 
 <body>
+    <p th:text="'Olá ' + ${oneGame.owner.name}" align="right"></p>
 
-<div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"/>
+    <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}" />
 
-<h1 th:text="${oneGame.title}"></h1>
+    <h2 th:text="${oneGame.title}"></h2>
 
-<table>
+    <table>
 
-    <tr>
-        <th>ID</th>
-        <td th:text="${oneGame.id}"> </td>
-    </tr>
+        <tr>
+            <th>Título do Jogo:</th>
+            <td th:text="${oneGame.title}"> </td>
+        </tr>
 
-    <tr>
-        <th>Data Criação</th>
-        <td th:text="${oneGame.momentCreated}"> </td>
-    </tr>
+        <tr>
+            <th>Identificador:</th>
+            <td th:text="${oneGame.id}"> </td>
+        </tr>
 
-    <tr>
-        <th>Dono:</th>
-        <td th:text="${oneGame.owner}"> </td>
-    </tr>
+        <tr>
+            <th>Data Criação</th>
+            <td th:text="${oneGame.momentCreated}"> </td>
+        </tr>
 
-    <tr>
-        <th>Aberta:</th>
-        <td th:text="${oneGame.open}"> </td>
-    </tr>
+        <tr>
+            <th>Criador:</th>
+            <td th:text="${oneGame.owner}"> </td>
+        </tr>
 
-    <tr th:if="${oneGame.communicateAll == null}">
-        <th>Comentário para os jogadores:</th>
-        <td>Nenhum comentário ainda!</td>
-    </tr>
-    <tr th:unless="${oneGame.communicateAll == null}">
-        <th>Comentário para os jogadores:</th>
-        <td th:text="${oneGame.communicateAll}"> </td>
-    </tr>
+        <tr>
+            <th>Aberta:</th>
+            <td th:text="${oneGame.owner} ? 'SIM (Edite para alterar)' : 'NÃO (Não pode entrar mais)'"/>  
+        </tr>
 
-    <tr>
-        <th>Quantidade ganhadores programados:</th>
-        <td th:text="${oneGame.numWinners}"> </td>
-    </tr>
+        <tr th:if="${oneGame.communicateAll == null}">
+            <th>Comentário para os jogadores:</th>
+            <td>Nenhum comentário ainda!</td>
+        </tr>
+        <tr th:unless="${oneGame.communicateAll == null}">
+            <th>Comentário para os jogadores:</th>
+            <td th:text="${oneGame.communicateAll}"> </td>
+        </tr>
 
-    <tr>
-        <th>Quantidade Jogadores cadastrados:</th>
-        <td th:text="${oneGame.players.size}"> </td>
-    </tr>
+        <tr>
+            <th>Quantidade ganhadores programados:</th>
+            <td th:text="${oneGame.numWinners}"> </td>
+        </tr>
 
-    <tr th:if="${oneGame.players.size == 0}">
-        <td>Os jogadores vão Aparecer aqui</td>
-    </tr>
-    <tr th:unless="${oneGame.players.size == 0}">
+        <tr>
+            <th>Quantidade Jogadores cadastrados:</th>
+            <td th:text="${oneGame.players.size}"> </td>
+        </tr>
+
+        <tr th:if="${oneGame.players.size == 0}">
+            <td>Os jogadores vão Aparecer aqui</td>
+        </tr>
+        <tr th:unless="${oneGame.players.size == 0}">
         <tr th:each="game : ${oneGame.players}">
             <td th:text="${game.name} + ${game.email}"> </td>
-                 
+
         </tr>
-    </tr>
-    
+        </tr>
 
-</table>
 
-<br>
+    </table>
 
-<a href="#" th:href="@{/}">Home</a>
-<a href="#" th:href="@{/new-lucky-game}">Novo Jogo</a>
-<a href="#" th:href="@{/locky-game/edit/(id=${oneGame.id})}">Editar</a>
+    <br>
+
+    <a href="#" th:href="@{/}">Home</a>
+    <a href="#" th:href="@{/new-lucky-game}">Novo Jogo</a>
+    <a href="#" th:href="@{/locky-game/edit/(id=${oneGame.id})}">Editar</a>
 
 
 
 
 </body>
+
 </html>
