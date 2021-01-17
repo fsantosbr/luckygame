@@ -23,6 +23,5 @@ public class PlayerController {
         return modelAndView;
         // note: This path is only for test. It won't exist on the production fase
     }
-
     
 }

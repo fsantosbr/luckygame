@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -73,14 +72,14 @@ public class LuckyGameController {
         service.save(luckyGame);
 
         redirectAttributes.addFlashAttribute("message", "Game criado com sucesso");
-        return "redirect:locky-game/view/"+luckyGame.getId();
+        return "redirect:lucky-game/view/"+luckyGame.getId();
     }
 
 
-    @GetMapping("/locky-game/view/{id}")
+    @GetMapping("/lucky-game/view/{id}")
     public ModelAndView lockyGameView(@PathVariable Long id){
         final ModelAndView modelAndView = new ModelAndView();
-       modelAndView.setViewName("lucky-game-view");
+        modelAndView.setViewName("lucky-game-view");
       
         LuckyGame lucky = service.findById(id);
 
@@ -88,14 +87,16 @@ public class LuckyGameController {
         return modelAndView;
     }
 
-    @GetMapping("/locky-game/edit/")
-    public ModelAndView editLuckyGame(@RequestParam Long id){
+
+    @GetMapping("/lucky-game/edit/{id}")
+    public ModelAndView editLuckyGame(@PathVariable Long id){
         final ModelAndView modelAndView = new ModelAndView();
 
         modelAndView.setViewName("lucky-game-edit");
         modelAndView.addObject("luckyGame", service.findById(id));
         return modelAndView;
     }
+
 
     @RequestMapping(value = "/changinggame")
     public ModelAndView updatingLuckyGame(@Valid @ModelAttribute LuckyGame luckyGame, BindingResult result, RedirectAttributes redirectAttributes){
@@ -106,8 +107,36 @@ public class LuckyGameController {
         service.updateGameServ(luckyGame);
 
         redirectAttributes.addFlashAttribute("message", "Game editado com sucesso");
-        return new ModelAndView("redirect:locky-game/view/"+luckyGame.getId());
+        return new ModelAndView("redirect:lucky-game/view/"+luckyGame.getId());
     }
 
+    @GetMapping("/lucky-game/invite/{id}")
+    public ModelAndView viewAnInvite(@PathVariable Long id){
+        final ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("game-invite");
+      
+        LuckyGame lucky = service.findById(id);
+
+        modelAndView.addObject("oneGame", lucky);
+        return modelAndView;
+    }
+    
+    @GetMapping("/lucky-game/entrar/{id}")
+    public ModelAndView enrollingAGame(@PathVariable Long id){
+        /*
+        Checking here if the player is logged
+        if yes, already save the information and return the view of the game
+        */
+        final ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("index"); // change to view player match
+        
+        // operação de insert
+        Player play = serv.findById(2L);        
+        LuckyGame lucky = service.findById(id);
+        
+        service.insertPlayerAndGame(lucky, play);        
+       
+        return modelAndView;
+    } 
   
 }

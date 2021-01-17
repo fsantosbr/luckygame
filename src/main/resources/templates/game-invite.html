@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${oneGame.title} + ' - Convite'"> Visualizar Jogo </title>
+</head>
+
+<body>   
+
+    <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}" />
+
+    <h2 th:text="${oneGame.title}"></h2>
+    
+
+    <table>
+
+        <tr>
+            <th>Título do Jogo:</th>
+            <td th:text="${oneGame.title}"> </td>
+        </tr>
+
+    </table>
+
+    <a href="#" th:href="@{/lucky-game/entrar/}+ ${oneGame.id}">Participar</a>
+    <a href="#" th:href="@{/}">Ir para Dash Board</a>
+
+    <br>
+
+    <a href="#" th:href="@{/}">Home</a>
+    <a href="#" th:href="@{/new-lucky-game}">Novo Jogo</a>
+    <a href="#" th:href="@{/locky-game/edit/(id=${oneGame.id})}">Editar</a>
+
+
+
+
+</body>
+
+</html>

@@ -59,6 +59,11 @@
             <td th:text="${oneGame.players.size}"> </td>
         </tr>
 
+        <tr>
+            <th>Compartilhe este link para entrar no jogo: </th>
+            <td th:text="'localhost:8080/lucky-game/invite/' + ${oneGame.id}"> </td>
+        </tr>        
+
         <tr th:if="${oneGame.players.size == 0}">
             <td>Os jogadores vão Aparecer aqui</td>
         </tr>
@@ -76,7 +81,7 @@
 
     <a href="#" th:href="@{/}">Home</a>
     <a href="#" th:href="@{/new-lucky-game}">Novo Jogo</a>
-    <a href="#" th:href="@{/locky-game/edit/(id=${oneGame.id})}">Editar</a>
+    <a href="#" th:href="@{/lucky-game/edit/}+${oneGame.id}">Editar</a>
 
 
 

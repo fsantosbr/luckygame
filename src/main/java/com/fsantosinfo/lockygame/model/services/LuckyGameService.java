@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.fsantosinfo.lockygame.model.entities.LuckyGame;
+import com.fsantosinfo.lockygame.model.entities.Player;
 import com.fsantosinfo.lockygame.repositories.LuckyGameRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +48,13 @@ public class LuckyGameService {
                 }
 
                 repository.updateNumWinnersGame(id, luckyGame.getNumWinners());
+        }
+
+        public void insertPlayerAndGame(LuckyGame lucky, Player play) {
+
+                Long idLuckyGame = lucky.getId();
+                Long idPLayer = play.getId();
+
+                repository.insertPlayerAndGame(idPLayer, idLuckyGame);
         }
 }
