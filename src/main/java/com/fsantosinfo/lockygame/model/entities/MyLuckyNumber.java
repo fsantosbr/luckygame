@@ -17,16 +17,17 @@ public class MyLuckyNumber implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Integer myNumber;
-
+ 
     @ManyToOne
     @JoinColumn(name = "player_id")
-    private Player player;
+    private Player player; // MyLuckyNumber has just one Player
     
-    public MyLuckyNumber(){}
+    public MyLuckyNumber(){}   
 
-    public MyLuckyNumber(Long id, Integer myNumber) {
+    public MyLuckyNumber(Long id, Integer myNumber, Player player) {
         this.id = id;
         this.myNumber = myNumber;
+        this.player = player;
     }
 
     public Long getId() {
@@ -51,6 +52,11 @@ public class MyLuckyNumber implements Serializable {
 
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    @Override
+    public String toString() {
+        return myNumber.toString();
     }
 
     @Override
@@ -83,13 +89,5 @@ public class MyLuckyNumber implements Serializable {
             return false;
         return true;
     }
-
-    @Override
-    public String toString() {
-        return myNumber.toString();
-    }
-
-  
-
     
 }

@@ -1,6 +1,7 @@
 package com.fsantosinfo.lockygame.model.services;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
 
 import com.fsantosinfo.lockygame.model.entities.LuckyGame;
@@ -17,7 +18,7 @@ public class LuckyGameService {
         @Autowired
         private LuckyGameRepository repository;
 
-        public Object findAll() {
+        public List<LuckyGame> findAll() {
                 return repository.findAll();
         }
 

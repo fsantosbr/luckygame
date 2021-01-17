@@ -1,5 +1,6 @@
 package com.fsantosinfo.lockygame.model.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.fsantosinfo.lockygame.model.entities.Player;
@@ -16,7 +17,7 @@ public class PlayerService {
     @Autowired
     private PlayerRepository repository;
 
-	public Object findAll() {
+	public List<Player> findAll() {
 		return repository.findAll();
 	}
 
@@ -28,6 +29,5 @@ public class PlayerService {
 	public Player findById(Long id) {        
         Optional<Player> optionalPlayer = repository.findById(id);
         return optionalPlayer.get();
-
 	}
 }

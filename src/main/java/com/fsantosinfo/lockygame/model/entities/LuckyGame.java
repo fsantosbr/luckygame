@@ -2,13 +2,14 @@ package com.fsantosinfo.lockygame.model.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotBlank;
 
 @Entity
@@ -36,8 +37,10 @@ public class LuckyGame implements Serializable{
    
     private String password;
 
-    @OneToMany(mappedBy = "luckyGame")
-    private List<Player> players;
+    
+    // insert jsonIgnore here when we'll work with API
+    @ManyToMany(mappedBy = "luckyGames")
+    private List<Player> players = new ArrayList<>(); //luckygame has many players
 
     public LuckyGame() {        
     }  
@@ -133,9 +136,10 @@ public class LuckyGame implements Serializable{
 
     // Methods of this class   
 
-    public void addingPlayer(Player player){
-        players.add(player);
-    }
+    /*
+        OBS: if we create a method to add players to the list, It won't work on database.
+        For this case, we must use queries to update the database.
+    */
  
 
     // Overrided methods

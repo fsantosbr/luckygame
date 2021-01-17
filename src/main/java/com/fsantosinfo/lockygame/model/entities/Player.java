@@ -9,7 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -25,10 +26,13 @@ public class Player implements Serializable {
     private String password;
     private Boolean isAdmin;
 
-    @ManyToOne
-    @JoinColumn(name = "luckyGame_id")
-    private LuckyGame luckyGame; // player has just one game
+    
+    @ManyToMany
+    @JoinTable(name = "tb_player_lucky_game", joinColumns = @JoinColumn(name = "player_id"), inverseJoinColumns = @JoinColumn(name = "luckygame_id"))
+    //@JoinColumn(name = "luckyGame_id")
+    private List<LuckyGame> luckyGames = new ArrayList<>(); // player has many games
 
+    // insert jsonIgnore here when we'll work with API
     @OneToMany(mappedBy = "player")
     private List<MyLuckyNumber> myLuckNumbers = new ArrayList<>(); // player has many numbers
 
@@ -43,16 +47,6 @@ public class Player implements Serializable {
         this.email = email;
         this.password = password;
         this.isAdmin = isAdmin;
-    }   
-
-    public Player(Long id, String name, String cpf, String email, String password,  Boolean isAdmin, LuckyGame luckyGame) {
-        this.id = id;
-        this.name = name;
-        this.cpf = cpf;
-        this.email = email;
-        this.password = password;
-        this.isAdmin = isAdmin;
-        this.luckyGame = luckyGame;        
     }
 
 
@@ -97,17 +91,13 @@ public class Player implements Serializable {
         this.password = password;
     }
 
-    public LuckyGame getLuckyGame() {
-        return luckyGame;
-    }
-
-    public void setLuckyGame(LuckyGame luckyGame) {
-        this.luckyGame = luckyGame;
+    public List<LuckyGame> getLuckyGames() {
+        return luckyGames;
     }
 
     public List<MyLuckyNumber> getMyLuckNumbers() {
         return myLuckNumbers;
-    }   
+    }
 
     public Boolean getIsAdmin() {
         return isAdmin;
@@ -120,7 +110,10 @@ public class Player implements Serializable {
 
     // Methods of this class
 
-   
+    /*
+    OBS: If we create a method to add number to the list, It won't work on data base.
+    The numbers must persisted with the player in the constructor.
+    */
 
     // Overrided methods
 
@@ -154,5 +147,6 @@ public class Player implements Serializable {
             return false;
         return true;
     }
-  
+
+     
 }
