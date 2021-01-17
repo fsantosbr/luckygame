@@ -26,7 +26,9 @@ public class Player implements Serializable {
     private String password;
     private Boolean isAdmin;
 
-    
+    @OneToMany(mappedBy = "owner")
+    private List<LuckyGame> ownerGames = new ArrayList<>(); // player has many own games
+
     @ManyToMany
     @JoinTable(name = "tb_player_lucky_game", joinColumns = @JoinColumn(name = "player_id"), inverseJoinColumns = @JoinColumn(name = "luckygame_id"))
     //@JoinColumn(name = "luckyGame_id")
@@ -91,6 +93,10 @@ public class Player implements Serializable {
         this.password = password;
     }
 
+    public List<LuckyGame> getOwnerGames() {
+        return ownerGames;
+    }
+
     public List<LuckyGame> getLuckyGames() {
         return luckyGames;
     }
@@ -147,6 +153,5 @@ public class Player implements Serializable {
             return false;
         return true;
     }
-
      
 }

@@ -11,7 +11,7 @@
 
 <h1 th:text="${oneGame.title}"></h1>
 
-<table>    
+<table>
 
     <tr>
         <th>ID</th>
@@ -21,6 +21,11 @@
     <tr>
         <th>Data Criação</th>
         <td th:text="${oneGame.momentCreated}"> </td>
+    </tr>
+
+    <tr>
+        <th>Dono:</th>
+        <td th:text="${oneGame.owner}"> </td>
     </tr>
 
     <tr>

@@ -3,7 +3,10 @@ package com.fsantosinfo.lockygame.controller;
 import javax.validation.Valid;
 
 import com.fsantosinfo.lockygame.model.entities.LuckyGame;
+import com.fsantosinfo.lockygame.model.entities.Player;
 import com.fsantosinfo.lockygame.model.services.LuckyGameService;
+import com.fsantosinfo.lockygame.model.services.PlayerService;
+import com.fsantosinfo.lockygame.repositories.PlayerRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +27,9 @@ public class LuckyGameController {
     @Autowired
     private LuckyGameService service;
 
+    @Autowired
+    private PlayerService serv; //temporaly - only for test a retrieve data
+
     @GetMapping("/")
     public String indexHome(){
         return "index";
@@ -41,9 +47,20 @@ public class LuckyGameController {
 
     @GetMapping("/new-lucky-game")
     public ModelAndView newLuckyGame(){
+        /* 
+            here, insert a condition to check if the user is authenticated.
+            If not, redirect to logon, otherwise, getid
+        */
+
         final ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("new-lucky-game");
-        modelAndView.addObject("luckyGame", new LuckyGame());
+        
+        Player p  = serv.findById(1L); // temporaly fake retrieve data
+        
+        LuckyGame luck = new LuckyGame();
+        luck.setOwner(p);
+        modelAndView.addObject("luckyGame", luck);
+        
         return modelAndView;
     }
 

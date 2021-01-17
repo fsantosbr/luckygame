@@ -9,7 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 
 @Entity
@@ -24,19 +26,15 @@ public class LuckyGame implements Serializable{
     private String title;
 
     private Integer numWinners;
-   // here was a list of players - players
-   // here was a list of players - winners   
-
+   
     private Instant momentCreated;
     private Boolean open;
     private Boolean alive; // if the value is false, the game can't be edit or lottery again - Change this value when run the sort
     private String communicateAll; // to pass information when the game is not alive or others reasons
 
-    @NotBlank
-    private String emailOwner;
-   
-    private String password;
-
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private Player owner; //game has one ower in player
     
     // insert jsonIgnore here when we'll work with API
     @ManyToMany(mappedBy = "luckyGames")
@@ -45,7 +43,7 @@ public class LuckyGame implements Serializable{
     public LuckyGame() {        
     }  
     
-    public LuckyGame(Long id, String title, Integer numWinners, Instant momentCreated, Boolean open, Boolean alive, String communicateAll, String emailOwner, String password) {
+    public LuckyGame(Long id, String title, Integer numWinners, Instant momentCreated, Boolean open, Boolean alive, String communicateAll, Player owner) {
         this.id = id;
         this.title = title;
         this.numWinners = numWinners;
@@ -53,9 +51,8 @@ public class LuckyGame implements Serializable{
         this.open = open;
         this.alive = alive;
         this.communicateAll = communicateAll;
-        this.emailOwner = emailOwner;
-        this.password = password;
-}
+        this.owner = owner;
+    }
     
 
     public Long getId() {
@@ -114,20 +111,12 @@ public class LuckyGame implements Serializable{
         this.communicateAll = communicateAll;
     }
 
-    public String getEmailOwner() {
-        return emailOwner;
+    public Player getOwner() {
+        return owner;
     }
 
-    public void setEmailOwner(String emailOwner) {
-        this.emailOwner = emailOwner;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setOwner(Player owner) {
+        this.owner = owner;
     }
 
     public List<Player> getPlayers() {
@@ -169,7 +158,5 @@ public class LuckyGame implements Serializable{
             return false;
         return true;
     }
-
-    
    
 }

@@ -17,11 +17,7 @@
 
     <input type="number" name="numWinners" th:field="*{numWinners}" th:placeholder="Número-de-Ganhadores"/> <br/>
     <span th:if="${#fields.hasErrors('numWinners')}" th:errors="*{numWinners}">numWinner Error</span>
-    <br/>
-
-    <input type="text" name="emailOwner" th:field="*{emailOwner}" th:placeholder="E-mail"/> <br/>
-    <span th:if="${#fields.hasErrors('emailOwner')}" th:errors="*{emailOwner}">Email Error</span>
-    <br/>
+    <br/>    
 
     <input type="text" name="communicateAll" th:field="*{communicateAll}" th:placeholder="Comunicado"/> <br/>
     <span th:if="${#fields.hasErrors('communicateAll')}" th:errors="*{communicateAll}">Password Error</span>
