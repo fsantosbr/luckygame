@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${player.name} + ' - DashBoard'"> Visualizar Jogo </title>
+</head>
+
+<body>
+    <div style="width: 1000px;">
+        <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}" />
+        <p th:text="'Olá ' + ${player.name}" align="right"></p>
+
+        <div style="text-align:left; border:3px dotted #9F0; float:left; width: 30%">
+            <p>Você está participando destes jogos</p>
+            
+            <div style="border:3px solid red; width: 100%;" th:each="game : ${games}">
+                <div th:text="'Título: ' + ${game.title}"></div>
+                <div th:text="'Aberto: ' + ${game.open}"></div>
+                                
+                <div>
+                    <a href="#" th:href="@{/lucky-game/}+${game.id}+'/player/'+${player.id}">Ver detalhes</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div style="text-align:right; border:3px dotted #9F0; width: 30%; float: right;">
+            <p>Seus jogos Criados vão aparecer aqui</p>
+
+            <div style="border:3px solid red; width: 100%;" th:each="ownGame : ${ownGames}">
+                <div th:text="'Título: ' + ${ownGame.title}"></div>
+                <div th:text="'Jogadores: ' + ${ownGame.players.size}"></div>
+                <div>
+                    <a href="#" th:href="@{/lucky-game/view/}+${ownGame.id}">Gerenciar jogo</a>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <div  style="position:absolute">
+       
+
+    </div>
+
+
+</body>
+
+</html>

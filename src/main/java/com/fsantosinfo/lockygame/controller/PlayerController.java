@@ -1,5 +1,7 @@
 package com.fsantosinfo.lockygame.controller;
 
+import java.util.List;
+
 import com.fsantosinfo.lockygame.model.entities.LuckyGame;
 import com.fsantosinfo.lockygame.model.entities.Player;
 import com.fsantosinfo.lockygame.model.services.PlayerService;
@@ -62,6 +64,25 @@ public class PlayerController {
             modelAndView.addObject("luckyGame", service.gettingTheGame(gameId));
             modelAndView.addObject("player", player);
         }
+        return modelAndView;
+    }
+
+    @GetMapping("/dashboard/player/{id}")
+    public ModelAndView viewDashBoard(@PathVariable Long id){
+        final ModelAndView modelAndView = new ModelAndView();
+        
+        /* here - a logic to check if a player is looged
+        */
+
+        Player player = service.findById(id);
+        List<LuckyGame> games = player.getLuckyGames();
+        List<LuckyGame> ownGames = player.getOwnerGames();
+
+        modelAndView.setViewName("dashboard");
+        modelAndView.addObject("player", player);
+        modelAndView.addObject("games", games);
+        modelAndView.addObject("ownGames", ownGames);
+
         return modelAndView;
     }
 
