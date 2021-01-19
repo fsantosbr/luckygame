@@ -20,7 +20,7 @@ public class LuckyGameService {
         private LuckyGameRepository repository;
 
         @Autowired
-        private PlayerService service;
+        private PlayerService playerService;
 
         public List<LuckyGame> findAll() {
                 return repository.findAll();
@@ -53,13 +53,7 @@ public class LuckyGameService {
                 repository.updateNumWinnersGame(id, luckyGame.getNumWinners());
         }
 
-        public void insertPlayerAndGame(LuckyGame lucky, Long idPlayer) {               
-
-                repository.insertPlayerAndGame(idPlayer, lucky.getId());
-        }
-
 	public Player findPlayer(long id) {
-                return service.findById(id);
-                
+                return playerService.findById(id);                
 	}
 }

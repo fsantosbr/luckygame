@@ -117,20 +117,6 @@ public class LuckyGameController {
         return modelAndView;
     }
     
-    @GetMapping("/lucky-game/entrar/{id}")
-    public ModelAndView enrollingAGame(@PathVariable Long id){
-        /*
-        Checking here if the player is logged
-        if yes, already save the information and return the view of the game
-        */
-        final ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("index"); // change to view player match
-        
-        // operação de insert
-        LuckyGame lucky = service.findById(id); // it must be here cause if the game does not exist, must return right here        
-        service.insertPlayerAndGame(lucky, 2L); // Change the Long for a Player when the authentication in a future release
-       
-        return modelAndView;
-    } 
+    
   
 }

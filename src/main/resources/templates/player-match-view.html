@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${luckyGame.title} + ' - Participação'"> Visualizar Jogo </title>
+</head>
+
+<body>
+    <p th:text="'Olá ' + ${player.name}" align="right"></p>
+
+    <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}" />
+
+    <h2 th:text="${player}"></h2>
+
+    <table>
+
+        <tr>
+            <th>Título do Jogo:</th>
+            <td th:text="${luckyGame.title}"> </td>
+        </tr>
+
+        
+
+       
+
+        <tr>
+            <th>Criador:</th>
+            <td th:text="${luckyGame.owner}"> </td>
+        </tr>
+
+        <tr>
+            <th>Aberta:</th>
+            <td th:text="${luckyGame.open} ? 'SIM' : 'NÃO'"/>  
+        </tr>
+
+        
+        <tr>
+            <th>Comentário do administrador:</th>
+            <td th:text="${luckyGame.communicateAll}"></td>  
+        </tr>
+
+        
+
+        <tr>
+            <th>---------------------</th>
+            
+        </tr>
+
+        <tr>
+            <th>Seu nome: </th>
+            <td th:text="${player.name}"> </td>
+        </tr>
+
+       
+
+
+    </table>
+
+    <br>
+
+    <a href="#" th:href="@{/}">Home</a>
+    <a href="#" th:href="@{/new-lucky-game}">Novo Jogo</a>
+    
+
+
+
+
+</body>
+
+</html>
