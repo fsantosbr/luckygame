@@ -29,4 +29,5 @@ public interface LuckyGameRepository extends JpaRepository<LuckyGame, Long>{
     @Transactional
     @Query(value = "insert into TB_PLAYER_LUCKY_GAME (PLAYER_ID, LUCKYGAME_ID) values (:IDPLAYER, :IDGAME)", nativeQuery = true)
 	void insertPlayerAndGame(@Param(value = "IDPLAYER") Long idPLayer, @Param(value = "IDGAME") Long idLuckyGame);
+
 }

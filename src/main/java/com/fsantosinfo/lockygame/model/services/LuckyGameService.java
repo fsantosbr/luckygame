@@ -19,6 +19,9 @@ public class LuckyGameService {
         @Autowired
         private LuckyGameRepository repository;
 
+        @Autowired
+        private PlayerService service;
+
         public List<LuckyGame> findAll() {
                 return repository.findAll();
         }
@@ -50,11 +53,13 @@ public class LuckyGameService {
                 repository.updateNumWinnersGame(id, luckyGame.getNumWinners());
         }
 
-        public void insertPlayerAndGame(LuckyGame lucky, Player play) {
+        public void insertPlayerAndGame(LuckyGame lucky, Long idPlayer) {               
 
-                Long idLuckyGame = lucky.getId();
-                Long idPLayer = play.getId();
-
-                repository.insertPlayerAndGame(idPLayer, idLuckyGame);
+                repository.insertPlayerAndGame(idPlayer, lucky.getId());
         }
+
+	public Player findPlayer(long id) {
+                return service.findById(id);
+                
+	}
 }

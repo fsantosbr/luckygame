@@ -5,7 +5,6 @@ import javax.validation.Valid;
 import com.fsantosinfo.lockygame.model.entities.LuckyGame;
 import com.fsantosinfo.lockygame.model.entities.Player;
 import com.fsantosinfo.lockygame.model.services.LuckyGameService;
-import com.fsantosinfo.lockygame.model.services.PlayerService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,9 +23,6 @@ public class LuckyGameController {
 
     @Autowired
     private LuckyGameService service;
-
-    @Autowired
-    private PlayerService serv; //temporaly - only for test a retrieve data
 
     @GetMapping("/")
     public String indexHome(){
@@ -53,10 +49,10 @@ public class LuckyGameController {
         final ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("new-lucky-game");
         
-        Player p  = serv.findById(1L); // temporaly fake retrieve data
+        Player loggedPlayer  = service.findPlayer(1L); // temporaly fake retrieve data serv.findById(1L);
         
         LuckyGame luck = new LuckyGame();
-        luck.setOwner(p);
+        luck.setOwner(loggedPlayer);
         modelAndView.addObject("luckyGame", luck);
         
         return modelAndView;
@@ -131,10 +127,8 @@ public class LuckyGameController {
         modelAndView.setViewName("index"); // change to view player match
         
         // operação de insert
-        Player play = serv.findById(2L);        
-        LuckyGame lucky = service.findById(id);
-        
-        service.insertPlayerAndGame(lucky, play);        
+        LuckyGame lucky = service.findById(id); // it must be here cause if the game does not exist, must return right here        
+        service.insertPlayerAndGame(lucky, 2L); // Change the Long for a Player when the authentication in a future release
        
         return modelAndView;
     } 
