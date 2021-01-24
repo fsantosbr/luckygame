@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 
 @Entity
@@ -39,6 +40,10 @@ public class LuckyGame implements Serializable{
     // insert jsonIgnore here when we'll work with API
     @ManyToMany(mappedBy = "luckyGames")
     private List<Player> players = new ArrayList<>(); //luckygame has many players
+
+    // insert jsonIgnore here when we'll work with API
+    @OneToMany(mappedBy = "game")
+    private List<MyLuckyNumber> playerLuckyNumbers = new ArrayList<>(); // game has many numbers
 
     public LuckyGame() {        
     }  
@@ -121,7 +126,12 @@ public class LuckyGame implements Serializable{
 
     public List<Player> getPlayers() {
         return players;
-    }    
+    }
+
+    public List<MyLuckyNumber> getPlayerLuckyNumbers() {
+        return playerLuckyNumbers;
+    }
+
 
     // Methods of this class   
 

@@ -21,13 +21,18 @@ public class MyLuckyNumber implements Serializable {
     @ManyToOne
     @JoinColumn(name = "player_id")
     private Player player; // MyLuckyNumber has just one Player
-    
-    public MyLuckyNumber(){}   
 
-    public MyLuckyNumber(Long id, Integer myNumber, Player player) {
+    @ManyToOne
+    @JoinColumn(name = "lucky_game_id")
+    private LuckyGame game;
+    
+    public MyLuckyNumber(){}
+
+    public MyLuckyNumber(Long id, Integer myNumber, Player player, LuckyGame game) {
         this.id = id;
         this.myNumber = myNumber;
         this.player = player;
+        this.game = game;
     }
 
     public Long getId() {
@@ -52,6 +57,14 @@ public class MyLuckyNumber implements Serializable {
 
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    public LuckyGame getGame() {
+        return game;
+    }
+
+    public void setGame(LuckyGame game) {
+        this.game = game;
     }
 
     @Override
@@ -89,5 +102,7 @@ public class MyLuckyNumber implements Serializable {
             return false;
         return true;
     }
+
+    
     
 }

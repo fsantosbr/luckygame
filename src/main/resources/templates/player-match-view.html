@@ -49,11 +49,16 @@
 
         <tr>
             <th>Seu nome: </th>
-            <td th:text="${player.name}"> </td>
+            <td th:text="${player.name}"> </td>            
         </tr>
 
-       
+        <tr>
+            <td th:text="'Quantidade de números: ' + ${numbers.size}"> </td>            
+        </tr>
 
+        <tr th:each="number : ${numbers}">
+            <td th:text="${number.myNumber}"> </td>    
+        </tr>
 
     </table>
 

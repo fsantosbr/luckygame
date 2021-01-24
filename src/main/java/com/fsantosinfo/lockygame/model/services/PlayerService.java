@@ -1,11 +1,13 @@
 package com.fsantosinfo.lockygame.model.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import com.fsantosinfo.lockygame.model.entities.LuckyGame;
+import com.fsantosinfo.lockygame.model.entities.MyLuckyNumber;
 import com.fsantosinfo.lockygame.model.entities.Player;
-import com.fsantosinfo.lockygame.repositories.PlayerRepository;
+import com.fsantosinfo.lockygame.model.repositories.PlayerRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,9 @@ public class PlayerService {
 	
 	@Autowired
 	private LuckyGameService gameService;
+
+	@Autowired
+	private MyLuckyNumberService numberService;
 
 	public List<Player> findAll() {
 		return repository.findAll();
@@ -56,5 +61,17 @@ public class PlayerService {
 		}
 		
 		return logicTest;
+	}
+
+	public List<MyLuckyNumber> loadingPlayerNumbers(LuckyGame luckyGame, Player player) {
+		//List<MyLuckyNumber> numbers = new ArrayList<>();
+		List<MyLuckyNumber> numbers = numberService.findByGameAndPlayer(luckyGame, player);
+		return numbers;
+
+		
+
+		//Optional<Player> player = repository.findById(playerId);
+
+
 	}
 }

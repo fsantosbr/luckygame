@@ -3,6 +3,7 @@ package com.fsantosinfo.lockygame.controller;
 import java.util.List;
 
 import com.fsantosinfo.lockygame.model.entities.LuckyGame;
+import com.fsantosinfo.lockygame.model.entities.MyLuckyNumber;
 import com.fsantosinfo.lockygame.model.entities.Player;
 import com.fsantosinfo.lockygame.model.services.PlayerService;
 
@@ -60,9 +61,13 @@ public class PlayerController {
         }
         else {
             Player player = service.findById(playerId); // change to not delivery all data
+            LuckyGame luckyGame = service.gettingTheGame(gameId);
+            List<MyLuckyNumber> numbers = service.loadingPlayerNumbers(luckyGame, player);
+
             modelAndView.setViewName("player-match-view");
-            modelAndView.addObject("luckyGame", service.gettingTheGame(gameId));
+            modelAndView.addObject("luckyGame", luckyGame);
             modelAndView.addObject("player", player);
+            modelAndView.addObject("numbers", numbers);
         }
         return modelAndView;
     }

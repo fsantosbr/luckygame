@@ -1,4 +1,4 @@
-package com.fsantosinfo.lockygame.repositories;
+package com.fsantosinfo.lockygame.model.repositories;
 
 import java.util.List;
 

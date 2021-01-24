@@ -1,4 +1,4 @@
-package com.fsantosinfo.lockygame.repositories;
+package com.fsantosinfo.lockygame.model.repositories;
 
 import com.fsantosinfo.lockygame.model.entities.LuckyGame;
 
