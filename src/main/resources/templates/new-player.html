@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de novo Jogador</title>
+</head>
+
+<body>
+
+<h1>Novo Jogador</h1>
+
+<form th:action="@{/registering}" th:object="${newPlayer}" method="post">
+
+
+
+    <input type="text" name="name" th:field="*{name}" th:placeholder="Nome"/><br/>
+    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Title Error</span>
+    <br/>
+
+    <input type="text" name="cpf" th:field="*{cpf}" th:placeholder="CPF"/><br/>
+    <span th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}">Title Error</span>
+    <br/>
+
+    <input type="text" name="email" th:field="*{email}" th:placeholder="EMAIL"/><br/>
+    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Title Error</span>
+    <br/>
+
+    <input type="password" name="password" th:field="*{password}" th:placeholder="SENHA"/> <br/>
+    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">numWinner Error</span>
+    <br/>
+
+    <button type="submit">Cadastrar</button>
+</form>
+
+
+<br>
+
+<a th:href="@{/games}">Visualizar todos jogos - Apenas de teste</a>
+
+</body>
+
+</html>

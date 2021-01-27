@@ -1,6 +1,5 @@
 package com.fsantosinfo.lockygame.model.services;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,7 +11,7 @@ import com.fsantosinfo.lockygame.model.repositories.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-// This class will help with some the business logic
+// This class will help with some business logic
 
 @Service
 public class PlayerService {
@@ -64,14 +63,8 @@ public class PlayerService {
 	}
 
 	public List<MyLuckyNumber> loadingPlayerNumbers(LuckyGame luckyGame, Player player) {
-		//List<MyLuckyNumber> numbers = new ArrayList<>();
 		List<MyLuckyNumber> numbers = numberService.findByGameAndPlayer(luckyGame, player);
 		return numbers;
-
-		
-
-		//Optional<Player> player = repository.findById(playerId);
-
 
 	}
 }

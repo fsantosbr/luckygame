@@ -1,6 +1,7 @@
 package com.fsantosinfo.lockygame.model.repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -22,5 +23,7 @@ public interface PlayerRepository extends JpaRepository<Player, Long>{
     @Transactional
     @Query(value = "SELECT * FROM TB_PLAYER_LUCKY_GAME u WHERE u.LUCKYGAME_ID = :IDGAME", nativeQuery = true)
     List<Long> findAllPlayers(@Param(value = "IDGAME") Long gameId);
+
+    Optional<Player> findByEmail(String email);
 
 }

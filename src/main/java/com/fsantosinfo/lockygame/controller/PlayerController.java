@@ -31,8 +31,8 @@ public class PlayerController {
         // note: This path is only for test. It won't exist on the production fase
     }
 
-    @GetMapping("/lucky-game/entrar/{id}")
-    public String enrollingAGame(@PathVariable Long id, RedirectAttributes redirectAttributes){
+    @GetMapping("/lucky-game/enter/{id}")
+    public String enterAGame(@PathVariable Long id, RedirectAttributes redirectAttributes){
         /*
         Checking here if the player is logged
         if yes, already save the information and return the view of the game
@@ -48,7 +48,7 @@ public class PlayerController {
         return "redirect:/lucky-game/"+lucky.getId()+"/player/"+idRetrieved;
     }
 
-    @GetMapping("/lucky-game/{gameId}/player/{playerId}")
+    @GetMapping("/v/lucky-game/{gameId}/player/{playerId}")
     public ModelAndView viewPlayerMatch(@PathVariable Long gameId, @PathVariable Long playerId){
         /*
         Logic to check if the player is logged.
