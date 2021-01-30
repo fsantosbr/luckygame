@@ -1,9 +1,12 @@
 package com.fsantosinfo.lockygame.model.services;
 
+import java.util.Optional;
+
 import com.fsantosinfo.lockygame.model.entities.Player;
 import com.fsantosinfo.lockygame.model.repositories.PlayerRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -45,4 +48,17 @@ public class PlayerCredentialService implements UserDetailsService {
     public Player save(Player player){
         return playerRepository.save(player);
     }
+
+    public Player getLoggedUser() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username;
+		if(principal instanceof UserDetails){
+			username = ((UserDetails) principal).getUsername();
+		}
+		else{
+			username = principal.toString();
+		}
+		Optional<Player> player = playerRepository.findByEmail(username);
+		return player.get();
+	}
 }

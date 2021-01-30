@@ -48,19 +48,17 @@ public class PlayerController {
         return "redirect:/lucky-game/"+lucky.getId()+"/player/"+idRetrieved;
     }
 
-    @GetMapping("/v/lucky-game/{gameId}/player/{playerId}")
-    public ModelAndView viewPlayerMatch(@PathVariable Long gameId, @PathVariable Long playerId){
-        /*
-        Logic to check if the player is logged.
-        If yes, keep going.
-        If not, logon
-        */
+    @GetMapping("/lucky-game/{gameId}/player/")
+    public ModelAndView viewPlayerMatch(@PathVariable Long gameId, RedirectAttributes redirectAttributes){        
+        Player player = service.getLoggedUser(); // change to not delivery all data
+        
         final ModelAndView modelAndView = new ModelAndView();
-        if (!service.alreadyPlayer(gameId, playerId)){
-            modelAndView.setViewName("index"); // return the dashboard (a defence method to avoid changing and url)
+
+        if (!service.alreadyPlayer(gameId, player.getId())){
+            modelAndView.setViewName("player-match-view-notAllowed");
+            modelAndView.addObject("player", player);            
         }
-        else {
-            Player player = service.findById(playerId); // change to not delivery all data
+        else {           
             LuckyGame luckyGame = service.gettingTheGame(gameId);
             List<MyLuckyNumber> numbers = service.loadingPlayerNumbers(luckyGame, player);
 

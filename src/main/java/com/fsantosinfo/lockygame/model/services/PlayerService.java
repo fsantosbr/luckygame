@@ -25,6 +25,9 @@ public class PlayerService {
 	@Autowired
 	private MyLuckyNumberService numberService;
 
+	@Autowired
+	private PlayerCredentialService credentialService;
+
 	public List<Player> findAll() {
 		return repository.findAll();
 	}
@@ -66,5 +69,9 @@ public class PlayerService {
 		List<MyLuckyNumber> numbers = numberService.findByGameAndPlayer(luckyGame, player);
 		return numbers;
 
+	}
+
+	public Player getLoggedUser() {
+		return credentialService.getLoggedUser();
 	}
 }

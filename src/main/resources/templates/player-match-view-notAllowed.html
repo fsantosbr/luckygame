@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title> Visualizar Jogo </title>
+</head>
+
+<body>
+<p th:text="'Olá ' + ${player.name}" align="right"></p>
+
+<div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}" />
+
+<h2 th:text="${player}"></h2>
+
+<h5> Parece que você tentou acessar uma link inválido. Sempre use seu dashboard para navegar</h5>
+
+<br>
+
+<a href="#" th:href="@{/}">Home</a>
+<a href="#" th:href="@{/new-lucky-game}">Novo Jogo</a>
+
+
+
+
+
+</body>
+
+</html>
