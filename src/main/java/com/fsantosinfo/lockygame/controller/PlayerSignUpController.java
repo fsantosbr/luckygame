@@ -58,4 +58,9 @@ public class PlayerSignUpController {
         return "redirect:dashboard/player/"+player.getId();
 
     }
+
+    @GetMapping("login")
+    public String getLogin() {
+        return "login";
+    }
 }

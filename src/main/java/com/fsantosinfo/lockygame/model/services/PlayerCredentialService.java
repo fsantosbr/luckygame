@@ -2,12 +2,12 @@ package com.fsantosinfo.lockygame.model.services;
 
 import com.fsantosinfo.lockygame.model.entities.Player;
 import com.fsantosinfo.lockygame.model.repositories.PlayerRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,10 +17,7 @@ saving a new player or checking the credentials.
 */
 
 @Service
-public class PlayerCredentialService implements UserDetailsService {
-
-    @Autowired
-    private PasswordEncoder encoder;
+public class PlayerCredentialService implements UserDetailsService {   
 
     @Autowired
     private PlayerRepository playerRepository;
