@@ -71,7 +71,11 @@ public class PlayerService {
 
 	}
 
-	public Player getLoggedUser() {
-		return credentialService.getLoggedUser();
+	public Player getLoggedPlayer() {
+		return credentialService.getLoggedPlayer();
+	}
+
+	public String getLoggedEmailOwner() {
+		return credentialService.getLoggedEmailOwner();
 	}
 }

@@ -49,7 +49,7 @@ public class PlayerCredentialService implements UserDetailsService {
         return playerRepository.save(player);
     }
 
-    public Player getLoggedUser() {
+    public Player getLoggedPlayer() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username;
 		if(principal instanceof UserDetails){
@@ -58,7 +58,19 @@ public class PlayerCredentialService implements UserDetailsService {
 		else{
 			username = principal.toString();
 		}
-		Optional<Player> player = playerRepository.findByEmail(username);
+        Optional<Player> player = playerRepository.findByEmail(username);       
 		return player.get();
+    }
+    
+    public String getLoggedEmailOwner() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username;
+		if(principal instanceof UserDetails){
+			username = ((UserDetails) principal).getUsername();
+		}
+		else{
+			username = principal.toString();
+		}
+        return username;
 	}
 }

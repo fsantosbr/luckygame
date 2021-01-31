@@ -31,7 +31,6 @@ public class Player implements Serializable {
 
     @ManyToMany
     @JoinTable(name = "tb_player_lucky_game", joinColumns = @JoinColumn(name = "player_id"), inverseJoinColumns = @JoinColumn(name = "luckygame_id"))
-    //@JoinColumn(name = "luckyGame_id")
     private List<LuckyGame> luckyGames = new ArrayList<>(); // player has many games
 
     // insert jsonIgnore here when we'll work with API

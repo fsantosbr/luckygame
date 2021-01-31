@@ -30,11 +30,6 @@ public class PlayerSignUpController {
 
     @GetMapping("/signup")
     public ModelAndView newPlayer(){
-        /*
-            here, insert a condition to check if the user is authenticated.
-            If not, redirect to logon, otherwise, getid
-        */
-
         final ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("new-player");
 
@@ -55,7 +50,7 @@ public class PlayerSignUpController {
         playerCredentialService.save(player);
 
         redirectAttributes.addFlashAttribute("message", "Cadastro efetuado com Sucesso");
-        return "redirect:dashboard/player/"+player.getId();
+        return "redirect:dashboard/player/";
 
     }
 

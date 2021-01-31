@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
 @Controller
 public class LuckyGameController {
 
@@ -41,19 +40,15 @@ public class LuckyGameController {
 
     @GetMapping("/new-lucky-game")
     public ModelAndView newLuckyGame(){
-        /* 
-            here, insert a condition to check if the user is authenticated.
-            If not, redirect to logon, otherwise, getid
-        */
-
         final ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("new-lucky-game");
-        
-        Player loggedPlayer  = service.findPlayer(1L); // temporaly fake retrieve data serv.findById(1L);
+       
+        Player loggedPlayer  = service.getLoggedPlayer();
         
         LuckyGame luck = new LuckyGame();
         luck.setOwner(loggedPlayer);
         modelAndView.addObject("luckyGame", luck);
+        modelAndView.addObject("loggedPlayer", loggedPlayer.getName());
         
         return modelAndView;
     }
@@ -64,7 +59,6 @@ public class LuckyGameController {
         if (result.hasErrors()){
             return "new-lucky-game";
         }
-
         service.save(luckyGame);
 
         redirectAttributes.addFlashAttribute("message", "Game criado com sucesso");
@@ -73,24 +67,40 @@ public class LuckyGameController {
 
 
     @GetMapping("/lucky-game/view/{id}")
-    public ModelAndView lockyGameView(@PathVariable Long id){
-        final ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("lucky-game-view");
-      
-        LuckyGame lucky = service.findById(id);
+    public ModelAndView lockyGameView(@PathVariable Long id, RedirectAttributes redirectAttributes){
+        final ModelAndView modelAndView = new ModelAndView();        
 
-        modelAndView.addObject("oneGame", lucky);
-        return modelAndView;
+        LuckyGame lucky = service.findById(id);      
+        Player player = service.getLoggedPlayer();
+
+        if(lucky.getOwner().getEmail().equals(player.getEmail())){
+            modelAndView.setViewName("lucky-game-view");
+            modelAndView.addObject("oneGame", lucky);
+            return modelAndView;
+        }
+        else{
+            redirectAttributes.addFlashAttribute("message", "Parece que você tentou acessar uma URL que não pertence a você. Use o Dashboard para uma navegação segura.");
+            return new ModelAndView("redirect:/dashboard/player/"); // Offer a webpage with the errors in the top or a unique webpage of errors            
+        }
     }
 
 
     @GetMapping("/lucky-game/edit/{id}")
-    public ModelAndView editLuckyGame(@PathVariable Long id){
+    public ModelAndView editLuckyGame(@PathVariable Long id, RedirectAttributes redirectAttributes){
         final ModelAndView modelAndView = new ModelAndView();
 
-        modelAndView.setViewName("lucky-game-edit");
-        modelAndView.addObject("luckyGame", service.findById(id));
-        return modelAndView;
+        LuckyGame lucky = service.findById(id); 
+        Player player = service.getLoggedPlayer();
+
+        if(lucky.getOwner().getEmail().equals(player.getEmail())){
+            modelAndView.setViewName("lucky-game-edit");
+            modelAndView.addObject("luckyGame", lucky);
+            return modelAndView;
+        }
+        else{
+            redirectAttributes.addFlashAttribute("message", "Parece que você tentou acessar uma URL que não pertence a você. Use o Dashboard para uma navegação segura.");
+            return new ModelAndView("redirect:/dashboard/player/"); // Offer a webpage with the errors in the top or a unique webpage of errors            
+        }
     }
 
 
@@ -99,7 +109,6 @@ public class LuckyGameController {
         if (result.hasErrors()){
             return new ModelAndView("lucky-game-edit");
         }
-
         service.updateGameServ(luckyGame);
 
         redirectAttributes.addFlashAttribute("message", "Game editado com sucesso");
@@ -116,7 +125,5 @@ public class LuckyGameController {
         modelAndView.addObject("oneGame", lucky);
         return modelAndView;
     }
-    
-    
   
 }

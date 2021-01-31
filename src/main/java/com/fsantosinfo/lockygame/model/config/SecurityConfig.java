@@ -1,6 +1,7 @@
 package com.fsantosinfo.lockygame.model.config;
 
 import com.fsantosinfo.lockygame.model.services.PlayerCredentialService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -46,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .authenticated()
                     .antMatchers("/lucky-game/edit/**")
                         .authenticated()
-                    .antMatchers("/lucky-game/enter/**")
+                    .antMatchers("/enter/lucky-game/**")
                         .authenticated()
                     .antMatchers("/dashboard/player/**")
                         .authenticated()

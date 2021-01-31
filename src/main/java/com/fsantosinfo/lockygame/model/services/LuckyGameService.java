@@ -51,9 +51,13 @@ public class LuckyGameService {
         }
 
         repository.updateNumWinnersGame(id, luckyGame.getNumWinners());
-    }
+    }    
 
-    public Player findPlayer(long id) {
-        return playerService.findById(id);
+	public Player getLoggedPlayer() {
+		return playerService.getLoggedPlayer();
     }
+    
+    public String getLoggedEmailOwner() {
+		return playerService.getLoggedEmailOwner();
+	}
 }

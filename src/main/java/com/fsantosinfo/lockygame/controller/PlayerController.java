@@ -22,7 +22,6 @@ public class PlayerController {
 
     @GetMapping("/players")
     public ModelAndView players(){
-
         final ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("players");
         
@@ -31,32 +30,35 @@ public class PlayerController {
         // note: This path is only for test. It won't exist on the production fase
     }
 
-    @GetMapping("/lucky-game/enter/{id}")
-    public String enterAGame(@PathVariable Long id, RedirectAttributes redirectAttributes){
-        /*
-        Checking here if the player is logged
-        if yes, already save the information and return the view of the game
-        */
-        Long idRetrieved = 2L; // change later to the authentication
-        LuckyGame lucky = service.gettingTheGame(id); // it must be here cause if the game does not exist, must return right here        
-    
-        // operação de insert
-        service.insertPlayerAndGame(lucky, idRetrieved); // Change the Long for a Player when the authentication in a future release
-       // check if there was an error here before proceding
+    @GetMapping("/enter/lucky-game/{id}")
+    public String enterAGame(@PathVariable Long id, RedirectAttributes redirectAttributes){        
 
-        redirectAttributes.addFlashAttribute("message", "Tudo OK por aqui. Você está participando do jogo");
-        return "redirect:/lucky-game/"+lucky.getId()+"/player/"+idRetrieved;
+        Player loggedPlayer  = service.getLoggedPlayer();
+        LuckyGame lucky = service.gettingTheGame(id); // it must be here cause if the game does not exist, must return right here        
+        List<Player> players = lucky.getPlayers();
+        Boolean alreadyInTheGame = players.stream().anyMatch((x) -> x.equals(loggedPlayer));
+        
+        if(!alreadyInTheGame){
+            service.insertPlayerAndGame(lucky, loggedPlayer.getId());            
+            redirectAttributes.addFlashAttribute("message", "Tudo OK por aqui. Agora você está participando do jogo");
+            return "redirect:/lucky-game/"+lucky.getId()+"/player/";
+        }
+        else{
+            redirectAttributes.addFlashAttribute("message", "Você já estava participando do Jogo.");
+            return "redirect:/lucky-game/"+lucky.getId()+"/player/";                       
+        }
     }
+
 
     @GetMapping("/lucky-game/{gameId}/player/")
     public ModelAndView viewPlayerMatch(@PathVariable Long gameId, RedirectAttributes redirectAttributes){        
-        Player player = service.getLoggedUser(); // change to not delivery all data
+        Player player = service.getLoggedPlayer(); // change to not delivery all data
         
         final ModelAndView modelAndView = new ModelAndView();
 
         if (!service.alreadyPlayer(gameId, player.getId())){
-            modelAndView.setViewName("player-match-view-notAllowed");
-            modelAndView.addObject("player", player);            
+            redirectAttributes.addFlashAttribute("message", "Parece que você tentou acessar uma URL que não pertence a você. Use o Dashboard para uma navegação segura.");
+            return new ModelAndView("redirect:/dashboard/player/");
         }
         else {           
             LuckyGame luckyGame = service.gettingTheGame(gameId);
@@ -66,18 +68,17 @@ public class PlayerController {
             modelAndView.addObject("luckyGame", luckyGame);
             modelAndView.addObject("player", player);
             modelAndView.addObject("numbers", numbers);
-        }
-        return modelAndView;
+
+            return modelAndView;
+        }        
     }
 
-    @GetMapping("/dashboard/player/{id}")
-    public ModelAndView viewDashBoard(@PathVariable Long id){
+
+    @GetMapping("/dashboard/player/")
+    public ModelAndView viewDashBoard(){
         final ModelAndView modelAndView = new ModelAndView();
         
-        /* here - a logic to check if a player is looged
-        */
-
-        Player player = service.findById(id);
+        Player player = service.getLoggedPlayer();
         List<LuckyGame> games = player.getLuckyGames();
         List<LuckyGame> ownGames = player.getOwnerGames();
 
@@ -87,7 +88,5 @@ public class PlayerController {
         modelAndView.addObject("ownGames", ownGames);
 
         return modelAndView;
-    }
-
-    
+    }    
 }
