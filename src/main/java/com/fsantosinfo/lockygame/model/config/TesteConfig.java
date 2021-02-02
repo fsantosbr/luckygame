@@ -35,20 +35,20 @@ public class TesteConfig implements CommandLineRunner {
         // this method will run every time this class is used - Only for test
 
         // Creating players - No integration needed
-        Player p1 = new Player(null, "Fabio 1", "354841", "fsantosinfo1@gmail.com", "senha1", false);
-        Player p2 = new Player(null, "Fabio 2", "354842", "fsantosinfo2@gmail.com", "senha2", false);
-        Player p3 = new Player(null, "Fabio 3", "354843", "fsantosinfo3@gmail.com", "senha3", false);
-        Player p4 = new Player(null, "Fabio 4", "354844", "fsantosinfo4@gmail.com", "senha4", false);
-        Player p5 = new Player(null, "Fabio 5", "354845", "fsantosinfo5@gmail.com", "senha5", false);
+        Player p1 = new Player(null, "Fabio 1", "3333354841", "fsantosinfo1@gmail.com", "senha1", false);
+        Player p2 = new Player(null, "Fabio 2", "3333354842", "fsantosinfo2@gmail.com", "senha2", false);
+        Player p3 = new Player(null, "Fabio 3", "3333354843", "fsantosinfo3@gmail.com", "senha3", false);
+        Player p4 = new Player(null, "Fabio 4", "3333354844", "fsantosinfo4@gmail.com", "senha4", false);
+        Player p5 = new Player(null, "Fabio 5", "3333354845", "fsantosinfo5@gmail.com", "senha5", false);
         
         // Saving the players
         playerRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
 
         // Creating some games with the owners (that are players)
-        LuckyGame game1 = new LuckyGame(null, "Created On Repository 1", 2, Instant.now(), true, true, "void message", p1);
-        LuckyGame game2 = new LuckyGame(null, "Created On Repository 2", 1, Instant.now(), true, true, null, p2);
-        LuckyGame game3 = new LuckyGame(null, "Created On Repository 3", 3, Instant.now(), true, true, "3 - Entrem no jogo", p3);
-        LuckyGame game4 = new LuckyGame(null, "Created On Repository 4", 1, Instant.now(), true, true, null, p3);
+        LuckyGame game1 = new LuckyGame(null, "Created On Repository 1", 2, Instant.now(), true, true, "entre no jogo 1", p1);
+        LuckyGame game2 = new LuckyGame(null, "Created On Repository 2", 1, Instant.now(), true, true, "entre no jogo 2", p2);
+        LuckyGame game3 = new LuckyGame(null, "Created On Repository 3", 3, Instant.now(), true, true, "entre no jogo 3", p3);
+        LuckyGame game4 = new LuckyGame(null, "Created On Repository 4", 1, Instant.now(), true, true, "entre o jogo 4", p3);
 
         // Saving the games
         luckyGameRepository.saveAll(Arrays.asList(game1, game2, game3, game4));

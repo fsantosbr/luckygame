@@ -29,10 +29,7 @@ public class LuckyGameService {
     public void save(LuckyGame luckyGame) {
         luckyGame.setMomentCreated(Instant.now());
         luckyGame.setOpen(true);
-        luckyGame.setAlive(true);
-        if (luckyGame.getNumWinners() == null) {
-            luckyGame.setNumWinners(1);
-        }
+        luckyGame.setAlive(true);       
         repository.save(luckyGame);
     }
 
@@ -45,11 +42,6 @@ public class LuckyGameService {
         Long id = luckyGame.getId();
         repository.updateTitleGame(id, luckyGame.getTitle());
         repository.updateCommunicateGame(id, luckyGame.getCommunicateAll());
-
-        if (luckyGame.getNumWinners() == null) {
-            luckyGame.setNumWinners(1);
-        }
-
         repository.updateNumWinnersGame(id, luckyGame.getNumWinners());
     }    
 

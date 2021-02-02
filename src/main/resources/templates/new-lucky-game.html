@@ -21,7 +21,11 @@
 
         <input type="number" name="numWinners" th:field="*{numWinners}" th:placeholder="Número-de-Ganhadores" /> <br />
         <span th:if="${#fields.hasErrors('numWinners')}" th:errors="*{numWinners}">numWinner Error</span>
-        <br />        
+        <br />
+
+        <input type="text" name="communicateAll" th:field="*{communicateAll}" th:placeholder="Comunicado" /> <br />
+        <span th:if="${#fields.hasErrors('communicateAll')}" th:errors="*{communicateAll}">numWinner Error</span>
+        <br />
 
         <button type="submit">Criar Jogo</button>
     </form>

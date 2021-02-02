@@ -12,6 +12,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Player implements Serializable {
@@ -20,9 +24,17 @@ public class Player implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    @Size(min = 5, max = 30, message  = "O nome precisa ter entre 5 e 30 caracteres")
     private String name;
+    
+    @NotNull(message = "O campo CPF não pode estar em branco.")
     private String cpf;
+
+    @Email(message = "O email precisa ser válido")
     private String email;
+
+    @NotBlank
     private String password;
     private Boolean isAdmin;
 

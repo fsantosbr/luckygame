@@ -13,7 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class LuckyGame implements Serializable{
@@ -22,16 +23,19 @@ public class LuckyGame implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)    
     private Long id;
-
-    @NotBlank
+    
+    @Size(min = 5, max = 30, message  = "O nome precisa ter entre 5 e 30 caracteres")
     private String title;
 
+    @NotNull(message = "Precisa informar a quantidade de ganhadores permitidos")
     private Integer numWinners;
    
     private Instant momentCreated;
     private Boolean open;
     private Boolean alive; // if the value is false, the game can't be edit or lottery again - Change this value when run the sort
-    private String communicateAll; // to pass information when the game is not alive or others reasons
+    
+    @Size(min = 5, max = 100, message = "Comunicado precisa ser entre 5 e 100 caracteres")
+    private String communicateAll; // to pass information to all the players
 
     @ManyToOne
     @JoinColumn(name = "owner_id")

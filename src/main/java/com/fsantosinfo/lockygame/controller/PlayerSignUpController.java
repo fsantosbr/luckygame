@@ -1,5 +1,7 @@
 package com.fsantosinfo.lockygame.controller;
 
+import javax.validation.Valid;
+
 import com.fsantosinfo.lockygame.model.entities.Player;
 import com.fsantosinfo.lockygame.model.services.PlayerCredentialService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -34,13 +36,13 @@ public class PlayerSignUpController {
         modelAndView.setViewName("new-player");
 
         Player player = new Player();
-        modelAndView.addObject("newPlayer", player);
+        modelAndView.addObject("player", player);
         return modelAndView;
     }
 
 
     @PostMapping("/registering")
-    public String registerPlayer(@ModelAttribute Player player, BindingResult result, RedirectAttributes redirectAttributes){
+    public String registerPlayer(@Valid @ModelAttribute Player player, BindingResult result, RedirectAttributes redirectAttributes){
         if (result.hasErrors()){
             return "new-player";
         }
