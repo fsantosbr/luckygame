@@ -36,8 +36,9 @@
         </tr>
 
         <tr>
-            <th>Aberta:</th>
-            <td th:text="${oneGame.owner} ? 'SIM (Edite para alterar)' : 'NÃO (Não pode entrar mais)'"/>  
+            <th>Fechado:</th>
+            <td th:text="${oneGame.isClosed} ? 'SIM (Não pode entrar mais)' : 'NÃO (Edite para alterar)'"/> 
+           <td>Mude para "Fechado" para gerar os números da sorte de cada jogador.</td>           
         </tr>
 
         <tr th:if="${oneGame.communicateAll == null}">
@@ -61,15 +62,15 @@
 
         <tr>
             <th>Compartilhe este link para entrar no jogo: </th>
-            <td th:text="'localhost:8080/lucky-game/invite/' + ${oneGame.id}"> </td>
-        </tr>        
+            <td th:text="'localhost:8080/lucky-game/invite/' + ${oneGame.id}"> </td>           
+        </tr>
 
         <tr th:if="${oneGame.players.size == 0}">
             <td>Os jogadores vão Aparecer aqui</td>
         </tr>
         <tr th:unless="${oneGame.players.size == 0}">
         <tr th:each="game : ${oneGame.players}">
-            <td th:text="${game.name} + ${game.email}"> </td>
+            <td th:text="${game.name} + ' ' + ${game.email}"> </td>
 
         </tr>
         </tr>

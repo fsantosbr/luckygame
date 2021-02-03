@@ -31,7 +31,7 @@ public class LuckyGame implements Serializable{
     private Integer numWinners;
    
     private Instant momentCreated;
-    private Boolean open;
+    private Boolean isClosed;
     private Boolean alive; // if the value is false, the game can't be edit or lottery again - Change this value when run the sort
     
     @Size(min = 5, max = 100, message = "Comunicado precisa ser entre 5 e 100 caracteres")
@@ -52,12 +52,12 @@ public class LuckyGame implements Serializable{
     public LuckyGame() {        
     }  
     
-    public LuckyGame(Long id, String title, Integer numWinners, Instant momentCreated, Boolean open, Boolean alive, String communicateAll, Player owner) {
+    public LuckyGame(Long id, String title, Integer numWinners, Instant momentCreated, Boolean isClosed, Boolean alive, String communicateAll, Player owner) {
         this.id = id;
         this.title = title;
         this.numWinners = numWinners;
         this.momentCreated = momentCreated;
-        this.open = open;
+        this.isClosed = isClosed;
         this.alive = alive;
         this.communicateAll = communicateAll;
         this.owner = owner;
@@ -96,12 +96,12 @@ public class LuckyGame implements Serializable{
         this.momentCreated = momentCreated;
     }
 
-    public Boolean getOpen() {
-        return open;
+    public Boolean getIsClosed() {
+        return isClosed;
     }
 
-    public void setOpen(Boolean open) {
-        this.open = open;
+    public void setIsClosed(Boolean isClosed) {
+        this.isClosed = isClosed;
     }
 
     public Boolean getAlive() {

@@ -16,10 +16,10 @@
             
             <div style="border:3px solid red; width: 100%;" th:each="game : ${games}">
                 <div th:text="'Título: ' + ${game.title}"></div>
-                <div th:text="'Aberto: ' + ${game.open}"></div>
+                <div th:text="'Fechado: ' + ${game.isClosed}"></div>
                                 
                 <div>
-                    <a href="#" th:href="@{/v/lucky-game/}+${game.id}+'/player/'+${player.id}">Ver detalhes</a>
+                    <a href="#" th:href="@{/v/lucky-game/}+${game.id}+'/player/'">Ver detalhes</a>
                 </div>
             </div>
 

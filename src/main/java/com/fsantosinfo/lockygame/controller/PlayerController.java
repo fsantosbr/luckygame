@@ -41,16 +41,16 @@ public class PlayerController {
         if(!alreadyInTheGame){
             service.insertPlayerAndGame(lucky, loggedPlayer.getId());            
             redirectAttributes.addFlashAttribute("message", "Tudo OK por aqui. Agora você está participando do jogo");
-            return "redirect:/lucky-game/"+lucky.getId()+"/player/";
+            return "redirect:/v/lucky-game/"+lucky.getId()+"/player/";
         }
         else{
             redirectAttributes.addFlashAttribute("message", "Você já estava participando do Jogo.");
-            return "redirect:/lucky-game/"+lucky.getId()+"/player/";                       
+            return "redirect:/v/lucky-game/"+lucky.getId()+"/player/";                       
         }
     }
 
 
-    @GetMapping("/lucky-game/{gameId}/player/")
+    @GetMapping("/v/lucky-game/{gameId}/player/")
     public ModelAndView viewPlayerMatch(@PathVariable Long gameId, RedirectAttributes redirectAttributes){        
         Player player = service.getLoggedPlayer(); // change to not delivery all data
         

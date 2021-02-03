@@ -25,5 +25,10 @@ public interface LuckyGameRepository extends JpaRepository<LuckyGame, Long>{
     @Transactional
     void updateNumWinnersGame(@Param(value = "ID") Long id, @Param(value = "NUM_WINNERS") Integer numWinners);
 
+    @Modifying
+    @Query(value = "update lucky_game u set u.IS_CLOSED = :IS_CLOSED where u.ID = :ID", nativeQuery = true)    
+    @Transactional
+	void updateIsClosedGame(@Param(value = "ID") Long id, @Param(value = "IS_CLOSED") Boolean isClosed);
+
     
 }
