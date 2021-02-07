@@ -24,8 +24,13 @@ public class LuckyGameController {
     private LuckyGameService service;
 
     @GetMapping("/")
-    public String indexHome(){
-        return "index";
+    public ModelAndView indexHome(){        
+        
+        Player loggedPlayer  = service.getLoggedPlayer();
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("index");
+        modelAndView.addObject("loggedPlayer", loggedPlayer);
+        return modelAndView;
     }
 
     @GetMapping("/games")

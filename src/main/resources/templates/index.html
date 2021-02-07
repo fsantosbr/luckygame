@@ -1,28 +1,168 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8">
-        <title>Escolha o seu jogo</title>
-    </head>
-    <body>
-        <a href="#">VER SEUS JOGOS E GAMES</a>
+<head>
+    <meta charset="UTF-8">
+    <title> Home | Lucky Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">    
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-        <h1>Aqui você vai criar ou administrar seus jogos da sorte ou jogos de sorteios, se preferir.</h1>
+</head>
+<body>
 
+<!-- main container -->
+<div class="container mt-0 p-0 shadow-lg rounded-bottom">
 
-    
+    <!-- Div NavBar - Menu -->
+    <div class="container-fluid p-0 m-0">
+        <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+            <!-- Brand -->
+            <a class="navbar-brand" href="#" th:href="@{/}">Lucky Game</a>
 
-        <br>
-        <a href="#" th:href="@{/paleta/}">Ver todos os jogos disponíveis.</a>
+            <!-- Toggler/collapsibe Button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <h3>Jogos mais usados</h3>
+            <!-- Navbar links only for the collapsing links -->
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#" th:href="@{/}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" th:href="@{/dashboard/player}">DashBoard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contato</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Links that won't be collapsed -->
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="#" th:href="@{/login}"><i class="fa fa-sign-in"></i> Entrar</a></li>
+                <li class="nav-item"><a class="nav-link" href="#" th:href="@{/logout}"><i class="fa fa-sign-out"></i> Sair</a></li>
+                <li class="nav-item"><a class="nav-link" href="#" th:href="@{/signup}"><i class="fa fa-user-plus"></i> Criar Conta</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Div welcome name -->
+    <div th:unless="${loggedPlayer.name == 'anonymousUser'}" class="container-fluid pt-0 pb-0 m-0">
+        <p class="text-right m-0"><small th:text="'Olá ' + ${loggedPlayer.name}"></small></p>        
+    </div>
+
+    <!-- Div banner -->
+    <div class="container-fluid p-0 m-0">
+        <h1 class="text-center mb-2 mt-3">Lucky Game</h1>
+        <h4 class="text-center mb-3"><small>Crie e administre jogos</small></h4>        
+    </div>
+
+    <!-- sub Div only to manager the carousel and the favourite games Divs -->
+    <div class="row p-0 m-0">
+
+        <!-- Div Carousel -->
+        <div class="col-sm-4 p-0 m-0">
+            <div id="demo" class="carousel slide" data-ride="carousel">
+
+                <!-- Indicators -->
+                <ul class="carousel-indicators">
+                    <li data-target="#demo" data-slide-to="0" class="active"></li>
+                    <li data-target="#demo" data-slide-to="1"></li>
+                    <li data-target="#demo" data-slide-to="2"></li>
+                </ul>
+
+                <!-- The slideshow -->
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img class="img-thumbnail img-fluid" src="imgs/luckygame1.jpg" alt="Lucky Game">
+                        <div class="carousel-caption">
+                            <h3 class="text-body font-weight-bolder">Lucky Game</h3>
+                            <p class="text-dark font-weight-bolder">Crie jogos para gerar número da sorte para um ou mais jogadores.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img class="img-thumbnail img-fluid" src="imgs/luckygame1.jpg" alt="Lucky Game">
+                        <div class="carousel-caption">
+                            <h3 class="text-body font-weight-bolder">Lucky Game</h3>
+                            <p class="text-dark font-weight-bolder">Crie jogos para gerar número da sorte para um ou mais jogadores.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img class="img-thumbnail img-fluid" src="imgs/luckygame1.jpg" alt="Lucky Game">
+                        <div class="carousel-caption">
+                            <h3 class="text-body font-weight-bolder">Lucky Game</h3>
+                            <p class="text-dark font-weight-bolder">Crie jogos para gerar número da sorte para um ou mais jogadores.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Left and right controls -->
+                <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </a>
+                <a class="carousel-control-next" href="#demo" data-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Div link favourite games -->
+        <div class="col-sm-8 m-0 pt-1 pl-3">
+            <p class="lead">Jogo mais acessado</p>
+
+            <a class="text-decoration-none" href="#" th:href="@{/new-lucky-game}">Lucky Game - Aberto</a>
+
+            <p class="text-break">Crie um jogo onde os participantes recebem um número da sorte para concorrer o seu prêmio.</p>
+
+        </div>
+    </div>
+
+    <!-- Div link all games -->
+    <div class="container-fluid clearfix m-0">
+
+        <a class="text-decoration-none" href="#demo1" data-toggle="collapse">Ver todo os Jogos</a>
+        <div id="demo1" class="collapse collapsing">
+            <a class="text-decoration-none" href="#" th:href="@{/new-lucky-game}">
+                <h6>Lucky Game - Aberto</h6>
+            </a>
+            <p class="text-break">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+            <a href="#demo1" data-toggle="collapse">Fechar</a> <a class="text-decoration-none" href="#" th:href="@{/new-lucky-game}">
+            <h6>Lucky Game - Aberto</h6>
+        </a>
+            <p class="text-break">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+            <a href="#demo1" data-toggle="collapse">Fechar</a>
+
+        </div>
         
-        <a href="#" th:href="@{/new-lucky-game}">Lucky Game - Aberto</a>
-        <p>Neste jogo, você cria uma sala onde os participantes podem se inscreverem e receberem um número da sorte para concorrer o seu prêmio</p>
-        <p>ATENÇÃO: Neste jogo, quem tem o link de inscrição, pode entrar. Se não for o caso, procure os jogos semifechados</p>
+    </div>
 
-        <br>
-        <a href="#" th:href="@{/}">Home</a>
-    </body>
+    <div class="container-fluid">
+    </div>
+
+</div>
+</body>
 </html>

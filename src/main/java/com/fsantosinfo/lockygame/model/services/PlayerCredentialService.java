@@ -50,16 +50,22 @@ public class PlayerCredentialService implements UserDetailsService {
     }
 
     public Player getLoggedPlayer() {
+        Player player;
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username;
 		if(principal instanceof UserDetails){
 			username = ((UserDetails) principal).getUsername();
+
+            Optional<Player> playerOptional = playerRepository.findByEmail(username);
+            player = playerOptional.get();
 		}
 		else{
 			username = principal.toString();
+            player = new Player();
+            player.setName(username);
 		}
-        Optional<Player> player = playerRepository.findByEmail(username);       
-		return player.get();
+        
+        return player;
     }
     
     public String getLoggedEmailOwner() {

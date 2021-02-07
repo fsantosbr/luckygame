@@ -81,10 +81,9 @@ public class LuckyGameService {
         int min = 311111;
         int max = 911111;
 
-        // Creating a Set of numbers to make sure there's no repeated numbers
-        // Check later to avoid the random method to generate an existing number
-        Set<Integer> setNumbers = new HashSet<>();
-        for (int i = 0; i < players.size(); i++){
+        // Creating a Set of numbers to make sure there's no repeated numbers        
+        Set<Integer> setNumbers = new HashSet<>();        
+        while(players.size() != setNumbers.size()){
             int number = (int)(Math.random() * (max - min + 1) + min);
             setNumbers.add(number);
         }
