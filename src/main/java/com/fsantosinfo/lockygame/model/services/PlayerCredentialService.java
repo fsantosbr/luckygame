@@ -79,4 +79,21 @@ public class PlayerCredentialService implements UserDetailsService {
 		}
         return username;
 	}
+
+	public Boolean checkUsernameAndCPF(String email, String cpf) {
+		Boolean finalResult = false;
+
+        Optional<Player> playerByEmail = playerRepository.findByEmail(email);
+        Optional<Player> playerByCPF = playerRepository.findByCpf(cpf);
+        // NOTE: Implement the unique field in the DB. Without it, the field will have duplicate values and this querie will break
+        
+        if (!playerByEmail.isPresent()){
+            finalResult = true;
+            if(!playerByCPF.isPresent()){
+                finalResult = true;
+            }
+        }
+
+        return finalResult;
+	}
 }

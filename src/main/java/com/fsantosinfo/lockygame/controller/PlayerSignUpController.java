@@ -46,14 +46,23 @@ public class PlayerSignUpController {
         if (result.hasErrors()){
             return "new-player";
         }
-        String encryptedPassword = passwordEncoder.encode(player.getPassword());
-        player.setPassword(encryptedPassword);
-        player.setIsAdmin(false);
-        playerCredentialService.save(player);
+        String pageDirection = "";
+        Boolean usernameAndCPFAvailable = playerCredentialService.checkUsernameAndCPF(player.getEmail(), player.getCpf());
+        
+        if (usernameAndCPFAvailable){
+            String encryptedPassword = passwordEncoder.encode(player.getPassword());
+            player.setPassword(encryptedPassword);
+            player.setIsAdmin(false);
+            playerCredentialService.save(player);
+            redirectAttributes.addFlashAttribute("message", "Cadastro efetuado com Sucesso");
+            pageDirection = "redirect:dashboard/player/";
+        }
+        else {
+            redirectAttributes.addFlashAttribute("message", "CPF/Email já em uso.");
+            pageDirection = "redirect:signup";
+        }
 
-        redirectAttributes.addFlashAttribute("message", "Cadastro efetuado com Sucesso");
-        return "redirect:dashboard/player/";
-
+        return pageDirection;
     }
 
     @GetMapping("login")

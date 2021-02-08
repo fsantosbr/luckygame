@@ -1,43 +1,193 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
     <title>Cadastro de novo Jogador</title>
-</head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
 <body>
 
-<h1>Novo Jogador</h1>
+<!-- main container -->
+<div class="container mt-0 p-0 shadow-lg rounded-bottom">
 
-<form th:action="@{/registering}" th:object="${player}" method="post">
+    <!-- Div NavBar - Menu -->
+    <div class="container-fluid p-0 m-0">
+        <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+            <!-- Brand -->
+            <a class="navbar-brand" href="#" th:href="@{/}">Lucky Game</a>
+
+            <!-- Toggler/collapsibe Button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navbar links only for the collapsing links -->
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" th:href="@{/}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" th:href="@{/dashboard/player/}">DashBoard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contato</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Links that won't be collapsed -->
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="#" th:href="@{/logon}"><i class="fa fa-sign-in"></i> Entrar</a></li>
+                <li class="nav-item"><a class="nav-link" href="#" th:href="@{/logout}"><i class="fa fa-sign-out"></i> Sair</a></li>
+                <li class="nav-item active"><a class="nav-link" href="#" th:href="@{/signin}"><i class="fa fa-user-plus"></i> Criar Conta</a></li>
+            </ul>
+        </nav>
+    </div>
 
 
+    <!-- sub Div only to manager the forms and the alert -->
+    <div class="row p-0 m-0">
 
-    <input type="text" name="name" th:field="*{name}" th:placeholder="Nome"/><br/>
-    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Title Error</span>
-    <br/>
+        <!-- Div new player -->
+        <div class="col-sm-5 p-3 m-0">
 
-    <input type="text" name="cpf" th:field="*{cpf}" th:placeholder="CPF"/><br/>
-    <span th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}">Title Error</span>
-    <br/>
+            <h5 class="" style="text-align: center;">Novo Jogador</h5>
 
-    <input type="text" name="email" th:field="*{email}" th:placeholder="EMAIL"/><br/>
-    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Title Error</span>
-    <br/>
+            <!-- making space for the alert and not change the screen a lot -->
+            <div class="p-0 m-0" style="height:60px">
+                <!-- Div Field already | It'll will appear only if there is an error -->
+                <div th:if="${message}" class="alert alert-info alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong th:text="${message}"></strong>
+                </div>
+            </div>
 
-    <input type="password" name="password" th:field="*{password}" th:placeholder="SENHA"/> <br/>
-    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">numWinner Error</span>
-    <br/>
+            <!-- div form -->
+            <div class="p-2 m-0 shadow rounded-bottom">
+                <form th:action="@{/registering}" th:object="${player}" method="post" class="was-validated">
+                    
+                    <!-- Div for name imput-->
+                    <div class="input-group mb-3 input-group-sm">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Nome</span>
+                        </div>
+                        <input type="text" th:field="*{name}" class="form-control form-control-sm" placeholder="Informe seu nome" required>
+                        <div class="valid-feedback">                        
+                            <!-- This span is a defence from the backend -->
+                            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Title Error</span>
+                        </div>                                     
+                    </div>
 
-    <button type="submit">Cadastrar</button>
-</form>
+                    <!-- Div for CPF imput-->
+                    <div class="input-group mb-3 input-group-sm">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">CPF</span>
+                        </div>
+                        <input type="text" th:field="*{cpf}" class="form-control form-control-sm" placeholder="Informe seu CPF" name="cpfform" required>
+                        <div class="valid-feedback">                        
+                            <!-- This span is a defence from the backend -->
+                            <span th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}">Title Error</span>
+                        </div>                    
+                    </div>
+
+                    <!-- Div for Email imput-->
+                    <div class="input-group mb-3 input-group-sm">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Email</span>
+                        </div>
+                        <input type="email" th:field="*{email}" class="form-control form-control-sm" placeholder="Informe seu Email" name="email" required>
+                        <div class="valid-feedback">                        
+                            <!-- This span is a defence from the backend -->
+                            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Title Error</span>                        
+                        </div>                    
+                    </div>
+
+                    <!-- Div for password imput-->
+                    <div class="input-group mb-3 input-group-sm">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Senha</span>
+                        </div>
+                        <input type="password" th:field="*{password}" class="form-control form-control-sm" placeholder="Crie uma senha" name="pswd" required>
+                        <div class="valid-feedback">
+                            <!-- This span is a defence from the backend -->
+                            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">numWinner Error</span>
+                        </div>                   
+                    </div>
+
+                    <button type="submit" class="btn btn-secondary btn-block">Cadastrar</button>
+                </form>
+
+            </div>
+        </div>
+
+        <!-- Div for Logon -->
+        <div class="col m-0 pt-1 pl-3">
+
+            <!-- This div will shows only in big screen -->
+            <div class="d-md-block d-none d-sm-none" style="height:130px;">
+
+            </div>
+
+            <!-- Do you have an account? -->
+            <div class="p-2 m-0 float-md-right shadow rounded-bottom"  style="width:70%">
+
+            <h6>Já tem cadastro? Faça logon</h6>
+            <form th:action="@{/login}" method="post" class="needs-validation">
+
+                <!-- Div for Email imput - LOGON -->
+                <div class="input-group mb-3 input-group-sm">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Email</span>
+                    </div>
+                    <input type="email" class="form-control form-control-sm" placeholder="Email" name="username" required>
+                </div>
+
+                <!-- Div for password imput - LOGON -->
+                <div class="input-group mb-3 input-group-sm">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Senha</span>
+                    </div>
+                    <input type="password" class="form-control form-control-sm" placeholder="Insira sua senha" name="password" required>
+                </div>
+
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="checkbox" name="remember-me"> Remember-me                      
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-secondary btn-block">Entrar</button>
+            </form>
+            </div>
 
 
-<br>
+        </div>
+    </div>
 
-<a th:href="@{/games}">Visualizar todos jogos - Apenas de teste</a>
+    <div class="container-fluid">
 
+    </div>
+
+
+</div>
 </body>
-
 </html>
