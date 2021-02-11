@@ -14,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -28,6 +29,7 @@ public class LuckyGame implements Serializable{
     private String title;
 
     @NotNull(message = "Precisa informar a quantidade de ganhadores permitidos")
+    @Positive(message = "O número precisa ser positivo")
     private Integer numWinners;
    
     private Instant momentCreated;

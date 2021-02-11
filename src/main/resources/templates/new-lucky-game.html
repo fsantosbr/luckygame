@@ -1,42 +1,155 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
-    <title>Novo jogo</title>
+    <title>Novo Jogo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
-
 <body>
-    <p th:text="'Olá ' + ${loggedPlayer}" align="right"></p>
 
-    <h1>Novo jogo de número da sorte</h1>
-    
-    <form th:action="@{/addinggame}" th:object="${luckyGame}" method="post">        
-        <input type="hidden" name="owner" th:field="*{owner}"/>
-       
+<!-- main container -->
+<div class="container mt-0 p-0 shadow-lg rounded-bottom">
 
-        <input type="text" name="title" th:field="*{title}" th:placeholder="Título" /><br />
-        <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title Error</span>
-        <br />
+    <!-- Div NavBar - Menu -->
+    <div class="container-fluid p-0 m-0">
+        <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+            <!-- Brand -->
+            <a class="navbar-brand" href="#" th:href="@{/}">Lucky Game</a>
 
-        <input type="number" name="numWinners" th:field="*{numWinners}" th:placeholder="Número-de-Ganhadores" /> <br />
-        <span th:if="${#fields.hasErrors('numWinners')}" th:errors="*{numWinners}">numWinner Error</span>
-        <br />
+            <!-- Toggler/collapsibe Button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <input type="text" name="communicateAll" th:field="*{communicateAll}" th:placeholder="Comunicado" /> <br />
-        <span th:if="${#fields.hasErrors('communicateAll')}" th:errors="*{communicateAll}">numWinner Error</span>
-        <br />
+            <!-- Navbar links only for the collapsing links -->
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" th:href="@{/}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" th:href="@{/dashboard/player/}">DashBoard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contato</a>
+                    </li>
+                </ul>
+            </div>
 
-        <button type="submit">Criar Jogo</button>
-    </form>
-   
-    <h4 th:text="'Criador do Jogo: ' + ${luckyGame.owner.name}"></h4>
-    
+            <!-- Links that won't be collapsed -->
+            <ul class="navbar-nav">                
+                <li class="nav-item"><a class="nav-link" href="#" th:href="@{/logout}"><i class="fa fa-sign-out"></i> Sair</a></li>
+            </ul>
+        </nav>
+    </div>
 
-    <br>
+    <!-- Div welcome name -->
+    <div class="container-fluid pt-0 pb-0 m-0">
+        <p class="text-right m-0"><small th:text="'Olá ' + ${loggedPlayer}"></small></p>
+    </div>
 
-    <a th:href="@{/games}">Visualizar todos jogos - Apenas de teste</a>
+    <!-- sub Div only to manager the forms and the alert -->
+    <div class="row p-0 m-0">
 
+        <!-- Div new Game -->
+        <div class="col-md-5 p-3 m-0">
+           
+            <h5 style="text-align: center;"><span class="badge badge-secondary">Novo</span> jogo de número da sorte</h5>
+
+            <!-- div form -->
+            <div class="p-2 m-0 shadow rounded-bottom">
+                <form th:action="@{/addinggame}" th:object="${luckyGame}" method="post" class="was-validated">
+                    <input type="hidden" name="owner" th:field="*{owner}"/>
+
+                    <!-- Div for title imput-->
+                    <div class="input-group mb-3 input-group-sm">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Título</span>
+                        </div>
+                        <input type="text" th:field="*{title}" class="form-control form-control-sm" placeholder="Informe um título para o jogo" required>
+                        <div class="valid-feedback">
+                            <!-- This span is a defence from the backend -->
+                            <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title Error</span>
+                        </div>
+                    </div>
+
+                    <!-- Div for Number of Winners imput -->
+                    <div class="input-group mb-3 input-group-sm">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Ganhadores</span>
+                        </div>
+                        <input type="number" th:field="*{numWinners}" class="form-control form-control-sm" placeholder="Informe o número de ganhadores" name="cpfform" required>
+                        <div class="valid-feedback">
+                            <!-- This span is a defence from the backend -->
+                            <span th:if="${#fields.hasErrors('numWinners')}" th:errors="*{numWinners}">numWinners error</span>
+                        </div>
+                    </div>
+
+                    <!-- Div for comment-->
+                    <div class="input-group mb-3 input-group-sm">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Comentário</span>
+                        </div>
+                        <input type="text" th:field="*{communicateAll}" class="form-control form-control-sm" placeholder="Breve comentário" required>
+                        <div class="valid-feedback">
+                            <!-- This span is a defence from the backend -->
+                            <span th:if="${#fields.hasErrors('communicateAll')}" th:errors="*{communicateAll}">Comment Error</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-secondary btn-block">Criar Jogo</button>
+                </form>
+
+            </div>
+        </div>
+
+        <!-- Div for information about the game -->
+        <div class="col m-0 pt-1 pl-3">
+
+            <!-- This div will shows only in big screen -->
+            <div class="d-md-block d-none d-sm-none" style="height:20px;">
+
+            </div>
+
+            <div class="p-2 m-0 shadow rounded-bottom">
+               <h6>Título do Jogo</h6>
+                <p class="">Procure usar um nome/título que pode facilitar os jogadores a entender do que se trata o jogo.</p>
+            </div>
+            <div class="p-2 m-0 shadow rounded-bottom">
+                <h6>Número de ganhadores</h6>
+                <p>O jogo pode ter vários ganhadores já cetados aqui. Mas fique tranquilo, esse campo pode ser editado depois.</p>
+            </div>
+            <div class="p-2 m-0 mb-3 shadow rounded-bottom">
+                <h6>Comentário</h6>
+                <p>Em poucas palavras. Passe um recado para os jogadores.</p>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container-fluid">
+
+    </div>
+
+
+</div>
 </body>
-
 </html>
