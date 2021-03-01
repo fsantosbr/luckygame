@@ -77,10 +77,12 @@ public class LuckyGameController {
 
         LuckyGame lucky = service.findById(id);      
         Player player = service.getLoggedPlayer();
+        String playerName = player.getName();
 
         if(lucky.getOwner().getEmail().equals(player.getEmail())){
             modelAndView.setViewName("lucky-game-view");
             modelAndView.addObject("oneGame", lucky);
+            modelAndView.addObject("loggedPlayer", playerName);
             return modelAndView;
         }
         else{

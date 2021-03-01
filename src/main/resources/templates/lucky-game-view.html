@@ -1,96 +1,262 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
     <title th:text="${oneGame.title} + ' - Visualizar Jogo'"> Visualizar Jogo </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
-
 <body>
-    <p th:text="'Olá ' + ${oneGame.owner.name}" align="right"></p>
 
-    <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}" />
+<!-- main container -->
+<div class="container mt-0 p-0 shadow-lg rounded-bottom">
 
-    <h2 th:text="${oneGame.title}"></h2>
+    <!-- Div NavBar - Menu -->
+    <div class="container-fluid p-0 m-0">
+        <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+            <!-- Brand -->
+            <a class="navbar-brand" href="#" th:href="@{/}">Lucky Game</a>
 
-    <table>
+            <!-- Toggler/collapsibe Button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <tr>
-            <th>Título do Jogo:</th>
-            <td th:text="${oneGame.title}"> </td>
-        </tr>
+            <!-- Navbar links only for the collapsing links -->
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" th:href="@{/}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" th:href="@{/dashboard/player/}">DashBoard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contato</a>
+                    </li>
+                </ul>
+            </div>
 
-        <tr>
-            <th>Identificador:</th>
-            <td th:text="${oneGame.id}"> </td>
-        </tr>
+            <!-- Links that won't be collapsed -->
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="#" th:href="@{/logout}"><i class="fa fa-sign-out"></i> Sair</a></li>
+            </ul>
+        </nav>
+    </div>
 
-        <tr>
-            <th>Data Criação</th>
-            <td th:text="${oneGame.momentCreated}"> </td>
-        </tr>
+    <!-- Div welcome name -->
+    <div class="container-fluid pt-0 pb-0 m-0" style="border:solid red 1px;">
+        <p class="text-right m-0"><small th:text="'Olá ' + ${loggedPlayer}"></small></p>
+    </div>
 
-        <tr>
-            <th>Criador:</th>
-            <td th:text="${oneGame.owner}"> </td>
-        </tr>
+    <!-- Div row to separate two sub divs  -->
+    <div class="row p-0 m-0">        
 
-        <tr>
-            <th>Fechado:</th>
-            <td th:text="${oneGame.isClosed} ? 'SIM (Não pode entrar mais)' : 'NÃO (Edite para alterar)'"/> 
-           <td>Mude para "Fechado" para gerar os números da sorte de cada jogador.</td>           
-        </tr>
+        <!-- sub div - Div for all game details -->
+        <div class="col-md-6 p-2 m-0">
 
-        <tr th:if="${oneGame.communicateAll == null}">
-            <th>Comentário para os jogadores:</th>
-            <td>Nenhum comentário ainda!</td>
-        </tr>
-        <tr th:unless="${oneGame.communicateAll == null}">
-            <th>Comentário para os jogadores:</th>
-            <td th:text="${oneGame.communicateAll}"> </td>
-        </tr>
+            <h5 style="text-align: center;"><span class="badge badge-secondary">Visualização </span> do jogo</h5>
 
-        <tr>
-            <th>Quantidade ganhadores programados:</th>
-            <td th:text="${oneGame.numWinners}"> </td>
-        </tr>
+            <!-- making space for the alert and not change the screen a lot -->
+            <div class= "container-fluid p-1 m-0" style="height:55px">
+                <!-- Div Field already | It'll will appear only if there is an error -->
+                <div th:if="${message}" class="alert alert-info alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong th:text="${message}">a</strong>
+                </div>
+            </div>
 
-        <tr>
-            <th>Quantidade Jogadores cadastrados:</th>
-            <td th:text="${oneGame.players.size}"> </td>
-        </tr>
+            <!-- div each game detail - num winners and players subscribed-->
+            <div class="d-flex flex-wrap justify-content-around p-1 mb-0">
+                <div>
+                    <p>Ganhadores programados: <span th:text="${oneGame.numWinners}" class="badge badge-secondary badge-pill"></span></p>
+                </div>
+                <div>
+                    <p>Jogadores: <span th:text="${oneGame.players.size}" class="badge badge-secondary badge-pill"></span></p>
+                </div>
+            </div>
 
-        <tr>
-            <th>Compartilhe este link para entrar no jogo: </th>
-            <td th:text="'localhost:8080/lucky-game/invite/' + ${oneGame.id}"> </td>           
-        </tr>
+            <!-- div each game detail - title -->
+            <div class="d-flex flex-wrap p-1 mb-0">
+                <div class="shadow rounded-bottom" style="width:150px">
+                    <span class="input-group-text" style=""><b>Título do Jogo:</b></span>
+                </div>
+                <div class="shadow rounded-bottom" style="width:300px">
+                    <span th:text="${oneGame.title}" class="input-group-text"></span>
+                </div>
+            </div>
 
-        <tr th:if="${oneGame.players.size == 0}">
-            <td>Os jogadores vão Aparecer aqui</td>
-        </tr>
-        <tr th:unless="${oneGame.players.size == 0}">
-        <tr th:each="game : ${oneGame.players}">
-            <td th:text="${game.name} + ' ' + ${game.email}"> </td>
+            <!-- div each game detail - isClosed -->
+            <div class="d-flex flex-wrap p-1 mb-0">
+                <div class="shadow rounded-bottom" style="width:150px">
+                    <span class="input-group-text"><b>Jogo fechado?</b></span>
+                </div>
+                <div class="shadow rounded-bottom" style="width:300px">
+                    <span class="input-group-text" th:text="${oneGame.isClosed} ? 'Sim (Não pode entrar mais)' : 'Não'"></span>
+                </div>
+            </div>
 
-        </tr>
-        </tr>
+            <!-- div each game detail - open  ADD VALUER FROM DB IN A FUTURE RELEASE-->
+            <div class="d-flex flex-wrap p-1 mb-0">
+                <div class="shadow rounded-bottom" style="width:150px">
+                    <span class="input-group-text"><b>Jogo aberto?</b></span>
+                </div>
+                <div class="shadow rounded-bottom" style="width:300px">
+                    <span class="input-group-text">Não</span>
+                </div>
+            </div>
 
+        </div>
 
-    </table>
+        <!-- sub div - Div for information about the game -->
+        <div class="col m-0 p-2">
 
-    <form method="get" action="/logout">
-        <button type="submit">Sair</button>
-    </form>
+            <!-- div each game detail - link -->
+            <div class="d-flex flex-wrap p-1 mb-0">
+                <div class="shadow rounded-bottom" style="width:70px">
+                    <span class="input-group-text"><b>Link:</b></span>
+                </div>
+                <div class="shadow rounded-bottom" style="width:400px">
+                    <a th:href="'http://localhost:8080/lucky-game/invite/' + ${oneGame.id}">
+                    <span th:text="'http://localhost:8080/lucky-game/invite/' + ${oneGame.id}" class="input-group-text"></span>
+                        </a>   
+                </div>
+            </div>
 
-    <br>
+            <!-- This div contain an accordion to hide some information/details about the game that is not common -->
+            <div id="accordion">
+                <div class="card">
+                    <div class="card-header">
+                        <a class="card-link" data-toggle="collapse" href="#collapseOne">
+                            Dados sobre criação
+                        </a>
+                    </div>
+                    <div id="collapseOne" class="collapse" data-parent="#accordion">
+                        <div class="card-body p-0 m-0">
 
-    <a href="#" th:href="@{/}">Home</a>
-    <a href="#" th:href="@{/new-lucky-game}">Novo Jogo</a>
-    <a href="#" th:href="@{/lucky-game/edit/}+${oneGame.id}">Editar</a>
+                            <!-- div each game detail - id -->
+                            <div class="d-flex flex-wrap p-1 mb-0">
+                                <div class="shadow rounded-bottom" style="width:150px">
+                                    <span class="input-group-text"><b>Identificador:</b></span>
+                                </div>
+                                <div class="shadow rounded-bottom" style="width:300px">
+                                    <span th:text="${oneGame.id}" class="input-group-text"></span>
+                                </div>
+                            </div>
 
+                            <!-- div each game detail - date -->
+                            <div class="d-flex flex-wrap p-1 mb-0">
+                                <div class="shadow rounded-bottom" style="width:150px">
+                                    <span class="input-group-text"><b>Data criação:</b></span>
+                                </div>
+                                <div class="shadow rounded-bottom" style="width:300px">
+                                    <span th:text="${oneGame.momentCreated}" class="input-group-text"></span>
+                                </div>
+                            </div>
 
+                            <!-- div each game detail - owner -->
+                            <div class="d-flex flex-wrap p-1 mb-0">
+                                <div class="shadow rounded-bottom" style="width:150px">
+                                    <span class="input-group-text"><b>Criador:</b></span>
+                                </div>
+                                <div class="shadow rounded-bottom" style="width:300px">
+                                    <span th:text="${oneGame.owner}" class="input-group-text"></span>
+                                </div>
+                            </div>
 
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
+                            Comentário para os jogadores
+                        </a>
+                    </div>
+                    <div id="collapseTwo" class="collapse" data-parent="#accordion">
+                        <div class="card-body p-0 m-0">
+
+                            <div class="d-flex flex-wrap p-1 mb-0">
+                                <p th:text="${oneGame.communicateAll}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Div containing the collapsing link to all players -->
+    <div class="p-1 m-0" style="">
+        <a style="" class="text-decoration-none" href="#demo1" data-toggle="collapse">Ver jogadores cadastrados</a>
+
+        <!-- table-responsive - make a scroll bar when it's too many fields -->
+        <div id="demo1" class="collapse collapsing table-responsive-sm p-0 m-0">
+
+            <!-- Div containing the search -->
+            <div class="container-fluid m-0 pt-1 pb-1">
+                <input style="width:100%" class="form-control m-0 p-0" id="myInput" type="text" placeholder="Search..">
+            </div>
+
+            <table class="table table-sm table-hover">
+                <thead class="thead-light">
+                <tr style="">
+                    <th style="">Nome</th>
+                    <th>Email</th>
+
+                </tr>
+                </thead>
+                <tbody id="myTable">
+                <!-- The table will update only if there's players -->
+                <tr th:unless="${oneGame.players.size == 0}">
+                <tr th:each="game : ${oneGame.players}">
+                    <td class="text-break" th:text="${game.name}"></td>
+                    <td class="text-break" th:text="${game.email}"></td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+    <div class="container-fluid">
+
+    </div>
+
+</div>
+
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
 
 </body>
-
 </html>
