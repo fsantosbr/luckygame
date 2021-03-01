@@ -1,6 +1,6 @@
 package com.fsantosinfo.lockygame.model.services;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -34,9 +34,10 @@ public class LuckyGameService {
     }
 
     public void save(LuckyGame luckyGame) {
-        luckyGame.setMomentCreated(Instant.now());
-        luckyGame.setIsClosed(false);
-        luckyGame.setAlive(true);
+        luckyGame.setMomentCreated(LocalDateTime.now());
+        luckyGame.setPublished(false);
+        luckyGame.setHasQuiz(false);
+        luckyGame.setAlive(true); 
         repository.save(luckyGame);
     }
 
@@ -51,26 +52,10 @@ public class LuckyGameService {
         Long id = luckyGame.getId();
         repository.updateTitleGame(id, luckyGame.getTitle());
         repository.updateCommunicateGame(id, luckyGame.getCommunicateAll());
-        repository.updateNumWinnersGame(id, luckyGame.getNumWinners());
-       
-        // if it returns true = update
-        Boolean updateOrNot = updateIsClosedOrNot(id, luckyGame.getIsClosed());
-        if (updateOrNot){
-            repository.updateIsClosedGame(id, luckyGame.getIsClosed());
-            gererateTheNumbers(id);
-        }
-    }
-
-    // The rule is: By clicking on close game, that won't be undone.
-	private Boolean updateIsClosedOrNot(Long id, Boolean isClosed) {
-        LuckyGame savedGame = findById(id);
+        repository.updateNumWinnersGame(id, luckyGame.getNumWinners());       
         
-        Boolean updateOrNot = false;        
-        if (savedGame.getIsClosed() == false && isClosed == true){
-            updateOrNot = true;
-        }       
-        return updateOrNot; 
     }
+   
 
     private void gererateTheNumbers(Long id) {
         // Taking the players

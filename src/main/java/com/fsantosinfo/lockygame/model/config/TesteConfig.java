@@ -1,6 +1,6 @@
 package com.fsantosinfo.lockygame.model.config;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 import com.fsantosinfo.lockygame.model.entities.LuckyGame;
@@ -45,10 +45,11 @@ public class TesteConfig implements CommandLineRunner {
         playerRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
 
         // Creating some games with the owners (that are players)
-        LuckyGame game1 = new LuckyGame(null, "Created On Repository 1", 2, Instant.now(), false, true, "entre no jogo 1", p1);
-        LuckyGame game2 = new LuckyGame(null, "Created On Repository 2", 1, Instant.now(), false, true, "entre no jogo 2", p2);
-        LuckyGame game3 = new LuckyGame(null, "Created On Repository 3", 3, Instant.now(), false, true, "entre no jogo 3", p3);
-        LuckyGame game4 = new LuckyGame(null, "Created On Repository 4", 1, Instant.now(), false, true, "entre o jogo 4", p3);
+        LocalDateTime local = LocalDateTime.now().plusDays(1);
+        LuckyGame game1 = new LuckyGame(null, false, "Created On Repository 1", 2, LocalDateTime.now(), local,true,true, "entre no jogo 1", p1);
+        LuckyGame game2 = new LuckyGame(null, false, "Created On Repository 2", 1, LocalDateTime.now(), local, false, true, "entre no jogo 2", p2);
+        LuckyGame game3 = new LuckyGame(null, false, "Created On Repository 3", 3, LocalDateTime.now(), local, true, true, "entre no jogo 3", p3);
+        LuckyGame game4 = new LuckyGame(null, false, "Created On Repository 4", 1, LocalDateTime.now(), local,false,true, "entre o jogo 4", p3);
 
         // Saving the games
         luckyGameRepository.saveAll(Arrays.asList(game1, game2, game3, game4));

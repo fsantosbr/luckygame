@@ -16,7 +16,7 @@
             
             <div style="border:3px solid red; width: 100%;" th:each="game : ${games}">
                 <div th:text="'Título: ' + ${game.title}"></div>
-                <div th:text="'Fechado: ' + ${game.isClosed}"></div>
+                <div>informe here the status of this game </div>
                                 
                 <div>
                     <a href="#" th:href="@{/v/lucky-game/}+${game.id}+'/player/'">Ver detalhes</a>

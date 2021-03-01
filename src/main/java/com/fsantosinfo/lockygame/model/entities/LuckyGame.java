@@ -1,7 +1,7 @@
 package com.fsantosinfo.lockygame.model.entities;
 
 import java.io.Serializable;
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,9 +13,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class LuckyGame implements Serializable{
@@ -24,6 +27,8 @@ public class LuckyGame implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)    
     private Long id;
+
+    private Boolean published;
     
     @Size(min = 5, max = 30, message  = "O nome precisa ter entre 5 e 30 caracteres")
     private String title;
@@ -32,8 +37,14 @@ public class LuckyGame implements Serializable{
     @Positive(message = "O número precisa ser positivo")
     private Integer numWinners;
    
-    private Instant momentCreated;
-    private Boolean isClosed;
+    private LocalDateTime momentCreated;
+
+    @Future
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private LocalDateTime closingDate;
+
+    private Boolean hasQuiz;
+   
     private Boolean alive; // if the value is false, the game can't be edit or lottery again - Change this value when run the sort
     
     @Size(min = 5, max = 100, message = "Comunicado precisa ser entre 5 e 100 caracteres")
@@ -41,7 +52,7 @@ public class LuckyGame implements Serializable{
 
     @ManyToOne
     @JoinColumn(name = "owner_id")
-    private Player owner; //game has one ower in player
+    private Player owner; //game has one ower from player
     
     // insert jsonIgnore here when we'll work with API
     @ManyToMany(mappedBy = "luckyGames")
@@ -54,12 +65,14 @@ public class LuckyGame implements Serializable{
     public LuckyGame() {        
     }  
     
-    public LuckyGame(Long id, String title, Integer numWinners, Instant momentCreated, Boolean isClosed, Boolean alive, String communicateAll, Player owner) {
+    public LuckyGame(Long id, Boolean published, String title, Integer numWinners, LocalDateTime momentCreated, LocalDateTime closingDate, Boolean hasQuiz, Boolean alive, String communicateAll, Player owner) {
         this.id = id;
+        this.published = published;
         this.title = title;
         this.numWinners = numWinners;
-        this.momentCreated = momentCreated;
-        this.isClosed = isClosed;
+        this.momentCreated = momentCreated; 
+        this.closingDate = closingDate;
+        this.hasQuiz = hasQuiz;
         this.alive = alive;
         this.communicateAll = communicateAll;
         this.owner = owner;
@@ -72,6 +85,14 @@ public class LuckyGame implements Serializable{
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Boolean getPublished() {
+        return published;
+    }
+
+    public void setPublished(Boolean published) {
+        this.published = published;
     }
 
     public String getTitle() {
@@ -90,20 +111,28 @@ public class LuckyGame implements Serializable{
         this.numWinners = numWinners;
     }   
 
-    public Instant getMomentCreated() {
+    public LocalDateTime getMomentCreated() {
         return momentCreated;
     }
 
-    public void setMomentCreated(Instant momentCreated) {
+    public void setMomentCreated(LocalDateTime momentCreated) {
         this.momentCreated = momentCreated;
     }
 
-    public Boolean getIsClosed() {
-        return isClosed;
+    public LocalDateTime getClosingDate() {
+        return closingDate;
     }
 
-    public void setIsClosed(Boolean isClosed) {
-        this.isClosed = isClosed;
+    public void setClosingDate(LocalDateTime closingDate) {
+        this.closingDate = closingDate;
+    }
+
+    public Boolean getHasQuiz() {
+        return hasQuiz;
+    }
+
+    public void setHasQuiz(Boolean hasQuiz) {
+        this.hasQuiz = hasQuiz;
     }
 
     public Boolean getAlive() {
@@ -138,16 +167,17 @@ public class LuckyGame implements Serializable{
         return playerLuckyNumbers;
     }
 
+    
+
 
     // Methods of this class   
 
     /*
-        OBS: if we create a method to add players to the list, It won't work on database.
-        For this case, we must use queries to update the database.
+        OBS: if we create a method to add players to the list, It won't work on database.        
     */
  
 
-    // Overrided methods
+    // Overrided methods 
 
 
     @Override
@@ -174,5 +204,6 @@ public class LuckyGame implements Serializable{
             return false;
         return true;
     }
+    
    
 }

@@ -60,14 +60,15 @@ public class LuckyGameController {
 
 
     @PostMapping("/addinggame")
-    public String createLuckyGame(@Valid @ModelAttribute LuckyGame luckyGame, BindingResult result, RedirectAttributes redirectAttributes){
+    public ModelAndView createLuckyGame(@Valid @ModelAttribute LuckyGame luckyGame, BindingResult result, RedirectAttributes redirectAttributes){
         if (result.hasErrors()){
-            return "new-lucky-game";
+            return new ModelAndView("new-lucky-game").addObject("loggedPlayer", luckyGame.getOwner().getFirstName());           
         }
+
         service.save(luckyGame);
 
-        redirectAttributes.addFlashAttribute("message", "Game criado com sucesso");
-        return "redirect:lucky-game/view/"+luckyGame.getId();
+        redirectAttributes.addFlashAttribute("message", "Game criado com sucesso");        
+        return new ModelAndView("redirect:lucky-game/view/"+luckyGame.getId());
     }
 
 

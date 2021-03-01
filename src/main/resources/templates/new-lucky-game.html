@@ -91,6 +91,78 @@
                         </div>
                     </div>
 
+                    <!-- Div for closingDate input on SUPPORTED browsers  -->
+                    <div class="nativeDateTimePicker input-group mb-3 input-group-sm">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Data limite</span>
+                        </div>
+                        <input type="datetime-local" th:field="*{closingDate}" class="form-control form-control-sm" placeholder="Informe a data para encerrar as inscrições" required>
+                        <div class="valid-feedback">
+                            <!-- This span is a defence from the backend -->
+                            <span th:if="${#fields.hasErrors('closingDate')}" th:errors="*{closingDate}">ClosingDate Error</span>
+                        </div>
+                    </div>
+
+
+                     <!-- Div for closingDate input on NOT SUPPORTED browsers  -->
+                     <div class="fallbackDateTimePicker input-group mb-3 input-group-sm">
+                        <div class="container-fluid p-0 m-0">
+                            <span class="input-group-text"><p class="fallbackLabel m-0 p-0" style="font-size: .875rem;">Escolha uma data (futura) limite:</p></span>
+                        </div>
+
+                        <input type="hidden" th:field="*{closingDate}" name="closingDate" id="closingDate" required/>
+
+                        <div class="mt-1 p-0 d-flex justify-content-around">
+                            <div class="p-0 m-0 ml-1">
+                                <label class="p-0 m-0" for="day"><small>Dia:</small></label>
+                                <select class="shadow rounded-bottom" id="day" name="day">
+                                </select>
+                            </div>
+
+                            <div class="p-0 m-0">
+                                <label class="p-0 m-0" for="month"><small>Mês:</small></label>
+                                <select class="shadow rounded-bottom" id="month" name="month">
+                                    <option>01</option>
+                                    <option>02</option>
+                                    <option>03</option>
+                                    <option>04</option>
+                                    <option>05</option>
+                                    <option>06</option>
+                                    <option>07</option>
+                                    <option>08</option>
+                                    <option>09</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                </select>
+                            </div>
+
+                            <div class="p-0 m-0">
+                                <label class="p-0 m-0" for="year"><small>Ano:</small></label>
+                                <select class="shadow rounded-bottom" id="year" name="year">
+                                </select>
+                            </div>
+
+                            <div class="p-0 m-0">
+                                <label class="p-0 m-0" for="hour"><small>Hora:</small></label>
+                                <select class="shadow rounded-bottom" id="hour" name="hour">
+                                </select>
+                            </div>
+
+                            <div class="p-0 m-0">
+                                <label class="p-0 m-0" for="minute"><small>Minuto:</small></label>
+                                <select class="shadow rounded-bottom" id="minute" name="minute">
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="valid-feedback">
+                            <!-- This span is a defence from the backend -->
+                            <span th:if="${#fields.hasErrors('closingDate')}" th:errors="*{closingDate}">ClosingDate Error</span>
+                        </div>
+                    </div>
+
+
                     <!-- Div for Number of Winners imput -->
                     <div class="input-group mb-3 input-group-sm">
                         <div class="input-group-prepend">
@@ -151,5 +223,17 @@
 
 
 </div>
+
+
+<!-- The following script was publishED by Mozilla.org.
+    It hideS the input datetime-local from a non supported browser and offer something else.
+    https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local
+    I made some modification.
+ -->
+ <script type="text/javascript" src="/js/newgame-date-notsupportedbrowsers.js"></script>
+<script type="application/javascript">
+   
+
+</script>
 </body>
 </html>

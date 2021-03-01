@@ -67,7 +67,7 @@
     </div>
 
     <!-- Div row to separate two sub divs  -->
-    <div class="row p-0 m-0">        
+    <div class="row p-0 m-0">
 
         <!-- sub div - Div for all game details -->
         <div class="col-md-6 p-2 m-0">
@@ -103,15 +103,16 @@
                 </div>
             </div>
 
-            <!-- div each game detail - isClosed -->
+            <!-- div each game detail - closingDate -->
             <div class="d-flex flex-wrap p-1 mb-0">
                 <div class="shadow rounded-bottom" style="width:150px">
-                    <span class="input-group-text"><b>Jogo fechado?</b></span>
+                    <span class="input-group-text" style=""><b>Data fechamento:</b></span>
                 </div>
                 <div class="shadow rounded-bottom" style="width:300px">
-                    <span class="input-group-text" th:text="${oneGame.isClosed} ? 'Sim (Não pode entrar mais)' : 'Não'"></span>
+                    <span th:text="${oneGame.closingDate}" class="input-group-text"></span>
                 </div>
             </div>
+           
 
             <!-- div each game detail - open  ADD VALUER FROM DB IN A FUTURE RELEASE-->
             <div class="d-flex flex-wrap p-1 mb-0">
@@ -219,6 +220,7 @@
                 <input style="width:100%" class="form-control m-0 p-0" id="myInput" type="text" placeholder="Search..">
             </div>
 
+            <!-- Div table containing the players from this game -->
             <table class="table table-sm table-hover">
                 <thead class="thead-light">
                 <tr style="">
@@ -247,15 +249,16 @@
 
 </div>
 
+<!-- This Script will search the table with players -->
 <script>
-$(document).ready(function(){
-  $("#myInput").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
     });
-  });
-});
 </script>
 
 </body>
