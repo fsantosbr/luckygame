@@ -7,11 +7,11 @@
 </head>
 
 <body>
-    <p th:text="'Olá ' + ${luckyGame.owner.name}" align="right"></p>
+    <p th:text="'Olá ' + ${luckyGame.owner.firstName}" align="right"></p>
 
     <h1>Edição de Jogo</h1>
     <h4 th:text="'Atual título: ' + ${luckyGame.title}"> </h4>
-    <h4 th:text="'Criador (Não pode ser modificado): ' + ${luckyGame.owner.name}"> </h4>
+    <h4 th:text="'Criador (Não pode ser modificado): ' + ${luckyGame.owner.firstName}"> </h4>
 
 
     <form th:action="@{/changinggame}" th:object="${luckyGame}" th:method="post">

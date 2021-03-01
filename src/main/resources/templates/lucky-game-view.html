@@ -231,7 +231,7 @@
                 <!-- The table will update only if there's players -->
                 <tr th:unless="${oneGame.players.size == 0}">
                 <tr th:each="game : ${oneGame.players}">
-                    <td class="text-break" th:text="${game.name}"></td>
+                    <td class="text-break" th:text="${game.firstName}"></td>
                     <td class="text-break" th:text="${game.email}"></td>
                 </tr>
                 </tbody>

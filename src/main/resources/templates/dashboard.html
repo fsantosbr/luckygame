@@ -3,13 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
-    <title th:text="${player.name} + ' - DashBoard'"> Visualizar Jogo </title>
+    <title th:text="${player.firstName} + ' - DashBoard'"> Visualizar Jogo </title>
 </head>
 
 <body>
     <div style="width: 1000px;">
         <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}" />
-        <p th:text="'Olá ' + ${player.name}" align="right"></p>
+        <p th:text="'Olá ' + ${player.firstName}" align="right"></p>
 
         <div style="text-align:left; border:3px dotted #9F0; float:left; width: 30%">
             <p>Você está participando destes jogos</p>

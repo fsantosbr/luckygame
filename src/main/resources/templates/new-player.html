@@ -90,11 +90,23 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">Nome</span>
                         </div>
-                        <input type="text" th:field="*{name}" class="form-control form-control-sm" placeholder="Informe seu nome" required>
+                        <input type="text" th:field="*{firstName}" class="form-control form-control-sm" placeholder="Informe seu nome" required>
                         <div class="valid-feedback">                        
                             <!-- This span is a defence from the backend -->
-                            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Title Error</span>
+                            <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Title Error</span>
                         </div>                                     
+                    </div>
+
+                    <!-- Div for Surname imput-->
+                    <div class="input-group mb-3 input-group-sm">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Sobrenome</span>
+                        </div>
+                        <input type="text" th:field="*{surname}" class="form-control form-control-sm" placeholder="Informe seu sobrenome" required>
+                        <div class="valid-feedback">
+                            <!-- This span is a defence from the backend -->
+                            <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">surname Error</span>
+                        </div>
                     </div>
 
                     <!-- Div for CPF imput-->

@@ -63,8 +63,8 @@
     </div>
 
     <!-- Div welcome name -->
-    <div th:unless="${loggedPlayer.name == 'anonymousUser'}" class="container-fluid pt-0 pb-0 m-0">
-        <p class="text-right m-0"><small th:text="'Olá ' + ${loggedPlayer.name}"></small></p>        
+    <div th:unless="${loggedPlayer.firstName == 'anonymousUser'}" class="container-fluid pt-0 pb-0 m-0">
+        <p class="text-right m-0"><small th:text="'Olá ' + ${loggedPlayer.firstName}"></small></p>        
     </div>
 
     <!-- Div banner -->

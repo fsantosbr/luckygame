@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <p th:text="'Olá ' + ${player.name}" align="right"></p>
+    <p th:text="'Olá ' + ${player.firstName}" align="right"></p>
 
     <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}" />
 
@@ -49,7 +49,7 @@
 
         <tr>
             <th>Seu nome: </th>
-            <td th:text="${player.name}"> </td>            
+            <td th:text="${player.firstName}"> </td>            
         </tr>
 
         <tr>

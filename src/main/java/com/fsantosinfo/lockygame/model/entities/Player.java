@@ -23,39 +23,45 @@ public class Player implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    @Size(min = 5, max = 30, message  = "O nome precisa ter entre 5 e 30 caracteres")
-    private String name;
+    private Long id;    
+   
+   @Size(min = 2, max = 10, message  = "O nome precisa ter entre 2 e 10 caracteres")
+   private String firstName;
+   
+   @Size(min = 3, max = 25, message  = "O sobrenome precisa ter entre 3 e 25 caracteres")
+   private String surname;
     
     @NotNull(message = "O campo CPF não pode estar em branco.")
     private String cpf;
 
     @Email(message = "O email precisa ser válido")
     private String email;
-
     @NotBlank
     private String password;
+
     private Boolean isAdmin;
+
+    private Integer eligibleNumbers; // how many lucky numbers this player might have
+
+     // insert jsonIgnore here when we'll work with API
+     @OneToMany(mappedBy = "player")
+     private List<MyLuckyNumber> myLuckNumbers = new ArrayList<>(); // player has many numbers    
 
     @OneToMany(mappedBy = "owner")
     private List<LuckyGame> ownerGames = new ArrayList<>(); // player has many own games
 
     @ManyToMany
     @JoinTable(name = "tb_player_lucky_game", joinColumns = @JoinColumn(name = "player_id"), inverseJoinColumns = @JoinColumn(name = "luckygame_id"))
-    private List<LuckyGame> luckyGames = new ArrayList<>(); // player has many games
+    private List<LuckyGame> luckyGames = new ArrayList<>(); // player has many games to play
 
-    // insert jsonIgnore here when we'll work with API
-    @OneToMany(mappedBy = "player")
-    private List<MyLuckyNumber> myLuckNumbers = new ArrayList<>(); // player has many numbers
-
-
+   
     // Constructors
     public Player(){}
 
-    public Player(Long id, String name, String cpf, String email, String password, Boolean isAdmin) {
+    public Player(Long id, String firstName, String surname, String cpf, String email, String password, Boolean isAdmin) {
         this.id = id;
-        this.name = name;
+        this.firstName = firstName;
+        this.surname = surname;
         this.cpf = cpf;
         this.email = email;
         this.password = password;
@@ -72,12 +78,20 @@ public class Player implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public String getCpf() {
@@ -123,28 +137,35 @@ public class Player implements Serializable {
     public void setIsAdmin(Boolean isAdmin) {
         this.isAdmin = isAdmin;
     }
+
+    public Integer getEligibleNumbers() {
+        return eligibleNumbers;
+    }
+
+    public void setEligibleNumbers(Integer eligibleNumbers) {
+        this.eligibleNumbers = eligibleNumbers;
+    }
         
 
     // Methods of this class
 
     /*
-    OBS: If we create a method to add number to the list, It won't work on data base.
-    The numbers must persisted with the player in the constructor.
+    OBS: If we create a method to add number to the list, It won't work on data base.    .
     */
 
+    
     // Overrided methods
-
-
+    
     @Override
     public String toString() {
-       return name + " - " + email;
+        return "Player [firstName=" + firstName + "]";
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
         return result;
     }
 
@@ -157,12 +178,13 @@ public class Player implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         Player other = (Player) obj;
-        if (cpf == null) {
-            if (other.cpf != null)
+        if (id == null) {
+            if (other.id != null)
                 return false;
-        } else if (!cpf.equals(other.cpf))
+        } else if (!id.equals(other.id))
             return false;
         return true;
     }
+    
      
 }

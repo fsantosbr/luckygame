@@ -53,7 +53,7 @@ public class LuckyGameController {
         LuckyGame luck = new LuckyGame();
         luck.setOwner(loggedPlayer);
         modelAndView.addObject("luckyGame", luck);
-        modelAndView.addObject("loggedPlayer", loggedPlayer.getName());
+        modelAndView.addObject("loggedPlayer", loggedPlayer.getFirstName());
         
         return modelAndView;
     }
@@ -77,7 +77,7 @@ public class LuckyGameController {
 
         LuckyGame lucky = service.findById(id);      
         Player player = service.getLoggedPlayer();
-        String playerName = player.getName();
+        String playerName = player.getFirstName();
 
         if(lucky.getOwner().getEmail().equals(player.getEmail())){
             modelAndView.setViewName("lucky-game-view");

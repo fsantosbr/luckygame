@@ -35,11 +35,11 @@ public class TesteConfig implements CommandLineRunner {
         // this method will run every time this class is used - Only for test
 
         // Creating players - No integration needed
-        Player p1 = new Player(null, "Fabio 1", "3333354841", "fsantosinfo1@gmail.com", "senha1", false);
-        Player p2 = new Player(null, "Fabio 2", "3333354842", "fsantosinfo2@gmail.com", "senha2", false);
-        Player p3 = new Player(null, "Fabio 3", "3333354843", "fsantosinfo3@gmail.com", "senha3", false);
-        Player p4 = new Player(null, "Fabio 4", "3333354844", "fsantosinfo4@gmail.com", "senha4", false);
-        Player p5 = new Player(null, "Fabio 5", "3333354845", "fsantosinfo5@gmail.com", "senha5", false);
+        Player p1 = new Player(null, "Fabio 1", "lastname1", "3333354841", "fsantosinfo1@gmail.com", "senha1", false);
+        Player p2 = new Player(null, "Fabio 2", "lastname2", "3333354842", "fsantosinfo2@gmail.com", "senha2", false);
+        Player p3 = new Player(null, "Fabio 3", "lastname3", "3333354843", "fsantosinfo3@gmail.com", "senha3", false);
+        Player p4 = new Player(null, "Fabio 4", "lastname4", "3333354844", "fsantosinfo4@gmail.com", "senha4", false);
+        Player p5 = new Player(null, "Fabio 5", "lastname5", "3333354845", "fsantosinfo5@gmail.com", "senha5", false);
         
         // Saving the players
         playerRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));

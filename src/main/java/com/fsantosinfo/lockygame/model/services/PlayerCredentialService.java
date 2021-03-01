@@ -62,7 +62,7 @@ public class PlayerCredentialService implements UserDetailsService {
 		else{
 			username = principal.toString();
             player = new Player();
-            player.setName(username);
+            player.setFirstName(username);
 		}
         
         return player;
