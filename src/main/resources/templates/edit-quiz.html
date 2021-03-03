@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Criação de Quiz</title>
+    <title>Edição de Quiz</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Latest compiled and minified CSS -->
@@ -78,8 +78,9 @@
 
             <!-- div form -->
             <div class="p-2 m-0 shadow rounded-bottom">
-                <form th:action="@{/savingquiz}" th:object="${quiz}" method="post" class="was-validated">
-                    <input type="hidden" name="luckyGame" th:field="*{luckyGame}"/>
+                <form th:action="@{/changingquiz}" th:object="${quiz}" method="post" class="was-validated">                    
+                   <input type="hidden" name="id" th:field="*{id}"/>
+                   <input type="hidden" name="luckyGame" th:field="*{luckyGame}"/>
 
                      <!-- Div input question -->
                      <div class="input-group mb-3 input-group-sm">
@@ -89,7 +90,7 @@
                         <input type="text" th:field="*{question}" class="form-control form-control-sm" placeholder="Insira uma pergunta" name="luckyGame.quiz.question" required>
                         <div class="valid-feedback">
                             <!-- This span is a defence from the backend -->
-                            <span th:if="${#fields.hasErrors('question')}" th:errors="*{question}">question Error</span>
+                            <span th:if="${#fields.hasErrors('question')}" th:errors="*{question}">Title Error</span>
                         </div>
                     </div>
 
@@ -101,7 +102,7 @@
                         <input type="text" th:field="*{option_1}" class="form-control form-control-sm" placeholder="Insira uma pergunta" name="luckyGame.quiz.option_1" required>
                         <div class="valid-feedback">
                             <!-- This span is a defence from the backend -->
-                            <span th:if="${#fields.hasErrors('option_1')}" th:errors="*{option_1}">Option_1 Error</span>
+                            <span th:if="${#fields.hasErrors('option_1')}" th:errors="*{option_1}">Title Error</span>
                         </div>
                     </div>
 
@@ -113,7 +114,7 @@
                         <input type="text" th:field="*{option_2}" class="form-control form-control-sm" placeholder="Insira uma pergunta" name="quiz.option_2" required>
                         <div class="valid-feedback">
                             <!-- This span is a defence from the backend -->
-                            <span th:if="${#fields.hasErrors('option_2')}" th:errors="*{option_2}">Option_2 Error</span>
+                            <span th:if="${#fields.hasErrors('option_2')}" th:errors="*{option_2}">Title Error</span>
                         </div>
                     </div>
 
@@ -125,7 +126,7 @@
                         <input type="text" th:field="*{option_3}" class="form-control form-control-sm" placeholder="Insira uma pergunta" name="quiz.option_3" required>
                         <div class="valid-feedback">
                             <!-- This span is a defence from the backend -->
-                            <span th:if="${#fields.hasErrors('option_3')}" th:errors="*{option_3}">Option_3 Error</span>
+                            <span th:if="${#fields.hasErrors('option_3')}" th:errors="*{option_3}">Title Error</span>
                         </div>
                     </div>
 
@@ -137,11 +138,11 @@
                         <input type="number" th:field="*{correctOption}" class="form-control form-control-sm" placeholder="Informe o número de ganhadores" name="quiz.correctOption" required>
                         <div class="valid-feedback">
                             <!-- This span is a defence from the backend -->
-                            <span th:if="${#fields.hasErrors('correctOption')}" th:errors="*{correctOption}">correctOption error</span>
+                            <span th:if="${#fields.hasErrors('correctOption')}" th:errors="*{correctOption}">numWinners error</span>
                         </div>
                     </div>                    
 
-                    <button type="submit" class="btn btn-secondary btn-block">Criar Quiz</button>
+                    <button type="submit" class="btn btn-secondary btn-block">Salvar alterações</button>
                 </form>
                 
 

@@ -41,8 +41,8 @@ public class LuckyGameService {
         repository.save(luckyGame);
     }
 
-    public LuckyGame findById(Long id) {
-        Optional<LuckyGame> optionalLucky = repository.findById(id);
+    public LuckyGame findById(Long game_id) {
+        Optional<LuckyGame> optionalLucky = repository.findById(game_id);
         return optionalLucky.get();
     }
 

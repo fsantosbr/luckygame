@@ -71,21 +71,29 @@ public class LuckyGameController {
         return new ModelAndView("redirect:lucky-game/authorization/"+luckyGame.getId());      
     }
 
-    @GetMapping("/lucky-game/authorization/{id}")
-    public ModelAndView gameAuthorization(@PathVariable Long id, RedirectAttributes redirectAttributes){
-        final ModelAndView modelAndView = new ModelAndView();
+    @GetMapping("/lucky-game/authorization/{game_id}")
+    public ModelAndView gameAuthorization(@PathVariable Long game_id, RedirectAttributes redirectAttributes){        
 
-        // check if the publish field is true, if so, skip to game view
+        LuckyGame game = service.findById(game_id);
+        Player loggedPlayer  = service.getLoggedPlayer();        
 
-        LuckyGame lucky = service.findById(id);
-        Player loggedPlayer  = service.getLoggedPlayer();
-        String playerName = loggedPlayer.getFirstName();
+        // This defence method will avoid the logged Player to access someone else's game
+        if(game.getOwner().getEmail().equals(loggedPlayer.getEmail())){
 
-        if(lucky.getOwner().getEmail().equals(loggedPlayer.getEmail())){            
-            modelAndView.setViewName("lucky-game-authorization");
-            modelAndView.addObject("luckyGame", lucky);            
-            modelAndView.addObject("loggedPlayer", playerName);
-            return modelAndView;
+            // To load the authorization page, the game must be not published
+            if (!game.getPublished()){
+                final ModelAndView modelAndView = new ModelAndView();
+                modelAndView.setViewName("lucky-game-authorization");
+                modelAndView.addObject("luckyGame", game);
+                String playerName = loggedPlayer.getFirstName();
+                modelAndView.addObject("loggedPlayer", playerName);
+                return modelAndView;
+            }
+            else {
+                redirectAttributes.addFlashAttribute("message", "Uma vez publicado. Não é possível desfazer");
+                return new ModelAndView("redirect:/lucky-game/view/"+game.getId());                         
+            }
+           
         }
         else{
             redirectAttributes.addFlashAttribute("message", "Parece que você tentou acessar uma URL que não pertence a você. Use o Dashboard para uma navegação segura.");
@@ -94,19 +102,30 @@ public class LuckyGameController {
     }
 
 
-    @GetMapping("/lucky-game/view/{id}")
-    public ModelAndView lockyGameView(@PathVariable Long id, RedirectAttributes redirectAttributes){
-        final ModelAndView modelAndView = new ModelAndView();        
+    @GetMapping("/lucky-game/view/{game_id}")
+    public ModelAndView lockyGameView(@PathVariable Long game_id, RedirectAttributes redirectAttributes){              
 
-        LuckyGame lucky = service.findById(id);      
-        Player player = service.getLoggedPlayer();
-        String playerName = player.getFirstName();
+        LuckyGame game = service.findById(game_id);      
+        Player loggedPlayer = service.getLoggedPlayer();
 
-        if(lucky.getOwner().getEmail().equals(player.getEmail())){
-            modelAndView.setViewName("lucky-game-view");
-            modelAndView.addObject("oneGame", lucky);
-            modelAndView.addObject("loggedPlayer", playerName);
-            return modelAndView;
+        // This defence method will avoid the logged Player to access someone else's game
+        if(game.getOwner().getEmail().equals(loggedPlayer.getEmail())){
+            String playerName = loggedPlayer.getFirstName();
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.addObject("loggedPlayer", playerName);         
+
+             // To load the view page, the game must be published
+            if (game.getPublished()){
+                modelAndView.setViewName("lucky-game-view");
+                modelAndView.addObject("oneGame", game);                
+                return modelAndView;
+
+            }
+            else {
+                redirectAttributes.addFlashAttribute("message", "Game ainda não autorizado");
+                return new ModelAndView("redirect:/lucky-game/authorization/"+game.getId());                             
+            }
+           
         }
         else{
             redirectAttributes.addFlashAttribute("message", "Parece que você tentou acessar uma URL que não pertence a você. Use o Dashboard para uma navegação segura.");
