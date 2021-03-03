@@ -6,6 +6,7 @@ import java.util.Arrays;
 import com.fsantosinfo.lockygame.model.entities.LuckyGame;
 import com.fsantosinfo.lockygame.model.entities.MyLuckyNumber;
 import com.fsantosinfo.lockygame.model.entities.Player;
+import com.fsantosinfo.lockygame.model.entities.Quiz;
 import com.fsantosinfo.lockygame.model.repositories.LuckyGameRepository;
 import com.fsantosinfo.lockygame.model.repositories.MyLuckyNumberRepository;
 import com.fsantosinfo.lockygame.model.repositories.PlayerRepository;
@@ -30,6 +31,9 @@ public class TesteConfig implements CommandLineRunner {
     @Autowired
     private MyLuckyNumberRepository myLuckyNumberRepository;
 
+    @Autowired
+    private QuizRepository quizRepository;
+
     @Override
     public void run(String... args) throws Exception {
         // this method will run every time this class is used - Only for test
@@ -46,13 +50,18 @@ public class TesteConfig implements CommandLineRunner {
 
         // Creating some games with the owners (that are players)
         LocalDateTime local = LocalDateTime.now().plusDays(1);
-        LuckyGame game1 = new LuckyGame(null, false, "Created On Repository 1", 2, LocalDateTime.now(), local,true,true, "entre no jogo 1", p1);
+        LuckyGame game1 = new LuckyGame(null, true, "Created On Repository 1", 2, LocalDateTime.now(), local,true,true, "entre no jogo 1", p1);
         LuckyGame game2 = new LuckyGame(null, false, "Created On Repository 2", 1, LocalDateTime.now(), local, false, true, "entre no jogo 2", p2);
         LuckyGame game3 = new LuckyGame(null, false, "Created On Repository 3", 3, LocalDateTime.now(), local, true, true, "entre no jogo 3", p3);
         LuckyGame game4 = new LuckyGame(null, false, "Created On Repository 4", 1, LocalDateTime.now(), local,false,true, "entre o jogo 4", p3);
 
         // Saving the games
         luckyGameRepository.saveAll(Arrays.asList(game1, game2, game3, game4));
+
+        // Adding quiz to some games
+        Quiz quiz1 = new Quiz(null, "Question1", "Option1", "Option2", "Option3", 2, game1);
+        // Saving the quiz
+        quizRepository.saveAll(Arrays.asList(quiz1));
         
         // Making the already registered players enroll games and then saving them.
         p1.getLuckyGames().add(game2);

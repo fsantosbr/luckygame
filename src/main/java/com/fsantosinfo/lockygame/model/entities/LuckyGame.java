@@ -62,7 +62,11 @@ public class LuckyGame implements Serializable{
     @OneToMany(mappedBy = "game")
     private List<MyLuckyNumber> playerLuckyNumbers = new ArrayList<>(); // game has many numbers
 
-    public LuckyGame() {        
+    @OneToMany(mappedBy = "luckyGame")
+    private List<Quiz> quizzes = new ArrayList<>(); // Game has more than one quiz
+   
+
+    public LuckyGame() {
     }  
     
     public LuckyGame(Long id, Boolean published, String title, Integer numWinners, LocalDateTime momentCreated, LocalDateTime closingDate, Boolean hasQuiz, Boolean alive, String communicateAll, Player owner) {
@@ -167,6 +171,13 @@ public class LuckyGame implements Serializable{
         return playerLuckyNumbers;
     }
 
+    public List<Quiz> getQuizzes() {
+        return quizzes;
+    }
+
+    public void setQuizzes(List<Quiz> quizzes) {
+        this.quizzes = quizzes;
+    }
     
 
 
@@ -204,6 +215,6 @@ public class LuckyGame implements Serializable{
             return false;
         return true;
     }
-    
+
    
 }

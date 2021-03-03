@@ -68,7 +68,29 @@ public class LuckyGameController {
         service.save(luckyGame);
 
         redirectAttributes.addFlashAttribute("message", "Game criado com sucesso");        
-        return new ModelAndView("redirect:lucky-game/view/"+luckyGame.getId());
+        return new ModelAndView("redirect:lucky-game/authorization/"+luckyGame.getId());      
+    }
+
+    @GetMapping("/lucky-game/authorization/{id}")
+    public ModelAndView gameAuthorization(@PathVariable Long id, RedirectAttributes redirectAttributes){
+        final ModelAndView modelAndView = new ModelAndView();
+
+        // check if the publish field is true, if so, skip to game view
+
+        LuckyGame lucky = service.findById(id);
+        Player loggedPlayer  = service.getLoggedPlayer();
+        String playerName = loggedPlayer.getFirstName();
+
+        if(lucky.getOwner().getEmail().equals(loggedPlayer.getEmail())){            
+            modelAndView.setViewName("lucky-game-authorization");
+            modelAndView.addObject("luckyGame", lucky);            
+            modelAndView.addObject("loggedPlayer", playerName);
+            return modelAndView;
+        }
+        else{
+            redirectAttributes.addFlashAttribute("message", "Parece que você tentou acessar uma URL que não pertence a você. Use o Dashboard para uma navegação segura.");
+            return new ModelAndView("redirect:/dashboard/player/"); // Offer a webpage with the errors in the top or a unique webpage of errors
+        }
     }
 
 

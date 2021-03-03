@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edição de Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+
+<!-- main container -->
+<div class="container mt-0 p-0 shadow-lg rounded-bottom">
+
+    <!-- Div NavBar - Menu -->
+    <div class="container-fluid p-0 m-0">
+        <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+            <!-- Brand -->
+            <a class="navbar-brand" href="#" th:href="@{/}">Lucky Game</a>
+
+            <!-- Toggler/collapsibe Button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navbar links only for the collapsing links -->
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" th:href="@{/}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" th:href="@{/dashboard/player/}">DashBoard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contato</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Links that won't be collapsed -->
+            <ul class="navbar-nav">                
+                <li class="nav-item"><a class="nav-link" href="#" th:href="@{/logout}"><i class="fa fa-sign-out"></i> Sair</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Div welcome name -->
+    <div class="container-fluid pt-0 pb-0 m-0">
+        <p class="text-right m-0"><small th:text="'Olá ' + ${loggedPlayer}"></small></p>
+    </div>
+
+    <!-- sub Div only to manager the forms and the alert -->
+    <div class="row p-0 m-0">
+
+        
+
+        <!-- Div new Quiz -->
+        <div class="col-md-9 p-3 m-0">
+           
+            <h5 style="text-align: center;"><span class="badge badge-secondary">Quiz:</span> jogo de número da sorte</h5>
+
+            <!-- div form -->
+            <div class="p-2 m-0 shadow rounded-bottom">
+                <form th:action="@{/savingquiz}" th:object="${quiz}" method="post" class="was-validated">
+                    <input type="hidden" name="luckyGame" th:field="*{luckyGame}"/>
+
+                     <!-- Div input question -->
+                     <div class="input-group mb-3 input-group-sm">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Pergunta</span>
+                        </div>
+                        <input type="text" th:field="*{question}" class="form-control form-control-sm" placeholder="Insira uma pergunta" name="luckyGame.quiz.question" required>
+                        <div class="valid-feedback">
+                            <!-- This span is a defence from the backend -->
+                            <span th:if="${#fields.hasErrors('question')}" th:errors="*{question}">Title Error</span>
+                        </div>
+                    </div>
+
+                    <!-- Div imput option -->
+                    <div class="input-group mb-3 input-group-sm">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Opção 1</span>
+                        </div>
+                        <input type="text" th:field="*{option_1}" class="form-control form-control-sm" placeholder="Insira uma pergunta" name="luckyGame.quiz.option_1" required>
+                        <div class="valid-feedback">
+                            <!-- This span is a defence from the backend -->
+                            <span th:if="${#fields.hasErrors('option_1')}" th:errors="*{option_1}">Title Error</span>
+                        </div>
+                    </div>
+
+                    <!-- Div imput option -->
+                    <div class="input-group mb-3 input-group-sm">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Opção 2</span>
+                        </div>
+                        <input type="text" th:field="*{option_2}" class="form-control form-control-sm" placeholder="Insira uma pergunta" name="quiz.option_2" required>
+                        <div class="valid-feedback">
+                            <!-- This span is a defence from the backend -->
+                            <span th:if="${#fields.hasErrors('option_2')}" th:errors="*{option_2}">Title Error</span>
+                        </div>
+                    </div>
+
+                   <!-- Div imput option -->
+                    <div class="input-group mb-3 input-group-sm">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Opção 3</span>
+                        </div>
+                        <input type="text" th:field="*{option_3}" class="form-control form-control-sm" placeholder="Insira uma pergunta" name="quiz.option_3" required>
+                        <div class="valid-feedback">
+                            <!-- This span is a defence from the backend -->
+                            <span th:if="${#fields.hasErrors('option_3')}" th:errors="*{option_3}">Title Error</span>
+                        </div>
+                    </div>
+
+                    <!-- Div imput correct option -->
+                    <div class="input-group mb-3 input-group-sm">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Resposta correta</span>
+                        </div>
+                        <input type="number" th:field="*{correctOption}" class="form-control form-control-sm" placeholder="Informe o número de ganhadores" name="quiz.correctOption" required>
+                        <div class="valid-feedback">
+                            <!-- This span is a defence from the backend -->
+                            <span th:if="${#fields.hasErrors('correctOption')}" th:errors="*{correctOption}">numWinners error</span>
+                        </div>
+                    </div>                    
+
+                    <button type="submit" class="btn btn-secondary btn-block">Criar Quiz</button>
+                </form>
+                
+
+            </div>
+        </div>
+
+        <!-- Div for information about the quiz  -->
+        <div class="col m-0 pt-1 pl-3">
+
+           
+
+            <div class="p-2 m-0 mt-2 shadow rounded-bottom">
+               <h6>Sugestão de pergunta</h6>
+                <p class="">Procure usar um nome/título que pode facilitar os jogadores a entender do que se trata o jogo.</p>
+            </div>
+            <div class="p-2 m-0 shadow rounded-bottom">
+                <h6>Sugestão de uso</h6>
+                <p>O jogo pode ter vários ganhadores já cetados aqui. Mas fique tranquilo, esse campo pode ser editado depois.</p>
+            </div>            
+
+        </div>
+    </div>
+
+    <div class="container-fluid">
+
+    </div>
+
+
+</div>
+
+
+</body>
+</html>

@@ -37,7 +37,7 @@ public class LuckyGameService {
         luckyGame.setMomentCreated(LocalDateTime.now());
         luckyGame.setPublished(false);
         luckyGame.setHasQuiz(false);
-        luckyGame.setAlive(true); 
+        luckyGame.setAlive(true);
         repository.save(luckyGame);
     }
 

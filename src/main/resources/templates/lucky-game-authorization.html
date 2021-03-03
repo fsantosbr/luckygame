@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${oneGame.title} + ' - Visualizar Jogo'"> Visualizar Jogo </title>
+    <title th:text="${luckyGame.title} + ' - Visualizar Jogo'"> Visualizar Jogo </title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Latest compiled and minified CSS -->
@@ -62,8 +62,8 @@
     </div>
 
     <!-- Div welcome name -->
-    <div class="container-fluid pt-0 pb-0 m-0" style="border:solid red 1px;">
-        <p class="text-right m-0"><small th:text="'Olá ' + ${loggedPlayer}"></small></p>
+    <div class="container-fluid pt-0 pb-0 m-0">
+        <p class="text-right m-0"><small th:text="'Olá a' + ${loggedPlayer}"></small></p>
     </div>
 
     <!-- Div row to separate two sub divs  -->
@@ -72,7 +72,7 @@
         <!-- sub div - Div for all game details -->
         <div class="col-md-6 p-2 m-0">
 
-            <h5 style="text-align: center;"><span class="badge badge-secondary">Visualização </span> do jogo</h5>
+            <h5 style="text-align: center;"><span class="badge badge-secondary">Authorização </span> do jogo</h5>
 
             <!-- making space for the alert and not change the screen a lot -->
             <div class= "container-fluid p-1 m-0" style="height:55px">
@@ -86,11 +86,12 @@
             <!-- div each game detail - num winners and players subscribed-->
             <div class="d-flex flex-wrap justify-content-around p-1 mb-0">
                 <div>
-                    <p>Ganhadores programados: <span th:text="${oneGame.numWinners}" class="badge badge-secondary badge-pill"></span></p>
+                    <p>Ganhadores programados: <span th:text="${luckyGame.numWinners}" class="badge badge-secondary badge-pill"></span></p>
                 </div>
                 <div>
-                    <p>Jogadores: <span th:text="${oneGame.players.size}" class="badge badge-secondary badge-pill"></span></p>
+                    <p>Disponível para o público: <span th:text="${luckyGame.published}" class="badge badge-secondary badge-pill"></span></p>
                 </div>
+                
             </div>
 
             <!-- div each game detail - title -->
@@ -99,32 +100,101 @@
                     <span class="input-group-text"><b>Título do Jogo:</b></span>
                 </div>
                 <div class="shadow rounded-bottom" style="width:300px">
-                    <span th:text="${oneGame.title}" class="input-group-text"></span>
+                    <span th:text="${luckyGame.title}" class="input-group-text"></span>
                 </div>
             </div>
 
-            <!-- div each game detail - closingDate -->
             <div class="d-flex flex-wrap p-1 mb-0">
                 <div class="shadow rounded-bottom" style="width:150px">
-                    <span class="input-group-text"><b>Data fechamento:</b></span>
+                    <span class="input-group-text"><b>Quiz:</b></span>
                 </div>
                 <div class="shadow rounded-bottom" style="width:300px">
-                    <span th:text="${oneGame.closingDate}" class="input-group-text"></span>
+                    <span th:text="${luckyGame.hasQuiz}" class="input-group-text"></span>
                 </div>
             </div>
-           
+            <p>Você pode adicionar, editar, visualizar e deleter quiz abaixo</p>
 
-            <!-- div each game detail - open  ADD VALUER FROM DB IN A FUTURE RELEASE-->
-            <div class="d-flex flex-wrap p-1 mb-0">
-                <div class="shadow rounded-bottom" style="width:150px">
-                    <span class="input-group-text"><b>Jogo aberto?</b></span>
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#quizcheckbox">Toques finais</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#quizform">Perguntas</a>
+                </li>
+
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <!-- tab one -->
+                <div id="quizcheckbox" class="container tab-pane active"><br>
+
+                    <div class="input-group mb-3 input-group-sm">
+                        <div class="custom-control custom-switch">                            
+                            <a href="#" class="btn btn-secondary" role="button">Publicar</a>                        
+                        </div>
+
+                        <div class="custom-control custom-switch">
+                                                       
+                            <a th:href="'http://localhost:8080/quiz/lucky-game/' + ${luckyGame.id}" class="btn btn-secondary" role="button">Adicionar quiz</a>
+                            
+                           
+                        </div>
+                    </div>
+                    
+
                 </div>
-                <div class="shadow rounded-bottom" style="width:300px">
-                    <span class="input-group-text">Não</span>
+
+                <!-- tab two -->
+                <div id="quizform" class="container tab-pane fade"><br>
+
+                    <div class="d-flex flex-wrap p-1 mb-0" th:each="game : ${luckyGame.quizzes}">
+                        
+                        <div class="shadow rounded-bottom" style="width:150px">
+                            <span class="input-group-text"><b>Pergunta:</b></span>
+                        </div>
+                        <div class="shadow rounded-bottom" style="width:300px">
+                            <span th:text="${game.question}" class="input-group-text"></span>
+                        </div>
+
+                        <div class="shadow rounded-bottom" style="width:150px">
+                            <span class="input-group-text"><b>Op1:</b></span>
+                        </div>
+                        <div class="shadow rounded-bottom" style="width:300px">
+                            <span th:text="${game.option_1}" class="input-group-text"></span>
+                        </div>
+
+                        <div class="shadow rounded-bottom" style="width:150px">
+                            <span class="input-group-text"><b>Op2:</b></span>
+                        </div>
+                        <div class="shadow rounded-bottom" style="width:300px">
+                            <span th:text="${game.option_2}" class="input-group-text"></span>
+                        </div>
+
+                        <div class="shadow rounded-bottom" style="width:150px">
+                            <span class="input-group-text"><b>Op3:</b></span>
+                        </div>
+                        <div class="shadow rounded-bottom" style="width:300px">
+                            <span th:text="${game.option_3}" class="input-group-text"></span>
+                        </div>
+
+                        <div class="shadow rounded-bottom" style="width:150px">
+                            <span class="input-group-text"><b>Resp. Correta:</b></span>
+                        </div>
+                        <div class="shadow rounded-bottom" style="width:300px">
+                            <span th:text="${game.correctOption}" class="input-group-text"></span>
+                        </div>
+                    </div>
+
                 </div>
-            </div>
+            </div>            
 
         </div>
+
+        
 
         <!-- sub div - Div for information about the game -->
         <div class="col m-0 p-2">
@@ -135,8 +205,8 @@
                     <span class="input-group-text"><b>Link:</b></span>
                 </div>
                 <div class="shadow rounded-bottom" style="width:400px">
-                    <a th:href="'http://localhost:8080/lucky-game/invite/' + ${oneGame.id}">
-                    <span th:text="'http://localhost:8080/lucky-game/invite/' + ${oneGame.id}" class="input-group-text"></span>
+                    <a th:href="'http://localhost:8080/lucky-game/invite/' + ${luckyGame.id}">
+                    <span th:text="'http://localhost:8080/lucky-game/invite/' + ${luckyGame.id}" class="input-group-text"></span>
                         </a>   
                 </div>
             </div>
@@ -158,7 +228,7 @@
                                     <span class="input-group-text"><b>Identificador:</b></span>
                                 </div>
                                 <div class="shadow rounded-bottom" style="width:300px">
-                                    <span th:text="${oneGame.id}" class="input-group-text"></span>
+                                    <span th:text="${luckyGame.id}" class="input-group-text"></span>
                                 </div>
                             </div>
 
@@ -168,7 +238,17 @@
                                     <span class="input-group-text"><b>Data criação:</b></span>
                                 </div>
                                 <div class="shadow rounded-bottom" style="width:300px">
-                                    <span th:text="${oneGame.momentCreated}" class="input-group-text"></span>
+                                    <span th:text="${luckyGame.momentCreated}" class="input-group-text"></span>
+                                </div>
+                            </div>
+
+                            <!-- div each game detail - closingDate -->
+                            <div class="d-flex flex-wrap p-1 mb-0">
+                                <div class="shadow rounded-bottom" style="width:150px">
+                                    <span class="input-group-text"><b>Data fechamento:</b></span>
+                                </div>
+                                <div class="shadow rounded-bottom" style="width:300px">
+                                    <span th:text="${luckyGame.closingDate}" class="input-group-text"></span>
                                 </div>
                             </div>
 
@@ -178,7 +258,7 @@
                                     <span class="input-group-text"><b>Criador:</b></span>
                                 </div>
                                 <div class="shadow rounded-bottom" style="width:300px">
-                                    <span th:text="${oneGame.owner}" class="input-group-text"></span>
+                                    <span th:text="${luckyGame.owner}" class="input-group-text"></span>
                                 </div>
                             </div>
 
@@ -196,7 +276,7 @@
                         <div class="card-body p-0 m-0">
 
                             <div class="d-flex flex-wrap p-1 mb-0">
-                                <p th:text="${oneGame.communicateAll}"></p>
+                                <p th:text="${luckyGame.communicateAll}"></p>
                             </div>
                         </div>
                     </div>
@@ -208,40 +288,7 @@
 
     </div>
 
-    <!-- Div containing the collapsing link to all players -->
-    <div class="p-1 m-0">
-        <a class="text-decoration-none" href="#demo1" data-toggle="collapse">Ver jogadores cadastrados</a>
-
-        <!-- table-responsive - make a scroll bar when it's too many fields -->
-        <div id="demo1" class="collapse collapsing table-responsive-sm p-0 m-0">
-
-            <!-- Div containing the search -->
-            <div class="container-fluid m-0 pt-1 pb-1">
-                <input style="width:100%" class="form-control m-0 p-0" id="myInput" type="text" placeholder="Search..">
-            </div>
-
-            <!-- Div table containing the players from this game -->
-            <table class="table table-sm table-hover">
-                <thead class="thead-light">
-                <tr>
-                    <th>Nome</th>
-                    <th>Email</th>
-
-                </tr>
-                </thead>
-                <tbody id="myTable">
-                <!-- The table will update only if there's players -->
-                <tr th:unless="${oneGame.players.size == 0}">
-                <tr th:each="game : ${oneGame.players}">
-                    <td class="text-break" th:text="${game.firstName}"></td>
-                    <td class="text-break" th:text="${game.email}"></td>
-                </tr>
-                </tbody>
-            </table>
-
-        </div>
-
-    </div>
+    
 
     <div class="container-fluid">
 
@@ -249,16 +296,8 @@
 
 </div>
 
-<!-- This Script will search the table with players -->
 <script>
-    $(document).ready(function(){
-        $("#myInput").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            $("#myTable tr").filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-    });
+
 </script>
 
 </body>
