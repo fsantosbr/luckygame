@@ -128,10 +128,11 @@ public class LuckyGameController {
 
     @GetMapping("/lucky-game/invite/{id}")
     public ModelAndView viewAnInvite(@PathVariable Long id){
-        final ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("game-invite");
-      
         LuckyGame lucky = service.findById(id);
+
+        final ModelAndView modelAndView = new ModelAndView();
+        
+        modelAndView.setViewName("game-invite");
 
         modelAndView.addObject("oneGame", lucky);
         return modelAndView;

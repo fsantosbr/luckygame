@@ -32,9 +32,10 @@ public class Quiz implements Serializable {
     @JoinColumn(name = "lucky_game_id")  
     private LuckyGame luckyGame;
 
+
+    // Constructors
     public Quiz() {
     }
-
     
     public Quiz(Long id, String question, String option_1, String option_2, String option_3, Integer correctOption, LuckyGame luckyGame) {
         this.id = id;
@@ -46,7 +47,7 @@ public class Quiz implements Serializable {
         this.luckyGame = luckyGame;
     }
 
-
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -102,7 +103,13 @@ public class Quiz implements Serializable {
     public void setLuckyGame(LuckyGame luckyGame) {
         this.luckyGame = luckyGame;
     }
-   
+
+
+    // Methods of this class
+
+    
+    
+    // Overrided methods
 
     @Override
     public boolean equals(Object o) {

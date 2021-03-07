@@ -3,12 +3,12 @@
 
 <head>
     <meta charset="UTF-8">
-    <title th:text="${oneGame.title} + ' - Convite'"> Visualizar Jogo </title>
+    <title th:text="${oneGame.title} + ' - Convite'"> </title>
 </head>
 
-<body>   
+<body> 
 
-    <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}" />
+    <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"/>
 
     <h2 th:text="${oneGame.title}"></h2>
     
@@ -20,6 +20,11 @@
             <td th:text="${oneGame.title}"> </td>
         </tr>
 
+        <tr>
+            <th>Limite para cadastro:</th>
+            <td th:text="${oneGame.closingDate}"> </td>
+        </tr>
+
     </table>
 
     <a href="#" th:href="@{/enter/lucky-game/}+ ${oneGame.id}">Participar</a>
@@ -28,7 +33,7 @@
     <br>
 
     <a href="#" th:href="@{/}">Home</a>
-    <a href="#" th:href="@{/new-lucky-game}">Novo Jogo</a>
+    <!-- remove the next link in a future release -->
     <a href="#" th:href="@{/locky-game/edit/(id=${oneGame.id})}">Editar</a>
 
 

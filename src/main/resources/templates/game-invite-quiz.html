@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+
+<!-- main container -->
+<div class="container mt-0 p-0 shadow-lg rounded-bottom">
+
+    <!-- Div NavBar - Menu -->
+    <div class="container-fluid p-0 m-0">
+        <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+            <!-- Brand -->
+            <a class="navbar-brand" href="#" th:href="@{/}">Lucky Game</a>
+
+            <!-- Toggler/collapsibe Button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navbar links only for the collapsing links -->
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" th:href="@{/}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" th:href="@{/dashboard/player/}">DashBoard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contato</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Links that won't be collapsed -->
+            <ul class="navbar-nav">                
+                <li class="nav-item"><a class="nav-link" href="#" th:href="@{/logout}"><i class="fa fa-sign-out"></i> Sair</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Div welcome name -->
+    <div class="container-fluid pt-0 pb-0 m-0">
+        <p class="text-right m-0"><small th:text="'Olá ' + ${loggedPlayer}"></small></p>
+    </div>
+
+    <!-- sub Div only to manager the quiz and the alert -->
+    <div class="row p-0 m-0">
+
+        <!-- Div quiz -->
+        <div class="col-md-5 p-3 m-0">
+           
+            
+            <!-- div  -->
+            <div class="p-2 m-0 shadow rounded-bottom">
+               
+               
+                <table>
+
+                    <tr>
+                        <th>ID do jogo:</th>
+                        <td id="luckyGameID" th:text="${gameID}"> </td>
+                    </tr>
+
+                    <tr>
+                        <th>Pergunta:</th>
+                        <td th:text="${quiz.question}"> </td>
+                    </tr>
+            
+                    <tr>
+                        <th>Opção 1:</th>
+                        <td th:text="${quiz.option_1}"> </td>
+                    </tr>
+            
+                    <tr>
+                        <th>Opção 2:</th>
+                        <td th:text="${quiz.option_2}"> </td>
+                    </tr>
+            
+                    <tr>
+                        <th>Opção 3:</th>
+                        <td th:text="${quiz.option_3}"> </td>
+                    </tr>
+            
+                </table>
+
+                            <div class="p-0 m-0">
+                                <label class="p-0 m-0"><small>Escolha uma opção: </small></label>
+                                <select class="shadow rounded-bottom" id="quiz" name="quiz">
+                                    
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    
+                                </select>
+                            </div>
+
+                          
+                        <br>
+                        
+                        <a id="sendOption" href="#" class="btn btn-secondary" role="button">Enviar resposta</a>
+
+
+                            
+                
+
+            </div>
+        </div>
+
+        <!-- Div for information  -->
+        <div class="col m-0 pt-1 pl-3">
+
+           
+
+        </div>
+    </div>
+
+    <div class="container-fluid">
+
+    </div>
+
+
+</div>
+
+
+ 
+<script type="application/javascript">
+    $(document).ready(function(){
+        var defaultValue = "http://localhost:8080/enter/lucky-game/" + $("#luckyGameID").text() + "/quiz?option=" + "";
+        document.getElementById("sendOption").href=defaultValue;
+        
+        $("#quiz").change(function(){
+            var newValue = "http://localhost:8080/enter/lucky-game/" + $("#luckyGameID").text() + "/quiz?option=" + $("#quiz").val();
+            document.getElementById("sendOption").href=newValue;      
+        })
+    })
+
+</script>
+</body>
+</html>

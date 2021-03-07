@@ -27,21 +27,21 @@ public class QuizController {
     public ModelAndView newQuiz(@PathVariable Long game_id, RedirectAttributes redirectAttributes){        
         
         LuckyGame game = quizService.gettingTheGame(game_id); // insert here a defence method to check if the game exist
-        Player loggedPlayer  = quizService.getLoggedPlayer();
-        ModelAndView modelAndView = new ModelAndView();
+        Player loggedPlayer  = quizService.getLoggedPlayer();        
 
         // This defence method will avoid the logged Player to access someone else's game/quiz
         if(game.getOwner().getEmail().equals(loggedPlayer.getEmail())){
 
             // If the game has a quiz, send it to the edit quiz page
             if (!game.getQuizzes().isEmpty()){
-                return new ModelAndView("redirect:/lucky-game/quiz/edit/"+game_id);                
+                return new ModelAndView("redirect:/lucky-game/quiz/edit/"+game_id);           
 
             }
             else {
-
+                
                 // if the game is not published, send it to the new quiz page
                 if (!game.getPublished()){
+                    ModelAndView modelAndView = new ModelAndView();
                     Quiz quiz = new Quiz();
                     quiz.setLuckyGame(game);
                     modelAndView.setViewName("new-quiz");
@@ -53,7 +53,7 @@ public class QuizController {
                 // If is published, a new quiz it's not allowed anymore
                 else{
                     redirectAttributes.addFlashAttribute("message", "Não é mais possível adicionar um quiz ao jogo.");
-                    return new ModelAndView("redirect:lucky-game/view/"+game.getId());       
+                    return new ModelAndView("redirect:/lucky-game/view/"+game.getId());    
 
                 }
             }            

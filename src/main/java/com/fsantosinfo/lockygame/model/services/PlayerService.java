@@ -28,12 +28,15 @@ public class PlayerService {
 	@Autowired
 	private PlayerCredentialService credentialService;
 
+	@Autowired
+	private EligibleService eligibleService;
+
+
 	public List<Player> findAll() {
 		return repository.findAll();
 	}
 
 	public void save(Player player) {
-
         repository.save(player);
 	}
 
@@ -46,15 +49,19 @@ public class PlayerService {
 		return gameService.findById(id);
 	}
 
-	public void insertPlayerAndGame(LuckyGame lucky, Long idPlayer) {
-		repository.insertPlayerAndGame(idPlayer, lucky.getId());
-}
+	public void insertPlayerAndGame(LuckyGame lucky, Long player_id) {
+		repository.insertPlayerAndGame(player_id, lucky.getId());
+	}
 
-	public boolean alreadyPlayer(Long gameId, Long playerId) {
-		
+	public void insertPlayerAndGame(LuckyGame lucky, Long player_id, Integer option) {
+		repository.insertPlayerAndGame(player_id, lucky.getId());
+		Player player = findById(player_id);
+		eligibleService.addingTheAnswer(option, player, lucky);
+    }
+
+	public boolean alreadyPlayer(Long gameId, Long playerId) {		
 		Boolean logicTest = false;
 		List<Player> players = gameService.findById(gameId).getPlayers();		
-		
 		
 		for (Player player : players){
 			if (player.getId().equals(playerId)){
@@ -64,6 +71,7 @@ public class PlayerService {
 		
 		return logicTest;
 	}
+
 
 	public List<MyLuckyNumber> loadingPlayerNumbers(LuckyGame luckyGame, Player player) {
 		List<MyLuckyNumber> numbers = numberService.findByGameAndPlayer(luckyGame, player);
@@ -78,4 +86,6 @@ public class PlayerService {
 	public String getLoggedEmailOwner() {
 		return credentialService.getLoggedEmailOwner();
 	}
+
+    
 }
