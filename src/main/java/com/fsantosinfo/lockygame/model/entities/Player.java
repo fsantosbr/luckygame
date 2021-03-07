@@ -39,13 +39,11 @@ public class Player implements Serializable {
     @NotBlank
     private String password;
 
-    private Boolean isAdmin;
+    private Boolean isAdmin;    
 
-    private Integer eligibleNumbers; // how many lucky numbers this player might have
-
-     // insert jsonIgnore here when we'll work with API
-     @OneToMany(mappedBy = "player")
-     private List<MyLuckyNumber> myLuckNumbers = new ArrayList<>(); // player has many numbers    
+    // insert jsonIgnore here when we'll work with API
+    @OneToMany(mappedBy = "player")
+    private List<MyLuckyNumber> myLuckNumbers = new ArrayList<>(); // player has many numbers    
 
     @OneToMany(mappedBy = "owner")
     private List<LuckyGame> ownerGames = new ArrayList<>(); // player has many own games
@@ -54,7 +52,10 @@ public class Player implements Serializable {
     @JoinTable(name = "tb_player_lucky_game", joinColumns = @JoinColumn(name = "player_id"), inverseJoinColumns = @JoinColumn(name = "luckygame_id"))
     private List<LuckyGame> luckyGames = new ArrayList<>(); // player has many games to play
 
+    @OneToMany(mappedBy = "player")
+    private List<Eligible> eligibleNumbers = new ArrayList<>(); // Player has many eligible numbers with different games.
    
+
     // Constructors
     public Player(){}
 
@@ -138,12 +139,8 @@ public class Player implements Serializable {
         this.isAdmin = isAdmin;
     }
 
-    public Integer getEligibleNumbers() {
+    public List<Eligible> getEligibleNumbers() {
         return eligibleNumbers;
-    }
-
-    public void setEligibleNumbers(Integer eligibleNumbers) {
-        this.eligibleNumbers = eligibleNumbers;
     }
         
 
@@ -158,7 +155,7 @@ public class Player implements Serializable {
     
     @Override
     public String toString() {
-        return "Player [firstName=" + firstName + "]";
+        return firstName;
     }
 
     @Override
@@ -185,6 +182,5 @@ public class Player implements Serializable {
             return false;
         return true;
     }
-    
      
 }

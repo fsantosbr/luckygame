@@ -1,4 +1,4 @@
-package com.fsantosinfo.lockygame.controller;
+package com.fsantosinfo.lockygame.model.services;
 
 import java.util.Optional;
 
@@ -6,8 +6,6 @@ import com.fsantosinfo.lockygame.model.config.QuizRepository;
 import com.fsantosinfo.lockygame.model.entities.LuckyGame;
 import com.fsantosinfo.lockygame.model.entities.Player;
 import com.fsantosinfo.lockygame.model.entities.Quiz;
-import com.fsantosinfo.lockygame.model.services.LuckyGameService;
-import com.fsantosinfo.lockygame.model.services.PlayerService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,18 +15,20 @@ public class QuizService {
 
     @Autowired
     private QuizRepository repository;
-
-    @Autowired
+	
+	
+	@Autowired
     private PlayerService playerService;
 
     @Autowired
     private LuckyGameService gameService;
 
-
+	// This method is used in the controller
     public LuckyGame gettingTheGame(Long game_id) {
-	return gameService.findById(game_id);
-        }
+		return gameService.findById(game_id);
+    }
 
+	// This method is used in the controller
 	public Player getLoggedPlayer() {
 		return playerService.getLoggedPlayer();
 	}
@@ -41,7 +41,7 @@ public class QuizService {
 		Optional<Quiz> optQuiz = repository.findById(quiz_id);
 		return optQuiz.get();
 	}
-
+	
 	public void update(Quiz updatedQuiz) {
 		Long quiz_id = updatedQuiz.getId();
 		Quiz actualQuiz = findById(quiz_id);
@@ -67,6 +67,5 @@ public class QuizService {
 		}
 
 	}
-
 
 }

@@ -60,7 +60,7 @@ public class LuckyGameController {
 
 
     @PostMapping("/addinggame")
-    public ModelAndView createLuckyGame(@Valid @ModelAttribute LuckyGame luckyGame, BindingResult result, RedirectAttributes redirectAttributes){
+    public ModelAndView creatingLuckyGame(@Valid @ModelAttribute LuckyGame luckyGame, BindingResult result, RedirectAttributes redirectAttributes){
         if (result.hasErrors()){
             return new ModelAndView("new-lucky-game").addObject("loggedPlayer", luckyGame.getOwner().getFirstName());           
         }
@@ -68,37 +68,7 @@ public class LuckyGameController {
         service.save(luckyGame);
 
         redirectAttributes.addFlashAttribute("message", "Game criado com sucesso");        
-        return new ModelAndView("redirect:lucky-game/authorization/"+luckyGame.getId());      
-    }
-
-    @GetMapping("/lucky-game/authorization/{game_id}")
-    public ModelAndView gameAuthorization(@PathVariable Long game_id, RedirectAttributes redirectAttributes){        
-
-        LuckyGame game = service.findById(game_id);
-        Player loggedPlayer  = service.getLoggedPlayer();        
-
-        // This defence method will avoid the logged Player to access someone else's game
-        if(game.getOwner().getEmail().equals(loggedPlayer.getEmail())){
-
-            // To load the authorization page, the game must be not published
-            if (!game.getPublished()){
-                final ModelAndView modelAndView = new ModelAndView();
-                modelAndView.setViewName("lucky-game-authorization");
-                modelAndView.addObject("luckyGame", game);
-                String playerName = loggedPlayer.getFirstName();
-                modelAndView.addObject("loggedPlayer", playerName);
-                return modelAndView;
-            }
-            else {
-                redirectAttributes.addFlashAttribute("message", "Uma vez publicado. Não é possível desfazer");
-                return new ModelAndView("redirect:/lucky-game/view/"+game.getId());                         
-            }
-           
-        }
-        else{
-            redirectAttributes.addFlashAttribute("message", "Parece que você tentou acessar uma URL que não pertence a você. Use o Dashboard para uma navegação segura.");
-            return new ModelAndView("redirect:/dashboard/player/"); // Offer a webpage with the errors in the top or a unique webpage of errors
-        }
+        return new ModelAndView("redirect:lucky-game/view/"+luckyGame.getId());      
     }
 
 
@@ -110,21 +80,13 @@ public class LuckyGameController {
 
         // This defence method will avoid the logged Player to access someone else's game
         if(game.getOwner().getEmail().equals(loggedPlayer.getEmail())){
+            
             String playerName = loggedPlayer.getFirstName();
             ModelAndView modelAndView = new ModelAndView();
-            modelAndView.addObject("loggedPlayer", playerName);         
-
-             // To load the view page, the game must be published
-            if (game.getPublished()){
-                modelAndView.setViewName("lucky-game-view");
-                modelAndView.addObject("oneGame", game);                
-                return modelAndView;
-
-            }
-            else {
-                redirectAttributes.addFlashAttribute("message", "Game ainda não autorizado");
-                return new ModelAndView("redirect:/lucky-game/authorization/"+game.getId());                             
-            }
+            modelAndView.setViewName("lucky-game-view");
+            modelAndView.addObject("loggedPlayer", playerName);
+            modelAndView.addObject("oneGame", game);
+            return modelAndView;
            
         }
         else{

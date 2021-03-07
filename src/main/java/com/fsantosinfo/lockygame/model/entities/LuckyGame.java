@@ -65,9 +65,13 @@ public class LuckyGame implements Serializable{
     @OneToMany(mappedBy = "luckyGame")
     private List<Quiz> quizzes = new ArrayList<>(); // Game has more than one quiz
    
+    @OneToMany(mappedBy = "game")
+    private List<Eligible> eligibleNumbers = new ArrayList<>(); // A game has many eligible numbers with different players
 
+
+    // Constructors
     public LuckyGame() {
-    }  
+    }
     
     public LuckyGame(Long id, Boolean published, String title, Integer numWinners, LocalDateTime momentCreated, LocalDateTime closingDate, Boolean hasQuiz, Boolean alive, String communicateAll, Player owner) {
         this.id = id;
@@ -83,6 +87,7 @@ public class LuckyGame implements Serializable{
     }
     
 
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -178,7 +183,6 @@ public class LuckyGame implements Serializable{
     public void setQuizzes(List<Quiz> quizzes) {
         this.quizzes = quizzes;
     }
-    
 
 
     // Methods of this class   
@@ -188,8 +192,7 @@ public class LuckyGame implements Serializable{
     */
  
 
-    // Overrided methods 
-
+    // Overrided methods
 
     @Override
     public int hashCode() {
@@ -215,6 +218,5 @@ public class LuckyGame implements Serializable{
             return false;
         return true;
     }
-
    
 }

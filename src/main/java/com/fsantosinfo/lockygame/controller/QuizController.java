@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import com.fsantosinfo.lockygame.model.entities.LuckyGame;
 import com.fsantosinfo.lockygame.model.entities.Player;
 import com.fsantosinfo.lockygame.model.entities.Quiz;
+import com.fsantosinfo.lockygame.model.services.QuizService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -72,11 +73,11 @@ public class QuizController {
         quizService.save(quiz);
 
         redirectAttributes.addFlashAttribute("message", "Quiz criado com sucesso");
-        return new ModelAndView("redirect:lucky-game/authorization/"+quiz.getLuckyGame().getId());       
+        return new ModelAndView("redirect:lucky-game/view/"+quiz.getLuckyGame().getId());      
     }
 
     @GetMapping("/lucky-game/quiz/edit/{game_id}") 
-    public ModelAndView newQuiza(@PathVariable Long game_id, RedirectAttributes redirectAttributes){
+    public ModelAndView changeQuiz(@PathVariable Long game_id, RedirectAttributes redirectAttributes){
         
         // insert here a defence to check if the game exist and if the logged player has permission to edit        
         // Insert here a defence to check if the game is already publish and no quiz inside. That's not allowed
@@ -130,7 +131,7 @@ public class QuizController {
         }
         else{
             redirectAttributes.addFlashAttribute("message", "Quiz ajustado com sucesso");
-            return new ModelAndView("redirect:lucky-game/authorization/"+quiz.getLuckyGame().getId());
+            return new ModelAndView("redirect:lucky-game/view/"+quiz.getLuckyGame().getId());
         }
 
     }

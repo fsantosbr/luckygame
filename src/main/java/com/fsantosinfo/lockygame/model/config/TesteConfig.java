@@ -3,10 +3,12 @@ package com.fsantosinfo.lockygame.model.config;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
+import com.fsantosinfo.lockygame.model.entities.Eligible;
 import com.fsantosinfo.lockygame.model.entities.LuckyGame;
 import com.fsantosinfo.lockygame.model.entities.MyLuckyNumber;
 import com.fsantosinfo.lockygame.model.entities.Player;
 import com.fsantosinfo.lockygame.model.entities.Quiz;
+import com.fsantosinfo.lockygame.model.repositories.EligibleRepository;
 import com.fsantosinfo.lockygame.model.repositories.LuckyGameRepository;
 import com.fsantosinfo.lockygame.model.repositories.MyLuckyNumberRepository;
 import com.fsantosinfo.lockygame.model.repositories.PlayerRepository;
@@ -33,6 +35,9 @@ public class TesteConfig implements CommandLineRunner {
 
     @Autowired
     private QuizRepository quizRepository;
+
+    @Autowired
+    private EligibleRepository eligibleRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -72,6 +77,15 @@ public class TesteConfig implements CommandLineRunner {
         p4.getLuckyGames().add(game3);
         p5.getLuckyGames().add(game3);
         playerRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
+
+
+        // Adding the quantity of numbers a player may have, then we're saving them
+        Eligible e1 = new Eligible(null, 1, p2, game1);
+        Eligible e2 = new Eligible(null, 2, p3, game2);
+        Eligible e3 = new Eligible(null, 2, p3, game1);
+        Eligible e4 = new Eligible(null, 1, p2, game2);     
+        eligibleRepository.saveAll(Arrays.asList(e1, e2, e3, e4));
+
 
         // Adding numbers to some players
         MyLuckyNumber n1 = new MyLuckyNumber(null, 1234561, p1, game2);
